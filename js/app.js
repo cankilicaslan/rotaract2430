@@ -414,43 +414,6 @@
     $("#feed").addEventListener("click", (e) => { const b = e.target.closest("[data-club]"); if (b) openClub(b.dataset.club); });
   }
 
-  /* ---------- Instagram: son 3 paylaşım (Behold.so JSON feed) ---------- */
-  (async () => {
-    const wrap = $("#igFeed"), grid = $("#igGrid"), url = SITE.iletisim.instagramFeed;
-    if (!wrap || !url) return;
-    // İskelet: veri gelene kadar 3 boş kare
-    wrap.hidden = false;
-    grid.innerHTML = '<div class="ig-post is-loading"></div>'.repeat(3);
-    try {
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(res.status);
-      const data = await res.json();
-      const posts = (Array.isArray(data) ? data : data.posts || []).slice(0, 3);
-      if (!posts.length) throw new Error("boş");
-      const img = (p) => p.sizes?.medium?.mediaUrl || p.sizes?.large?.mediaUrl ||
-        (p.mediaType === "VIDEO" ? p.thumbnailUrl : p.mediaUrl) || p.thumbnailUrl || "";
-      const fmt = (t) => t ? new Date(t).toLocaleDateString("tr-TR", { day: "numeric", month: "long" }) : "";
-      const tur = { VIDEO: "Video", CAROUSEL_ALBUM: "Albüm" };
-      grid.innerHTML = posts.map((p) => {
-        const text = (p.prunedCaption || p.caption || "").replace(/\s+/g, " ").trim();
-        const kisa = text.length > 120 ? text.slice(0, 117).trimEnd() + "…" : text;
-        const etiket = p.isReel ? "Reels" : tur[p.mediaType] || "";
-        return `<a class="ig-post" href="${esc(p.permalink)}" target="_blank" rel="noopener"
-            aria-label="Instagram paylaşımı${p.timestamp ? ", " + esc(fmt(p.timestamp)) : ""}: ${esc(kisa || "görüntüle")}">
-          <span class="ig-media"><img src="${esc(img(p))}" alt="" loading="lazy">${etiket ? `<span class="ig-type">${etiket}</span>` : ""}</span>
-          <span class="ig-body">
-            ${p.timestamp ? `<time datetime="${esc(p.timestamp)}">${esc(fmt(p.timestamp))}</time>` : ""}
-            ${kisa ? `<span class="ig-caption">${esc(kisa)}</span>` : ""}
-          </span>
-        </a>`;
-      }).join("");
-    } catch (e) {
-      // Akış alınamazsa bölüm gizlenir; üstteki Instagram bandı yine hesaba yönlendirir
-      wrap.hidden = true;
-      console.warn("Instagram akışı alınamadı:", e);
-    }
-  })();
-
   /* ---------- Görevliler ---------- */
   const lead = GOREVLILER.find((g) => g.vurgu);
   const person = (g, extra = "") => `

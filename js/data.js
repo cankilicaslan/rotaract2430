@@ -17,8 +17,6 @@ window.SITE = {
     eposta: "2430brt@gmail.com",
     instagram: "https://www.instagram.com/2430rotaract/",
     instagramKullanici: "@2430rotaract",
-    // Behold.so JSON feed adresi (ör. "https://feeds.behold.so/XXXX"). Boşsa son paylaşımlar bölümü gizlenir.
-    instagramFeed: "",
     youtube: "https://www.youtube.com/@rotaractb%C3%B6lge2430"
   },
 
