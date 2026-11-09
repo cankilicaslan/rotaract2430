@@ -203,7 +203,7 @@ window.AKIS = [];
    grupNo: grup sorumluları için ilgili grup(lar)
    -------------------------------------------------------------------------- */
 window.GOREVLILER = [
-  { ekip: "yonetim", unvan: "Bölge Rotaract Temsilcisi (BRT)", ad: "Alper Abacıgil", vurgu: true },
+  { ekip: "yonetim", unvan: "Bölge Rotaract Temsilcisi (BRT)", ad: "Alper Abacıgil", foto: "assets/foto/alper-abacigil.jpg", vurgu: true },
   { ekip: "yonetim", unvan: "Kulüplerden Sorumlu Bölge Sekreteri", ad: "Ekin Çoşkun", foto: "assets/foto/ekin-coskun.jpg" },
   { ekip: "yonetim", unvan: "Komitelerden Sorumlu Bölge Sekreteri", ad: "Mutluhan Özdemir", foto: "assets/foto/mutluhan-ozdemir.jpg" },
   { ekip: "yonetim", unvan: "Bölge İdari Sekreteri", ad: "Neslihan Doğan", foto: "assets/foto/neslihan-dogan.jpg" },
