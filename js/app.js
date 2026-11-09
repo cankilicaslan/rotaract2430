@@ -6,10 +6,37 @@
   const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const norm = (s) => String(s || "").toLocaleLowerCase("tr").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ı/g, "i");
   const initials = (name) => name.replace(/Rotaract|Kulübü/gi, "").trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toLocaleUpperCase("tr");
-  const shortName = (ad) => ad.replace(/ Rotaract Kulübü$/, "");
+  const shortName = (ad) => {
+    const s = ad.replace(/ Rotaract Kulübü$/, "");
+    return document.documentElement.lang === "en" ? s.replace(/^Bakü /, "Baku ") : s;
+  };
   const kulupById = Object.fromEntries(KULUPLER.map((k) => [k.id, k]));
   const GUNLER = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-  const BEKLENIYOR = "Bilgi bekleniyor";
+  // ---- Dil desteği: <html lang="en" data-base="../"> İngilizce sayfalar içindir ----
+  const EN = document.documentElement.lang === "en";
+  const BASE = document.documentElement.dataset.base || "";
+  const L = (tr, en) => (EN ? en : tr);
+  const LOC = EN ? "en-GB" : "tr-TR";
+  const asset = (p) => (p && !/^(https?:|data:)/.test(p) ? BASE + p : p);
+  const GUN_EN = { Pazartesi: "Monday", Salı: "Tuesday", Çarşamba: "Wednesday", Perşembe: "Thursday", Cuma: "Friday", Cumartesi: "Saturday", Pazar: "Sunday" };
+  const dayName = (g) => (EN ? GUN_EN[g] || g : g);
+  const ORD = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th" };
+  const siklikText = (s) => {
+    if (!s || !EN) return s || "";
+    const m = s.match(/(\d)\.\s*ve\s*(\d)\.\s*(\S+)/);
+    if (!m) return s;
+    const tail = /hafta/i.test(m[3]) ? "week of the month" : (Object.entries(GUN_EN).sort((x, y) => y[0].length - x[0].length).find(([tr]) => m[3].startsWith(tr))?.[1] || "") + " of the month";
+    return `${ORD[m[1]]} & ${ORD[m[2]]} ${tail}`.replace(/\s+/g, " ");
+  };
+  const TERIM_EN = { "Türkçe": "Turkish", "İngilizce": "English", "Yüz yüze ve çevrim içi (Zoom)": "In person and online (Zoom)" };
+  const term = (s) => (EN ? TERIM_EN[s] || s : s);
+  const BOLGE_EN = { "İç Anadolu": "Central Anatolia", "Akdeniz": "Mediterranean", "Karadeniz": "Black Sea", "Güneydoğu Anadolu": "Southeastern Anatolia", "Azerbaycan": "Azerbaijan" };
+  const regionText = (r) => (EN ? BOLGE_EN[r] || r : r);
+  const ilText = (il) => (EN && il === "Bakü" ? "Baku" : il);
+  const clubName = (ad) => (EN ? ad.replace(/ Rotaract Kulübü$/, " Rotaract Club").replace(/^Bakü /, "Baku ") : ad);
+  const grupText = (g) => L(`${g}. grup`, `Group ${g}`);
+  const plural = (n, tr, en1, enN) => (EN ? `${n} ${n === 1 ? en1 : enN}` : `${n} ${tr}`);
+  const BEKLENIYOR = L("Bilgi bekleniyor", "Not provided yet");
 
   const REGION_COLORS = {
     "İç Anadolu": "#D41367",
@@ -38,7 +65,7 @@
     if (url) a.href = url;
     else { a.removeAttribute("href"); a.removeAttribute("target"); a.classList.add("is-pending"); }
   });
-  if (!SITE.linkler.interact2430) $$("[data-interact-label]").forEach((s) => (s.textContent = "Bağlantı yakında eklenecek"));
+  if (!SITE.linkler.interact2430) $$("[data-interact-label]").forEach((s) => (s.textContent = L("Bağlantı yakında eklenecek", "Link coming soon")));
   $$("[data-social]").forEach((a) => {
     const url = SITE.iletisim[a.dataset.social];
     if (url) a.href = url; else a.remove();
@@ -70,7 +97,7 @@
   const setMenu = (open) => {
     nav.classList.toggle("open", open);
     toggle.setAttribute("aria-expanded", open);
-    toggle.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
+    toggle.setAttribute("aria-label", open ? L("Menüyü kapat", "Close menu") : L("Menüyü aç", "Open menu"));
   };
   toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
   $$("a", nav).forEach((a) => a.addEventListener("click", () => setMenu(false)));
@@ -116,12 +143,12 @@
   ILLER.forEach((p) => (byRegion[p.bolge] ||= []).push(p.il));
   if ($("#provinceBoard")) $("#provinceBoard").innerHTML = Object.entries(byRegion).map(([region, provs]) => `
     <div class="prov-group">
-      <h4><i style="background:${REGION_COLORS[region] || "#D41367"}"></i>${esc(region)}</h4>
+      <h4><i style="background:${REGION_COLORS[region] || "#D41367"}"></i>${esc(regionText(region))}</h4>
       <div class="prov-tiles">
         ${provs.map((il) => {
           const n = KULUPLER.filter((k) => k.il === il).length;
-          return `<button class="prov" style="--c:${REGION_COLORS[region]}" data-il="${esc(il)}" aria-label="${esc(il)}: ${n} kulüp">
-            ${esc(il)}<span class="n">${n}</span></button>`;
+          return `<button class="prov" style="--c:${REGION_COLORS[region]}" data-il="${esc(il)}" aria-label="${esc(ilText(il))}: ${plural(n, "kulüp", "club", "clubs")}">
+            ${esc(ilText(il))}<span class="n">${n}</span></button>`;
         }).join("")}
       </div>
     </div>`).join("");
@@ -141,7 +168,8 @@
     const svg = $("#trMapSvg");
     if (!M || !RB || !svg) { $("#trMap")?.remove(); return; }
     const bolgeOf = (il) => RB["2420"].includes(il) ? "2420" : RB["2440"].includes(il) ? "2440" : RB.dogrulanacak.includes(il) ? "unk" : "2430";
-    const etiket = { "2420": "Bölge 2420", "2430": "Bölge 2430", "2440": "Bölge 2440", unk: "Bölgesi doğrulanacak" };
+    const B = L("Bölge", "District");
+    const etiket = { "2420": `${B} 2420`, "2430": `${B} 2430`, "2440": `${B} 2440`, unk: L("Bölgesi doğrulanacak", "District to be confirmed") };
     const sayi = {};
     KULUPLER.forEach((k) => (sayi[k.il] = (sayi[k.il] || 0) + 1));
     svg.setAttribute("viewBox", `0 0 ${M.w} ${M.h}`);
@@ -156,11 +184,11 @@
       path.setAttribute("d", p.d);
       path.setAttribute("class", `il b${b}${n ? " has-club" : ""}`);
       path.dataset.il = p.ad;
-      path.dataset.info = `${etiket[b]}${n ? ` · ${n} Rotaract kulübü` : ""}`;
+      path.dataset.info = `${etiket[b]}${n ? ` · ${plural(n, "Rotaract kulübü", "Rotaract club", "Rotaract clubs")}` : ""}`;
       if (n) {
         path.setAttribute("tabindex", "0");
         path.setAttribute("role", "button");
-        path.setAttribute("aria-label", `${p.ad}, ${etiket[b]}, ${n} Rotaract kulübü. Kulüpleri listele`);
+        path.setAttribute("aria-label", `${p.ad}, ${etiket[b]}, ${plural(n, "Rotaract kulübü", "Rotaract club", "Rotaract clubs")}. ${L("Kulüpleri listele", "List clubs")}`);
         const t = document.createElementNS(ns, "text");
         t.setAttribute("x", p.c[0]); t.setAttribute("y", p.c[1]);
         t.textContent = n;
@@ -223,27 +251,27 @@
   const hasFinder = !!$("#clubGrid");
   if (hasFinder) [...new Set(KULUPLER.map((k) => k.il))].sort((a, b) => a.localeCompare(b, "tr")).forEach((il) => {
     const n = KULUPLER.filter((k) => k.il === il).length;
-    ilSelect.insertAdjacentHTML("beforeend", `<option value="${esc(il)}">${esc(il)} (${n})</option>`);
+    ilSelect.insertAdjacentHTML("beforeend", `<option value="${esc(il)}">${esc(ilText(il))} (${n})</option>`);
   });
   if (hasFinder) [...new Set(KULUPLER.map((k) => k.grup))].forEach((g) => {
-    grupSelect.insertAdjacentHTML("beforeend", `<option value="${esc(g)}">${esc(g)}. grup</option>`);
+    grupSelect.insertAdjacentHTML("beforeend", `<option value="${esc(g)}">${esc(grupText(g))}</option>`);
   });
 
-  const meetLine = (t) => (t?.gun ? `${t.gun} ${t.saat}` : "Toplantı günü: bilgi bekleniyor");
+  const meetLine = (t) => (t?.gun ? `${dayName(t.gun)} ${t.saat}` : L("Toplantı günü: bilgi bekleniyor", "Meeting day: not provided yet"));
   const clubCard = (k) => `
-    <button class="club-card" data-club="${esc(k.id)}" aria-label="${esc(k.ad)}, ${esc(k.il)}: ayrıntıları aç">
+    <button class="club-card" data-club="${esc(k.id)}" aria-label="${esc(clubName(k.ad))}, ${esc(ilText(k.il))}: ${L("ayrıntıları aç", "open details")}">
       <span class="club-top">
         ${k.baskanFoto
-          ? `<img class="club-badge club-photo" src="${esc(k.baskanFoto)}" alt="" loading="lazy" width="44" height="44">`
+          ? `<img class="club-badge club-photo" src="${esc(asset(k.baskanFoto))}" alt="" loading="lazy" width="44" height="44">`
           : `<span class="club-badge" aria-hidden="true">${esc(initials(k.ad))}</span>`}
-        <span><span class="club-name">${esc(shortName(k.ad))}</span><span class="club-loc">${esc(k.ilce ? `${k.ilce}, ${k.il}` : k.il)}</span></span>
+        <span><span class="club-name">${esc(shortName(k.ad))}</span><span class="club-loc">${esc(k.ilce ? `${k.ilce}, ${ilText(k.il)}` : ilText(k.il))}</span></span>
       </span>
       <span class="club-rows">
-        <span><span class="k">Başkan</span><span class="v">${esc(k.baskan)}</span></span>
-        <span><span class="k">Toplantı</span><span class="v">${esc(meetLine(k.toplanti))}</span></span>
-        <span><span class="k">Yer</span><span class="v">${esc(k.toplanti?.yer || "Kulüple iletişime geçin")}</span></span>
+        <span><span class="k">${L("Başkan", "President")}</span><span class="v">${esc(k.baskan)}</span></span>
+        <span><span class="k">${L("Toplantı", "Meeting")}</span><span class="v">${esc(meetLine(k.toplanti))}</span></span>
+        <span><span class="k">${L("Yer", "Venue")}</span><span class="v">${esc(k.toplanti?.yer || L("Kulüple iletişime geçin", "Contact the club"))}</span></span>
       </span>
-      <span class="club-group">${esc(k.grup)}. grup</span>
+      <span class="club-group">${esc(grupText(k.grup))}</span>
     </button>`;
 
   function renderClubs() {
@@ -257,7 +285,7 @@
 
     $("#clubGrid").innerHTML = list.map(clubCard).join("");
     $("#clubEmpty").hidden = list.length > 0;
-    $("#finderCount").textContent = `${list.length} kulüp`;
+    $("#finderCount").textContent = plural(list.length, "kulüp", "club", "clubs");
     $("#finderReset").hidden = !(q || il || grup || gun);
   }
   if (hasFinder) {
@@ -284,30 +312,30 @@
     const mapsQuery = t.yer ? `${t.yer} ${t.adres || ""} ${k.ilce || ""} ${k.il}` : "";
     const maps = mapsQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}` : "";
     const ig = k.instagram ? `https://www.instagram.com/${k.instagram.replace(/^@/, "")}/` : "";
-    const subject = encodeURIComponent(`${k.ad} hakkında bilgi`);
+    const subject = encodeURIComponent(L(`${k.ad} hakkında bilgi`, `About ${clubName(k.ad)}`));
     const sorumlu = grupSorumlu[k.grup];
     $("#modalBody").innerHTML = `
       <div class="m-head">
         ${k.baskanFoto
-          ? `<img class="m-photo" src="${esc(k.baskanFoto)}" alt="${esc(k.baskan)}, kulüp başkanı" width="84" height="84">`
+          ? `<img class="m-photo" src="${esc(asset(k.baskanFoto))}" alt="${esc(k.baskan)}, ${L("kulüp başkanı", "club president")}" width="84" height="84">`
           : `<div class="club-badge">${esc(initials(k.ad))}</div>`}
-        <h3 id="modalTitle">${esc(k.ad)}</h3>
-        <p>${esc(k.ilce ? `${k.ilce}, ${k.il}` : k.il)} · ${esc(k.grup)}. grup</p>
+        <h3 id="modalTitle">${esc(clubName(k.ad))}</h3>
+        <p>${esc(k.ilce ? `${k.ilce}, ${ilText(k.il)}` : ilText(k.il))} · ${esc(grupText(k.grup))}</p>
       </div>
       <div class="m-body">
         <div class="m-grid">
-          <div class="m-item"><small>Kulüp başkanı (${esc(SITE.donem)})</small><strong>${esc(k.baskan)}</strong>${k.eposta ? `<a class="m-mail" href="mailto:${esc(k.eposta)}?subject=${subject}">${esc(k.eposta)}</a>` : ""}</div>
-          <div class="m-item"><small>Toplantı</small><strong>${t.gun ? `${esc(t.gun)}, ${esc(t.saat)}` : BEKLENIYOR}</strong>${t.siklik ? `<span>${esc(t.siklik)}</span>` : ""}</div>
-          <div class="m-item wide"><small>Toplantı yeri</small><strong>${esc(t.yer || BEKLENIYOR)}</strong>${t.adres ? `<span>${esc(t.adres)}</span>` : ""}</div>
-          ${t.dil || t.format ? `<div class="m-item wide"><small>Toplantı biçimi</small><strong>${esc([t.format, t.dil].filter(Boolean).join(" · "))}</strong></div>` : ""}
-          ${sorumlu ? `<div class="m-item wide"><small>Grup sorumlusu (BRT yardımcısı)</small><strong>${esc(sorumlu)}</strong></div>` : ""}
+          <div class="m-item"><small>${L("Kulüp başkanı", "Club president")} (${esc(SITE.donem)})</small><strong>${esc(k.baskan)}</strong>${k.eposta ? `<a class="m-mail" href="mailto:${esc(k.eposta)}?subject=${subject}">${esc(k.eposta)}</a>` : ""}</div>
+          <div class="m-item"><small>${L("Toplantı", "Meeting")}</small><strong>${t.gun ? `${esc(dayName(t.gun))}, ${esc(t.saat)}` : BEKLENIYOR}</strong>${t.siklik ? `<span>${esc(siklikText(t.siklik))}</span>` : ""}</div>
+          <div class="m-item wide"><small>${L("Toplantı yeri", "Venue")}</small><strong>${esc(t.yer || BEKLENIYOR)}</strong>${t.adres ? `<span>${esc(t.adres)}</span>` : ""}</div>
+          ${t.dil || t.format ? `<div class="m-item wide"><small>${L("Toplantı biçimi", "Format")}</small><strong>${esc([t.format, t.dil].filter(Boolean).map(term).join(" · "))}</strong></div>` : ""}
+          ${sorumlu ? `<div class="m-item wide"><small>${L("Grup sorumlusu (BRT yardımcısı)", "Group coordinator (Assistant DRR)")}</small><strong>${esc(sorumlu)}</strong></div>` : ""}
         </div>
         <div class="m-actions">
-          <a class="btn btn-primary btn-sm" href="mailto:${esc(k.eposta || SITE.iletisim.eposta)}?subject=${subject}">${k.eposta ? "Başkana e-posta gönder" : "Bölgeye e-posta gönder"}</a>
+          <a class="btn btn-primary btn-sm" href="mailto:${esc(k.eposta || SITE.iletisim.eposta)}?subject=${subject}">${k.eposta ? L("Başkana e-posta gönder", "Email the president") : L("Bölgeye e-posta gönder", "Email the district")}</a>
           ${ig ? `<a class="btn btn-outline btn-sm" href="${esc(ig)}" target="_blank" rel="noopener">Instagram</a>` : ""}
-          ${maps ? `<a class="btn btn-outline btn-sm" href="${esc(maps)}" target="_blank" rel="noopener">Haritada aç</a>` : ""}
+          ${maps ? `<a class="btn btn-outline btn-sm" href="${esc(maps)}" target="_blank" rel="noopener">${L("Haritada aç", "Open in Maps")}</a>` : ""}
         </div>
-        <p class="m-note">Toplantı bilgileri My Rotary kayıtlarından alınmıştır. Ziyaret etmeden önce kulüple iletişime geçmenizi öneririz.</p>
+        <p class="m-note">${L("Toplantı bilgileri My Rotary kayıtlarından alınmıştır. Ziyaret etmeden önce kulüple iletişime geçmenizi öneririz.", "Meeting details come from My Rotary records. Please contact the club before visiting.")}</p>
       </div>`;
     showModal();
   }
@@ -357,11 +385,11 @@
   if (tabs) tabs.innerHTML = days.map((d, i) => {
     const gun = GUNLER[d.getDay()];
     const n = meetingsOn(d).length;
-    const label = i === 0 ? "Bugün" : i === 1 ? "Yarın" : gun;
+    const label = i === 0 ? L("Bugün", "Today") : i === 1 ? L("Yarın", "Tomorrow") : dayName(gun);
     return `<button role="tab" class="day" id="day-${i}" data-i="${i}" aria-selected="${i === 0}" aria-controls="agendaPanel" tabindex="${i === 0 ? 0 : -1}">
       <span class="day-name">${label}</span>
-      <span class="day-date">${d.toLocaleDateString("tr-TR", { day: "numeric", month: "short" })}</span>
-      <span class="day-n">${n} toplantı</span></button>`;
+      <span class="day-date">${d.toLocaleDateString(LOC, { day: "numeric", month: "short" })}</span>
+      <span class="day-n">${plural(n, "toplantı", "meeting", "meetings")}</span></button>`;
   }).join("");
   const selectDay = (i, focus = false) => {
     activeDay = i;
@@ -381,7 +409,7 @@
     const gun = GUNLER[days[activeDay].getDay()];
     const list = meetingsOn(days[activeDay]).sort((a, b) => a.toplanti.saat.localeCompare(b.toplanti.saat) || a.il.localeCompare(b.il, "tr"));
     if (!list.length) {
-      $("#agenda").innerHTML = `<li class="agenda-empty">Bu ${esc(gun.toLocaleLowerCase("tr"))} kayıtlı kulüp toplantısı yok. Başka bir güne bakın.</li>`;
+      $("#agenda").innerHTML = `<li class="agenda-empty">${L(`Bu ${esc(gun.toLocaleLowerCase("tr"))} kayıtlı kulüp toplantısı yok. Başka bir güne bakın.`, `No club meetings on record for this ${esc(dayName(gun))}. Try another day.`)}</li>`;
       return;
     }
     $("#agenda").innerHTML = list.map((k) => `
@@ -389,9 +417,9 @@
         <time>${esc(k.toplanti.saat)}</time>
         <button class="agenda-club" data-club="${esc(k.id)}">
           <strong>${esc(shortName(k.ad))}</strong>
-          <span>${esc(k.toplanti.yer || "Yer bilgisi için kulüple iletişime geçin")}${k.toplanti.siklik ? ` — ${esc(k.toplanti.siklik.toLocaleLowerCase("tr"))}` : ""}</span>
+          <span>${esc(k.toplanti.yer || L("Yer bilgisi için kulüple iletişime geçin", "Contact the club for the venue"))}${k.toplanti.siklik ? ` — ${esc(EN ? siklikText(k.toplanti.siklik) : k.toplanti.siklik.toLocaleLowerCase("tr"))}` : ""}</span>
         </button>
-        <span class="agenda-city">${esc(k.il)}</span>
+        <span class="agenda-city">${esc(ilText(k.il))}</span>
       </li>`).join("");
   }
   if (tabs) {
@@ -402,7 +430,7 @@
   /* ---------- Haberler (AKIS boş değilse) ---------- */
   if (AKIS.length && $("#newsWrap")) {
     $("#newsWrap").hidden = false;
-    const fmtDate = (d) => new Date(d + "T12:00:00").toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" });
+    const fmtDate = (d) => new Date(d + "T12:00:00").toLocaleDateString(LOC, { day: "numeric", month: "long", year: "numeric" });
     $("#feed").innerHTML = [...AKIS].sort((a, b) => b.tarih.localeCompare(a.tarih)).map((p) => {
       const k = kulupById[p.kulupId] || { ad: "Bölge 2430", id: "" };
       const media = p.gorsel ? `<img src="${esc(p.gorsel)}" alt="">` : "";
@@ -420,49 +448,54 @@
 
   /* ---------- Görevliler ---------- */
   const lead = GOREVLILER.find((g) => g.vurgu);
+  // İngilizce unvan/açıklama js/data-en.js içinden gelir (unvanEn, aciklamaEn)
+  const unvanOf = (g) => (EN && g.unvanEn) || (EN && g.ekip === "grup" ? g.unvan.replace(/(\d+(?:-\d+)?)\. ve (\d+)\. Grup/, "Groups $1 & $2").replace(/^(\d+)\. Grup$/, "Group $1") : g.unvan);
   const person = (g, extra = "") => `
     <li class="member ${extra}">
-      <button class="member-btn" data-person="${GOREVLILER.indexOf(g)}" aria-haspopup="dialog" aria-label="${esc(g.ad)}, ${esc(g.unvan)}: ayrıntıları aç">
-        <span class="avatar">${g.foto ? `<img src="${esc(g.foto)}" alt="" loading="lazy">` : `<span>${esc(initials(g.ad))}</span>`}</span>
-        <span class="member-text"><span class="member-name">${esc(g.ad)}</span><span class="role">${esc(g.unvan)}</span></span>
+      <button class="member-btn" data-person="${GOREVLILER.indexOf(g)}" aria-haspopup="dialog" aria-label="${esc(g.ad)}, ${esc(unvanOf(g))}: ${L("ayrıntıları aç", "open details")}">
+        <span class="avatar">${g.foto ? `<img src="${esc(asset(g.foto))}" alt="" loading="lazy">` : `<span>${esc(initials(g.ad))}</span>`}</span>
+        <span class="member-text"><span class="member-name">${esc(g.ad)}</span><span class="role">${esc(unvanOf(g))}</span></span>
       </button>
     </li>`;
 
   // Görevli kartı: e-posta, kulüp, komite ve görevin ne işe yaradığı
   const gorevAdi = (g) =>
-    g.ekip === "komite" ? `${g.unvan.split(" · ").join(" ve ")} ${g.unvan.includes(" · ") ? "komitelerinden" : "komitesinden"} sorumlu BRT yardımcısı`
+    EN ? (g.ekip === "komite" ? `Assistant DRR for ${unvanOf(g).split(" · ").join(" and ")}`
+        : g.ekip === "grup" ? `Assistant DRR for ${unvanOf(g)} clubs` : unvanOf(g))
+    : g.ekip === "komite" ? `${g.unvan.split(" · ").join(" ve ")} ${g.unvan.includes(" · ") ? "komitelerinden" : "komitesinden"} sorumlu BRT yardımcısı`
     : g.ekip === "grup" ? `${g.unvan} kulüplerinden sorumlu BRT yardımcısı`
     : g.unvan;
   function openPerson(i) {
     const g = GOREVLILER[i];
     if (!g) return;
-    const subject = encodeURIComponent("Rotaract Bölge 2430");
+    const subject = encodeURIComponent(L("Rotaract Bölge 2430", "Rotaract District 2430"));
     const grupKulupleri = g.ekip === "grup"
       ? KULUPLER.filter((k) => (g.grupNo || []).includes(k.grup)).sort((a, b) => a.ad.localeCompare(b.ad, "tr"))
       : [];
-    const aciklama = g.aciklama || (g.ekip === "grup"
-      ? `Grubundaki ${grupKulupleri.length} kulübün bölgeyle ilk iletişim noktasıdır. Kulüpleri ziyaret eder, toplantılarına katılır; kulüplerin ihtiyaçlarını ve sorularını bölge ekibine taşır, bölge duyurularını kulüplere ulaştırır.`
+    const aciklama = (EN ? g.aciklamaEn : g.aciklama) || (g.ekip === "grup"
+      ? L(`Grubundaki ${grupKulupleri.length} kulübün bölgeyle ilk iletişim noktasıdır. Kulüpleri ziyaret eder, toplantılarına katılır; kulüplerin ihtiyaçlarını ve sorularını bölge ekibine taşır, bölge duyurularını kulüplere ulaştırır.`,
+          `The first point of contact between the district and the ${grupKulupleri.length} clubs in this group. Visits the clubs and joins their meetings, brings their needs and questions to the district team, and passes district announcements on to them.`)
       : "");
-    const komite = g.ekip === "komite" ? g.unvan.split(" · ") : [];
+    const komite = g.ekip === "komite" ? unvanOf(g).split(" · ") : [];
     $("#modalBody").innerHTML = `
       <div class="m-head">
         ${g.foto
-          ? `<img class="m-photo" src="${esc(g.foto)}" alt="${esc(g.ad)}" width="84" height="84">`
+          ? `<img class="m-photo" src="${esc(asset(g.foto))}" alt="${esc(g.ad)}" width="84" height="84">`
           : `<div class="club-badge">${esc(initials(g.ad))}</div>`}
         <h3 id="modalTitle">${esc(g.ad)}</h3>
         <p>${esc(gorevAdi(g))} · ${esc(SITE.donem)}</p>
       </div>
       <div class="m-body">
         <div class="m-grid">
-          ${g.eposta ? `<div class="m-item wide"><small>E-posta</small><a class="m-mail m-mail-lg" href="mailto:${esc(g.eposta)}?subject=${subject}">${esc(g.eposta)}</a></div>` : ""}
-          ${g.kulup ? `<div class="m-item wide"><small>Kulübü</small><strong>${esc(g.kulup)}</strong></div>` : ""}
-          ${komite.length ? `<div class="m-item wide"><small>${komite.length > 1 ? "Komiteleri" : "Komitesi"}</small><strong>${komite.map(esc).join(", ")}</strong></div>` : ""}
-          ${g.ekip === "grup" ? `<div class="m-item wide"><small>Sorumlu olduğu grup</small><strong>${esc(g.unvan)}</strong></div>` : ""}
+          ${g.eposta ? `<div class="m-item wide"><small>${L("E-posta", "Email")}</small><a class="m-mail m-mail-lg" href="mailto:${esc(g.eposta)}?subject=${subject}">${esc(g.eposta)}</a></div>` : ""}
+          ${g.kulup ? `<div class="m-item wide"><small>${L("Kulübü", "Club")}</small><strong>${esc(g.kulup)}</strong></div>` : ""}
+          ${komite.length ? `<div class="m-item wide"><small>${komite.length > 1 ? L("Komiteleri", "Committees") : L("Komitesi", "Committee")}</small><strong>${komite.map(esc).join(", ")}</strong></div>` : ""}
+          ${g.ekip === "grup" ? `<div class="m-item wide"><small>${L("Sorumlu olduğu grup", "Responsible for")}</small><strong>${esc(unvanOf(g))}</strong></div>` : ""}
         </div>
-        ${aciklama ? `<h4 class="m-subtitle">${g.ekip === "komite" ? "Komite ne yapar?" : "Bu görev ne yapar?"}</h4><p class="m-desc">${esc(aciklama)}</p>` : ""}
-        ${grupKulupleri.length ? `<h4 class="m-subtitle">Gruptaki kulüpler</h4>
-          <div class="m-clubs">${grupKulupleri.map((k) => `<button class="m-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}<span>${esc(k.il)}</span></button>`).join("")}</div>` : ""}
-        ${g.eposta ? `<div class="m-actions"><a class="btn btn-primary btn-sm" href="mailto:${esc(g.eposta)}?subject=${subject}">E-posta gönder</a></div>` : ""}
+        ${aciklama ? `<h4 class="m-subtitle">${g.ekip === "komite" ? L("Komite ne yapar?", "What does the committee do?") : L("Bu görev ne yapar?", "What does this role do?")}</h4><p class="m-desc">${esc(aciklama)}</p>` : ""}
+        ${grupKulupleri.length ? `<h4 class="m-subtitle">${L("Gruptaki kulüpler", "Clubs in this group")}</h4>
+          <div class="m-clubs">${grupKulupleri.map((k) => `<button class="m-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}<span>${esc(ilText(k.il))}</span></button>`).join("")}</div>` : ""}
+        ${g.eposta ? `<div class="m-actions"><a class="btn btn-primary btn-sm" href="mailto:${esc(g.eposta)}?subject=${subject}">${L("E-posta gönder", "Send email")}</a></div>` : ""}
       </div>`;
     showModal();
   }
@@ -475,7 +508,7 @@
     </div>`;
   if ($("#team")) $("#team").innerHTML = `
     ${lead ? `<ul class="team-lead">${person(lead, "lead")}</ul>` : ""}
-    ${block("Bölge yönetimi", "Sekreterya ve saymanlık", GOREVLILER.filter((g) => g.ekip === "yonetim" && !g.vurgu))}
-    ${block("Komite sorumluları", "BRT yardımcıları, komite bazında", GOREVLILER.filter((g) => g.ekip === "komite"))}
-    ${block("Grup sorumluları", "Kulüplerin ilk iletişim noktası olan BRT yardımcıları", GOREVLILER.filter((g) => g.ekip === "grup"))}`;
+    ${block(L("Bölge yönetimi", "District leadership"), L("Sekreterya ve saymanlık", "Secretariat and treasury"), GOREVLILER.filter((g) => g.ekip === "yonetim" && !g.vurgu))}
+    ${block(L("Komite sorumluları", "Committee chairs"), L("BRT yardımcıları, komite bazında", "Assistant DRRs, by committee"), GOREVLILER.filter((g) => g.ekip === "komite"))}
+    ${block(L("Grup sorumluları", "Group coordinators"), L("Kulüplerin ilk iletişim noktası olan BRT yardımcıları", "Assistant DRRs who are each club's first point of contact"), GOREVLILER.filter((g) => g.ekip === "grup"))}`;
 })();

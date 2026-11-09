@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Club Finder · Rotaract District 2430</title>
+  <meta name="description" content="Rotaract District 2430 club finder: president, venue, meeting day and time for all 54 clubs.">
+  <meta name="theme-color" content="#D41367">
+  <link rel="alternate" hreflang="tr" href="../kulupler.html">
+  <link rel="alternate" hreflang="en" href="kulupler.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/icon-512.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="Rotaract District 2430 home">
+      <img src="../assets/rotaract-2430.png" alt="Rotaract District 2430" class="brand-logo">
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Main menu">
+      <a href="index.html#bolge">District</a>
+      <a href="kulupler.html" class="active" aria-current="page">Club finder</a>
+      <a href="index.html#akis">This week</a>
+      <a href="index.html#gorevliler">District team</a>
+      <a href="index.html#ozdenetim">Four-Way Test</a>
+      <a href="index.html#aile">Rotary family</a>
+      <a href="../kulupler.html" class="lang-switch" hreflang="tr" lang="tr" aria-label="Türkçe sürüm">TR</a>
+      <a href="index.html#katil" class="btn btn-sm btn-primary nav-cta">Join us</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <nav class="crumbs container" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Club finder</span></nav>
+
+  <!-- ============ CLUB FINDER ============ -->
+  <section class="section section-tint finder-page" id="kulup-bulucu">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Club finder</p>
+        <h1 class="page-title">Find the club nearest you</h1>
+        <p class="section-lead">Search by city, district, club or president. Click a club to see its president, venue, meeting day and time.</p>
+      </div>
+
+      <div class="finder">
+        <div class="finder-controls">
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="finderSearch" aria-label="Search clubs" placeholder="Search club, city, district or president" autocomplete="off">
+          </label>
+          <select id="finderIl" aria-label="Choose a city"><option value="">All cities</option></select>
+          <select id="finderGrup" aria-label="Choose a group"><option value="">All groups</option></select>
+          <select id="finderGun" aria-label="Meeting day">
+            <option value="">Any day</option>
+            <option value="Pazartesi">Monday</option><option value="Salı">Tuesday</option><option value="Çarşamba">Wednesday</option>
+            <option value="Perşembe">Thursday</option><option value="Cuma">Friday</option><option value="Cumartesi">Saturday</option><option value="Pazar">Sunday</option>
+          </select>
+        </div>
+        <div class="finder-meta">
+          <span id="finderCount" aria-live="polite"></span>
+          <button class="link-btn" id="finderReset" hidden>Clear filters</button>
+        </div>
+        <div class="club-grid" id="clubGrid"></div>
+        <p class="empty" id="clubEmpty" hidden>No clubs match these filters. Clear the filters, or <a href="index.html#katil">write to us</a> to start a club in your city.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta cta-slim">
+    <div class="container cta-inner">
+      <div>
+        <h2>No club in your city?</h2>
+        <p>Write to the district team to start a new Rotaract club, and we will support you through the chartering process.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-light" id="ctaMail">Email the district</a>
+        <a href="index.html" class="btn btn-ghost-light">Back to home</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="../assets/rotaract-2430.png" alt="Rotaract District 2430" class="footer-logo">
+      <p class="muted">Rotaract clubs of Rotary International District 2430</p>
+      <img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)" class="footer-theme">
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="index.html#bolge">District</a>
+      <a href="kulupler.html">Club finder</a>
+      <a href="index.html#akis">This week</a>
+      <a href="index.html#gorevliler">District team</a>
+    </div>
+    <div>
+      <h4>Rotary family</h4>
+      <a href="#" data-link="rotaryInternational" target="_blank" rel="noopener">Rotary International</a>
+      <a href="#" data-link="rotary2430" target="_blank" rel="noopener">Rotary 2430</a>
+      <a href="#" data-link="interact2430" target="_blank" rel="noopener">Interact 2430</a>
+      <a href="#" data-link="myRotary" target="_blank" rel="noopener">My Rotary</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#" data-social="instagram" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" data-social="youtube" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" id="footerMail"></a>
+      <a href="../kulupler.html" hreflang="tr" lang="tr">Türkçe</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Rotaract District 2430</span>
+    <span class="muted">Rotary, Rotaract and Interact are trademarks of Rotary International.</span>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="clubModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="../js/data-en.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

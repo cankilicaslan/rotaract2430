@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rotaract District 2430</title>
+  <meta name="description" content="Rotaract District 2430: 54 clubs, a club finder, this week's meeting calendar, the district team and the Rotary family.">
+  <meta name="theme-color" content="#D41367">
+  <link rel="alternate" hreflang="tr" href="../index.html">
+  <link rel="alternate" hreflang="en" href="index.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/icon-512.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="#top" class="brand" aria-label="Rotaract District 2430 home">
+      <img src="../assets/rotaract-2430.png" alt="Rotaract District 2430" class="brand-logo">
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Main menu">
+      <a href="#bolge">District</a>
+      <a href="kulupler.html">Club finder</a>
+      <a href="#akis">This week</a>
+      <a href="#gorevliler">District team</a>
+      <a href="#ozdenetim">Four-Way Test</a>
+      <a href="#aile">Rotary family</a>
+      <a href="../index.html" class="lang-switch" hreflang="tr" lang="tr" aria-label="Türkçe sürüm">TR</a>
+      <a href="#katil" class="btn btn-sm btn-primary nav-cta">Join us</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-wheel"><img src="../assets/rotary.webp" alt=""></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="hero-kicker load"><span class="donem"></span></p>
+        <h1 class="load hero-title"><img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)"></h1>
+        <p class="lead load">Across Rotaract District 2430, from Ankara to the Mediterranean and from the Black Sea to Baku, <span data-count="kulup"></span> clubs meet every week in different cities and build projects for their own communities.</p>
+        <div class="hero-actions load">
+          <a href="kulupler.html" class="btn btn-light">Find your club</a>
+          <a href="#akis" class="btn btn-ghost-light">This week's meetings</a>
+        </div>
+      </div>
+    </div>
+    <dl class="container stats load">
+      <div><dt data-count="kulup">0</dt><dd>clubs</dd></div>
+      <div><dt data-count="il">0</dt><dd>cities</dd></div>
+      <div><dt data-count="grup">0</dt><dd>groups</dd></div>
+      <div><dt data-count="ulke">0</dt><dd>countries</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ TICKER ============ -->
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+  <!-- ============ DISTRICT ============ -->
+  <section class="section" id="bolge">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Our district</p>
+        <h2>Get to know District 2430</h2>
+        <p class="section-lead">Rotary International divides the world into administrative districts, and Türkiye has three: 2420, 2430 and 2440. District 2430 is based in Ankara. Our Rotaract clubs are in <span data-count="ilTR"></span> cities in Türkiye and in Baku, Azerbaijan.</p>
+      </div>
+
+      <figure class="tr-map" id="trMap">
+        <div class="tr-map-canvas">
+          <svg id="trMapSvg" role="group" aria-labelledby="trMapCaption"></svg>
+          <div class="map-tip" id="mapTip" hidden></div>
+        </div>
+        <figcaption id="trMapCaption">
+          <ul class="map-legend">
+            <li><i class="sw sw-2430-club"></i>District 2430: province with a Rotaract club</li>
+            <li><i class="sw sw-2430"></i>District 2430</li>
+            <li><i class="sw sw-2420"></i>District 2420: Istanbul and Thrace</li>
+            <li><i class="sw sw-2440"></i>District 2440: Aegean and South Marmara</li>
+            <li><i class="sw sw-unk"></i>District to be confirmed</li>
+          </ul>
+          <p class="map-note">Outside Türkiye, the Baku Khazar Rotaract Club in Azerbaijan is also part of District 2430. Numbers show how many Rotaract clubs a province has; click a province with clubs to see them.</p>
+        </figcaption>
+      </figure>
+
+      <div class="region-layout">
+        <div class="region-info">
+          <div class="info-block">
+            <h3>How the district works</h3>
+            <p>Clubs are organised into <strong>11 groups</strong> by location, and each group has its own Assistant DRR. The <strong>District Rotaract Representative (DRR)</strong>, elected by the clubs, supports them together with the district team and coordinates joint projects and district meetings.</p>
+          </div>
+          <div class="info-block">
+            <h3>The Rotary year</h3>
+            <p>The Rotary year starts on <strong>1 July</strong> and ends on <strong>30 June</strong>. Club presidents and district officers serve for one year.</p>
+          </div>
+        </div>
+
+        <div class="province-board" id="provinceBoard" aria-label="Cities with Rotaract clubs"></div>
+      </div>
+      <p class="hint">Click a city to see its clubs in the club finder.</p>
+    </div>
+  </section>
+
+  <!-- ============ CLUB FINDER (separate page) ============ -->
+  <section class="finder-teaser" id="kulup-bulucu">
+    <div class="container finder-teaser-inner">
+      <div>
+        <p class="eyebrow">Club finder</p>
+        <h2>Find the club nearest you</h2>
+        <p class="section-lead">Search by city, district, club or president, and see each club's president, venue, meeting day and time.</p>
+      </div>
+      <a href="kulupler.html" class="btn btn-primary btn-lg">Open the club finder</a>
+    </div>
+  </section>
+
+  <!-- ============ THIS WEEK ============ -->
+  <section class="section" id="akis">
+    <div class="container">
+      <div class="section-head section-head-row">
+        <div>
+          <p class="eyebrow">District feed</p>
+          <h2>Who meets where this week?</h2>
+          <p class="section-lead">This list is built from the meeting days clubs have registered on My Rotary. Clubs that meet twice a month only appear in their meeting weeks. Please contact the club before visiting.</p>
+        </div>
+      </div>
+
+      <div class="week" id="week">
+        <div class="week-tabs" id="weekTabs" role="tablist" aria-label="Days of the week"></div>
+        <div role="tabpanel" id="agendaPanel" aria-labelledby="day-0"><ol class="agenda" id="agenda"></ol></div>
+      </div>
+
+      <div class="news" id="newsWrap" hidden>
+        <h3 class="news-title">News from our clubs</h3>
+        <div class="feed" id="feed"></div>
+      </div>
+
+      <a class="insta-band" id="instaBand" target="_blank" rel="noopener">
+        <span class="insta-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </span>
+        <span><strong>Projects, events and announcements on Instagram</strong><br>Follow <span id="instaHandle"></span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ DISTRICT TEAM ============ -->
+  <section class="section section-dark" id="gorevliler">
+    <div class="container">
+      <div class="team-head">
+        <div>
+          <p class="eyebrow eyebrow-light"><span class="donem"></span> Rotary year</p>
+          <h2>District team</h2>
+          <p class="section-lead">The team that supports our clubs, coordinates projects and connects us with Rotary. Click a name for contact details and what each role does.</p>
+        </div>
+      </div>
+      <div id="team"></div>
+    </div>
+  </section>
+
+  <!-- ============ FOUR-WAY TEST ============ -->
+  <section class="section" id="ozdenetim">
+    <div class="container fourway-layout">
+      <div>
+        <p class="eyebrow">Our values</p>
+        <h2>The Four-Way Test</h2>
+        <p class="section-lead">Written by Rotarian Herbert J. Taylor in 1932, these four questions are the ethical compass of the whole Rotary family. Of the things we think, say or do, we ask:</p>
+      </div>
+      <ol class="fourway">
+        <li><span class="num">1</span><p>Is it the truth?</p></li>
+        <li><span class="num">2</span><p>Is it fair to all concerned?</p></li>
+        <li><span class="num">3</span><p>Will it build goodwill and better friendships?</p></li>
+        <li><span class="num">4</span><p>Will it be beneficial to all concerned?</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ ROTARY INTERNATIONAL ============ -->
+  <section class="section section-tint" id="rotary-international">
+    <div class="container ri-layout">
+      <div class="ri-copy">
+        <div class="ri-emblem"><img src="../assets/rotary.webp" alt="Rotary International emblem"></div>
+        <p class="eyebrow eyebrow-blue">Rotary International</p>
+        <h2>Part of a worldwide family</h2>
+        <p>Rotary International was founded in Chicago in 1905 by Paul Harris and his friends. Today it is one of the world's largest service networks, with more than 1.4 million Rotarians and tens of thousands of Rotaract clubs in over 200 countries and geographical areas.</p>
+        <p>The first Rotaract club was founded in 1968. Since 2019, Rotaract has been a membership type of Rotary International, open to anyone aged 18 or over.</p>
+        <a class="btn btn-blue" href="#" data-link="rotaryInternational" target="_blank" rel="noopener">Visit rotary.org</a>
+      </div>
+      <div class="focus">
+        <h3>Rotary's 7 areas of focus</h3>
+        <ul>
+          <li><span aria-hidden="true">🕊️</span>Promoting peace</li>
+          <li><span aria-hidden="true">🩺</span>Fighting disease</li>
+          <li><span aria-hidden="true">💧</span>Providing clean water, sanitation and hygiene</li>
+          <li><span aria-hidden="true">👶</span>Saving mothers and children</li>
+          <li><span aria-hidden="true">📚</span>Supporting education</li>
+          <li><span aria-hidden="true">📈</span>Growing local economies</li>
+          <li><span aria-hidden="true">🌱</span>Protecting the environment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROTARY FAMILY ============ -->
+  <section class="section" id="aile">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Rotary family 2430</p>
+        <h2>Three generations, one district</h2>
+        <p class="section-lead">In District 2430, Rotary, Rotaract and Interact clubs serve different age groups and work towards the same goals.</p>
+      </div>
+      <div class="family">
+        <a class="fam-card fam-rotary" href="#" data-link="rotary2430" target="_blank" rel="noopener">
+          <div class="fam-logo fam-logo-blue"><img src="../assets/rotary.webp" alt="Rotary"></div>
+          <h3>Rotary 2430</h3>
+          <p>Rotary clubs of professional leaders, who sponsor and mentor Rotaract and Interact clubs.</p>
+          <span class="fam-link">rotary2430.org.tr</span>
+        </a>
+        <div class="fam-card fam-rotaract">
+          <div class="fam-logo"><img src="../assets/rotaract-2430.png" alt="Rotaract District 2430"></div>
+          <h3>Rotaract 2430</h3>
+          <p>Young people and young professionals aged 18 and over: service, leadership and friendship.</p>
+          <span class="fam-link">You are here</span>
+        </div>
+        <a class="fam-card fam-interact" href="#" data-link="interact2430" target="_blank" rel="noopener">
+          <div class="fam-logo fallback" data-fallback="Interact 2430"></div>
+          <h3>Interact 2430</h3>
+          <p>Clubs where young people aged 12–18 serve their schools and communities.</p>
+          <span class="fam-link" data-interact-label>Visit website</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JOIN ============ -->
+  <section class="cta" id="katil">
+    <div class="container cta-inner">
+      <div>
+        <h2>Join us.</h2>
+        <p>Write to the district team to join a club, start a new club in your city or volunteer for district projects.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="kulupler.html" class="btn btn-light">Find a club</a>
+        <a href="#" class="btn btn-ghost-light" id="ctaMail">Email the district</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="../assets/rotaract-2430.png" alt="Rotaract District 2430" class="footer-logo">
+      <p class="muted">Rotaract clubs of Rotary International District 2430</p>
+      <img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)" class="footer-theme">
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#bolge">District</a>
+      <a href="kulupler.html">Club finder</a>
+      <a href="#akis">This week</a>
+      <a href="#gorevliler">District team</a>
+    </div>
+    <div>
+      <h4>Rotary family</h4>
+      <a href="#" data-link="rotaryInternational" target="_blank" rel="noopener">Rotary International</a>
+      <a href="#" data-link="rotary2430" target="_blank" rel="noopener">Rotary 2430</a>
+      <a href="#" data-link="interact2430" target="_blank" rel="noopener">Interact 2430</a>
+      <a href="#" data-link="myRotary" target="_blank" rel="noopener">My Rotary</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#" data-social="instagram" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" data-social="youtube" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" id="footerMail"></a>
+      <a href="../index.html" hreflang="tr" lang="tr">Türkçe</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Rotaract District 2430</span>
+    <span class="muted">Rotary, Rotaract and Interact are trademarks of Rotary International.</span>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal" id="clubModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script src="../js/data-en.js"></script>
+<script src="../js/harita.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>
