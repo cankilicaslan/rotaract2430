@@ -493,3 +493,28 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .finder-page { padding-top: 32px; }
 .page-title { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: .4em; }
 .cta-slim { padding-block: 56px; }
+
+/* ---------- Instagram son paylaşımlar ---------- */
+.ig-feed { margin-top: 28px; }
+.ig-title { font-size: 1.15rem; margin-bottom: 16px; }
+.ig-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.ig-post {
+  display: flex; flex-direction: column; min-width: 0; background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-lg); overflow: hidden; color: var(--ink); transition: box-shadow .25s, border-color .25s;
+}
+.ig-post:hover { box-shadow: var(--shadow); border-color: var(--cranberry-100); }
+.ig-media { position: relative; display: block; aspect-ratio: 1; max-width: 100%; background: var(--cranberry-50); overflow: hidden; }
+.ig-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.ig-post:hover .ig-media img { transform: scale(1.03); }
+.ig-type { position: absolute; top: 10px; right: 10px; background: rgba(29, 26, 34, .75); color: #fff; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.ig-body { display: grid; gap: 6px; padding: 14px 16px 16px; }
+.ig-body time { font-size: .8rem; font-weight: 700; color: var(--cranberry); }
+.ig-caption { font-size: .9rem; color: var(--ink-2); line-height: 1.5; overflow-wrap: anywhere; }
+.ig-post.is-loading { aspect-ratio: 1 / 1.25; background: linear-gradient(100deg, var(--bg-tint) 30%, var(--cranberry-50) 50%, var(--bg-tint) 70%); background-size: 300% 100%; animation: shimmer 1.4s linear infinite; }
+@keyframes shimmer { to { background-position: -150% 0; } }
+@media (max-width: 720px) {
+  .ig-grid { grid-template-columns: 1fr; }
+  .ig-post { flex-direction: row; }
+  .ig-media { width: 112px; flex: none; }
+  .ig-post.is-loading { aspect-ratio: auto; height: 112px; }
+}
