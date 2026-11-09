@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kulüp Bulucu · Rotaract Bölge 2430</title>
+  <meta name="description" content="Rotaract Bölge 2430 kulüp bulucu: 54 kulübün başkanı, toplantı yeri, günü ve saati.">
+  <meta name="theme-color" content="#D41367">
+  <link rel="icon" href="assets/rotaract-2430.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="Rotaract Bölge 2430 ana sayfa">
+      <img src="assets/rotaract-2430.png" alt="Rotaract Bölge 2430" class="brand-logo">
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Ana menü">
+      <a href="index.html#bolge">Bölge</a>
+      <a href="kulupler.html" class="active" aria-current="page">Kulüp bulucu</a>
+      <a href="index.html#akis">Bu hafta</a>
+      <a href="index.html#gorevliler">Bölge ekibi</a>
+      <a href="index.html#ozdenetim">4'lü Özdenetim</a>
+      <a href="index.html#aile">Rotary ailesi</a>
+      <a href="index.html#katil" class="btn btn-sm btn-primary nav-cta">Katıl</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <nav class="crumbs container" aria-label="Konum"><a href="index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Kulüp bulucu</span></nav>
+
+  <!-- ============ KULÜP BULUCU ============ -->
+  <section class="section section-tint finder-page" id="kulup-bulucu">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Kulüp bulucu</p>
+        <h1 class="page-title">Sana en yakın kulübü bul</h1>
+        <p class="section-lead">Şehir, ilçe, kulüp ya da başkan adıyla arayın. Kulübe tıkladığınızda başkanı, toplantı yeri, günü ve saatini görürsünüz.</p>
+      </div>
+
+      <div class="finder">
+        <div class="finder-controls">
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="finderSearch" aria-label="Kulüp ara" placeholder="Kulüp, şehir, ilçe veya başkan ara" autocomplete="off">
+          </label>
+          <select id="finderIl" aria-label="Şehir seç"><option value="">Tüm şehirler</option></select>
+          <select id="finderGrup" aria-label="Grup seç"><option value="">Tüm gruplar</option></select>
+          <select id="finderGun" aria-label="Toplantı günü">
+            <option value="">Her gün</option>
+            <option>Pazartesi</option><option>Salı</option><option>Çarşamba</option>
+            <option>Perşembe</option><option>Cuma</option><option>Cumartesi</option><option>Pazar</option>
+          </select>
+        </div>
+        <div class="finder-meta">
+          <span id="finderCount" aria-live="polite"></span>
+          <button class="link-btn" id="finderReset" hidden>Filtreleri temizle</button>
+        </div>
+        <div class="club-grid" id="clubGrid"></div>
+        <p class="empty" id="clubEmpty" hidden>Bu filtrelerle eşleşen kulüp yok. Filtreleri temizleyin ya da şehrinizde kulüp kurmak için <a href="index.html#katil">bize yazın</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta cta-slim">
+    <div class="container cta-inner">
+      <div>
+        <h2>Şehrinde kulüp yok mu?</h2>
+        <p>Yeni bir Rotaract kulübü kurmak için bölge ekibine yaz; kuruluş sürecinde sana destek olalım.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-light" id="ctaMail">Bölgeye e-posta gönder</a>
+        <a href="index.html" class="btn btn-ghost-light">Ana sayfaya dön</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="assets/rotaract-2430.png" alt="Rotaract Bölge 2430" class="footer-logo">
+      <p class="muted">Uluslararası Rotary 2430. Bölge Rotaract kulüpleri</p>
+      <img src="assets/tema-beyaz.png" alt="Kalıcı Etki Yarat" class="footer-theme">
+    </div>
+    <div>
+      <h4>Keşfet</h4>
+      <a href="index.html#bolge">Bölge</a>
+      <a href="kulupler.html">Kulüp bulucu</a>
+      <a href="index.html#akis">Bu hafta</a>
+      <a href="index.html#gorevliler">Bölge ekibi</a>
+    </div>
+    <div>
+      <h4>Rotary ailesi</h4>
+      <a href="#" data-link="rotaryInternational" target="_blank" rel="noopener">Uluslararası Rotary</a>
+      <a href="#" data-link="rotary2430" target="_blank" rel="noopener">Rotary 2430</a>
+      <a href="#" data-link="interact2430" target="_blank" rel="noopener">Interact 2430</a>
+      <a href="#" data-link="myRotary" target="_blank" rel="noopener">My Rotary</a>
+    </div>
+    <div>
+      <h4>İletişim</h4>
+      <a href="#" data-social="instagram" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" data-social="youtube" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" id="footerMail"></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Rotaract Bölge 2430</span>
+    <span class="muted">Rotary, Rotaract ve Interact markaları Uluslararası Rotary'ye aittir.</span>
+  </div>
+</footer>
+
+<!-- ============ KULÜP MODAL ============ -->
+<div class="modal" id="clubModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close aria-label="Kapat">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
