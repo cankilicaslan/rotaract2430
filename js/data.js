@@ -200,34 +200,34 @@ window.AKIS = [];
 /* --------------------------------------------------------------------------
    BÖLGE GÖREVLİLERİ 2026–2027
    ekip: "yonetim" | "komite" | "grup"
-   grupNo: grup sorumluları için ilgili grup(lar)
+   grupNo: grup sorumluları için ilgili grup(lar); kartta grubun kulüpleri listelenir
+   kulup: görevlinin üyesi olduğu Rotaract kulübü (boşsa kartta gösterilmez)
+   aciklama: kişi kartında görünen "bu görev ne işe yarar" metni
    -------------------------------------------------------------------------- */
 window.GOREVLILER = [
-  { ekip: "yonetim", unvan: "Bölge Rotaract Temsilcisi (BRT)", ad: "Alper Abacıgil", foto: "assets/foto/alper-abacigil.jpg", vurgu: true },
-  { ekip: "yonetim", unvan: "Kulüplerden Sorumlu Bölge Sekreteri", ad: "Ekin Çoşkun", foto: "assets/foto/ekin-coskun.jpg" },
-  { ekip: "yonetim", unvan: "Komitelerden Sorumlu Bölge Sekreteri", ad: "Mutluhan Özdemir", foto: "assets/foto/mutluhan-ozdemir.jpg" },
-  { ekip: "yonetim", unvan: "Bölge İdari Sekreteri", ad: "Neslihan Doğan", foto: "assets/foto/neslihan-dogan.jpg" },
-  { ekip: "yonetim", unvan: "Toplantı ve Organizasyondan Sorumlu Bölge Sekreteri", ad: "Mithat Şakar", foto: "assets/foto/mithat-sakar.jpg" },
-  { ekip: "yonetim", unvan: "Bölge Saymanı", ad: "Emre Kaan Kocaman", foto: "assets/foto/emre-kaan-kocaman.jpg" },
-
-  { ekip: "komite", unvan: "Hizmet Projeleri", ad: "Göksu Çetintaş", foto: "assets/foto/goksu-cetintas.jpg" },
-  { ekip: "komite", unvan: "Üyelik ve Üyeliği Geliştirme", ad: "Ataberk Atikoğlu", foto: "assets/foto/ataberk-atikoglu.jpg" },
-  { ekip: "komite", unvan: "Uluslararası Hizmetler", ad: "Yusuf Ufuk Altınöz", foto: "assets/foto/yusuf-ufuk-altinoz.jpg" },
-  { ekip: "komite", unvan: "Halkla İlişkiler ve Tanıtım", ad: "Can Kılıçaslan", foto: "assets/foto/can-kilicaslan.jpg" },
-  { ekip: "komite", unvan: "Kulüp Hizmetleri · Hobi", ad: "Batuhan Sönmez", foto: "assets/foto/batuhan-sonmez.jpg" },
-  { ekip: "komite", unvan: "Afet", ad: "Uygar Eren Kandemir", foto: "assets/foto/uygar-eren-kandemir.jpg" },
-  { ekip: "komite", unvan: "Meslek Hizmetleri", ad: "Alper Durucu", foto: "assets/foto/alper-durucu.jpg" },
-  { ekip: "komite", unvan: "Interact", ad: "Dilasu Tamgül", foto: "assets/foto/dilasu-tamgul.jpg" },
-
-  { ekip: "grup", unvan: "1. Grup", grupNo: ["1"], ad: "Mert Toktaş", foto: "assets/foto/mert-toktas.jpg" },
-  { ekip: "grup", unvan: "2. Grup", grupNo: ["2"], ad: "Asya Büyükerk", foto: "assets/foto/asya-buyukerk.jpg" },
-  { ekip: "grup", unvan: "3. ve 8. Grup", grupNo: ["3", "8"], ad: "Pınar Tektaş", foto: "assets/foto/pinar-tektas.jpg" },
-  { ekip: "grup", unvan: "4. Grup", grupNo: ["4"], ad: "Elif Kurt Ersoy", foto: "assets/foto/elif-kurt-ersoy.jpg" },
-  { ekip: "grup", unvan: "5. ve 6. Grup", grupNo: ["5-6"], ad: "Özgü İzel Özcan", foto: "assets/foto/ozgu-izel-ozcan.jpg" },
-  { ekip: "grup", unvan: "7. Grup", grupNo: ["7"], ad: "Eda Gönlüm Karahanlı", foto: "assets/foto/eda-gonlum-karahanli.jpg" },
-  { ekip: "grup", unvan: "9. Grup", grupNo: ["9"], ad: "Mehmet Murat Elbeyli", foto: "assets/foto/mehmet-murat-elbeyli.jpg" },
-  { ekip: "grup", unvan: "10. Grup", grupNo: ["10"], ad: "Mert Üstek", foto: "assets/foto/mert-ustek.jpg" },
-  { ekip: "grup", unvan: "11. Grup", grupNo: ["11"], ad: "Serenay Karakoç", foto: "assets/foto/serenay-karakoc.jpg" }
+  {ekip: "yonetim", unvan: "Bölge Rotaract Temsilcisi (BRT)", ad: "Alper Abacıgil", foto: "assets/foto/alper-abacigil.jpg", eposta: "alperabacigil@gmail.com", kulup: "", vurgu: true, aciklama: "Bölgedeki tüm Rotaract kulüplerini temsil eder. Bölge ekibini yönetir, kulüplerin gelişimini destekler; Rotary 2430, Uluslararası Rotary ve diğer bölgelerle ilişkileri yürütür."},
+  {ekip: "yonetim", unvan: "Kulüplerden Sorumlu Bölge Sekreteri", ad: "Ekin Çoşkun", foto: "assets/foto/ekin-coskun.jpg", eposta: "ekin.coskun7@gmail.com", kulup: "", aciklama: "Kulüplerle bölge arasındaki iletişimi yürütür. Kulüp raporlarını, yönetim ve üye bilgilerini takip eder; kulüplerin bölgeden beklediği desteği ilgili kişilere ulaştırır."},
+  {ekip: "yonetim", unvan: "Komitelerden Sorumlu Bölge Sekreteri", ad: "Mutluhan Özdemir", foto: "assets/foto/mutluhan-ozdemir.jpg", eposta: "mutluhanozdemir@hotmail.com", kulup: "", aciklama: "Bölge komitelerinin çalışmalarını koordine eder. Komitelerin dönem planlarını, takvimlerini ve raporlarını izler; komiteler arasında iş birliği kurar."},
+  {ekip: "yonetim", unvan: "Bölge İdari Sekreteri", ad: "Neslihan Doğan", foto: "assets/foto/neslihan-dogan.jpg", eposta: "neslihanndogan@icloud.com", kulup: "", aciklama: "Bölgenin resmi yazışmalarını, toplantı tutanaklarını ve arşivini yürütür. Duyuruların zamanında ve doğru kişilere ulaşmasını sağlar."},
+  {ekip: "yonetim", unvan: "Toplantı ve Organizasyondan Sorumlu Bölge Sekreteri", ad: "Mithat Şakar", foto: "assets/foto/mithat-sakar.jpg", eposta: "mito936@gmail.com", kulup: "", aciklama: "Bölge toplantıları, eğitimler ve konferanslar gibi etkinliklerin planlamasını ve organizasyonunu üstlenir: mekân, program, kayıt ve lojistik."},
+  {ekip: "yonetim", unvan: "Bölge Saymanı", ad: "Emre Kaan Kocaman", foto: "assets/foto/emre-kaan-kocaman.jpg", eposta: "emrekaankocaman@gmail.com", kulup: "", aciklama: "Bölge bütçesini hazırlar ve yönetir. Kulüp aidatlarını, gelir ve giderleri kayıt altına alır; dönem sonunda mali raporu sunar."},
+  {ekip: "komite", unvan: "Hizmet Projeleri", ad: "Göksu Çetintaş", foto: "assets/foto/goksu-cetintas.jpg", eposta: "goksucetintas@gmail.com", kulup: "", aciklama: "Topluma fayda sağlayan hizmet projelerini planlar. Bölge çapında ortak projeler başlatır, kulüplerin projelerine fikir, kaynak ve iş birliği desteği verir."},
+  {ekip: "komite", unvan: "Üyelik ve Üyeliği Geliştirme", ad: "Ataberk Atikoğlu", foto: "assets/foto/ataberk-atikoglu.jpg", eposta: "ataberkatikoglu@gmail.com", kulup: "", aciklama: "Kulüplerin yeni üye kazanmasına ve mevcut üyelerini tutmasına yardımcı olur. Rotaract'ı tanıtım çalışmaları yapar, yeni kulüp kurulmasını destekler."},
+  {ekip: "komite", unvan: "Uluslararası Hizmetler", ad: "Yusuf Ufuk Altınöz", foto: "assets/foto/yusuf-ufuk-altinoz.jpg", eposta: "yusuf.ufuk@gmail.com", kulup: "", aciklama: "Yurt dışındaki Rotaract kulüpleri ve bölgelerle bağ kurar. Kardeş kulüp ilişkileri, uluslararası ortak projeler, değişim programları ve uluslararası etkinliklere katılım için yol gösterir."},
+  {ekip: "komite", unvan: "Halkla İlişkiler ve Tanıtım", ad: "Can Kılıçaslan", foto: "assets/foto/can-kilicaslan.jpg", eposta: "dtcankilicaslan@gmail.com", kulup: "", aciklama: "Bölgenin sesini duyurur. Web sitesi, sosyal medya ve basın ilişkilerini yürütür; kulüplere tanıtım ve görsel kimlik konusunda destek verir."},
+  {ekip: "komite", unvan: "Kulüp Hizmetleri · Hobi", ad: "Batuhan Sönmez", foto: "assets/foto/batuhan-sonmez.jpg", eposta: "bthnsnmz26@gmail.com", kulup: "", aciklama: "Kulüp Hizmetleri: kulüplerin iç işleyişini güçlendirir; yönetim, toplantı düzeni ve üye eğitimi konularında destek verir. Hobi: üyeler arasında dostluğu artıran, ortak ilgi alanlarına dayalı etkinlikler düzenler."},
+  {ekip: "komite", unvan: "Afet", ad: "Uygar Eren Kandemir", foto: "assets/foto/uygar-eren-kandemir.jpg", eposta: "uygarerenkandemir@gmail.com", kulup: "", aciklama: "Afetlere hazırlık konusunda farkındalık çalışmaları yapar. Afet anında bölge kulüplerinin yardım çalışmalarını koordine eder ve ilgili kurumlarla iletişim kurar."},
+  {ekip: "komite", unvan: "Meslek Hizmetleri", ad: "Alper Durucu", foto: "assets/foto/alper-durucu.jpg", eposta: "alperdurucu97@gmail.com", kulup: "", aciklama: "Üyelerin mesleki gelişimini destekler. Kariyer söyleşileri, mentorluk ve iş dünyasıyla buluşmalar düzenler; mesleki etiği 4'lü Özdenetim ışığında öne çıkarır."},
+  {ekip: "komite", unvan: "Interact", ad: "Dilasu Tamgül", foto: "assets/foto/dilasu-tamgul.jpg", eposta: "tamguldilasu@gmail.com", kulup: "", aciklama: "Bölgedeki Interact kulüpleriyle (12–18 yaş) bağı kurar. Interactörlere rehberlik eder, Rotaract–Interact ortak projelerini ve Interact'tan Rotaract'a geçişi destekler."},
+  {ekip: "grup", unvan: "1. Grup", ad: "Mert Toktaş", foto: "assets/foto/mert-toktas.jpg", eposta: "mert.toktas7@gmail.com", kulup: "", grupNo: ["1"]},
+  {ekip: "grup", unvan: "2. Grup", ad: "Asya Büyükerk", foto: "assets/foto/asya-buyukerk.jpg", eposta: "asyabuyukerk@gmail.com", kulup: "", grupNo: ["2"]},
+  {ekip: "grup", unvan: "3. ve 8. Grup", ad: "Pınar Tektaş", foto: "assets/foto/pinar-tektas.jpg", eposta: "pinaartektas@gmail.com", kulup: "", grupNo: ["3","8"]},
+  {ekip: "grup", unvan: "4. Grup", ad: "Elif Kurt Ersoy", foto: "assets/foto/elif-kurt-ersoy.jpg", eposta: "avelifkurt1@gmail.com", kulup: "", grupNo: ["4"]},
+  {ekip: "grup", unvan: "5. ve 6. Grup", ad: "Özgü İzel Özcan", foto: "assets/foto/ozgu-izel-ozcan.jpg", eposta: "ozguizel@gmail.com", kulup: "", grupNo: ["5-6"]},
+  {ekip: "grup", unvan: "7. Grup", ad: "Eda Gönlüm Karahanlı", foto: "assets/foto/eda-gonlum-karahanli.jpg", eposta: "edagonlum98@gmail.com", kulup: "", grupNo: ["7"]},
+  {ekip: "grup", unvan: "9. Grup", ad: "Mehmet Murat Elbeyli", foto: "assets/foto/mehmet-murat-elbeyli.jpg", eposta: "elbeylimurat@gmail.com", kulup: "", grupNo: ["9"]},
+  {ekip: "grup", unvan: "10. Grup", ad: "Mert Üstek", foto: "assets/foto/mert-ustek.jpg", eposta: "mertustek@gmail.com", kulup: "", grupNo: ["10"]},
+  {ekip: "grup", unvan: "11. Grup", ad: "Serenay Karakoç", foto: "assets/foto/serenay-karakoc.jpg", eposta: "serenay2303@gmail.com", kulup: "", grupNo: ["11"]}
 ];
 
 /* --------------------------------------------------------------------------

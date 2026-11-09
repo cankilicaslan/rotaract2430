@@ -493,3 +493,34 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .finder-page { padding-top: 32px; }
 .page-title { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: .4em; }
 .cta-slim { padding-block: 56px; }
+
+/* ---------- Bölge ekibi: tıklanabilir kişi kartları ---------- */
+.member { display: block; }
+.member-btn {
+  display: flex; align-items: center; gap: 14px; width: calc(100% + 16px); margin: -8px; padding: 8px;
+  background: none; border: 0; border-radius: 14px; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: background .2s;
+}
+.member-btn:hover { background: rgba(255, 255, 255, .08); }
+.member-btn:hover .member-name { text-decoration: underline; text-underline-offset: 3px; }
+.member-text { min-width: 0; }
+.member-name { display: block; font-size: 1.02rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: 2px; }
+.member .role { display: block; }
+.team-lead .member-btn { gap: 22px; margin: 0; padding: 0; width: 100%; }
+.team-lead .member-btn:hover { background: none; }
+.team-lead .member.lead:has(.member-btn:hover) { filter: brightness(1.06); }
+.team-lead .member-name { font-size: 1.7rem; }
+@media (max-width: 720px) { .team-lead .member-btn { flex-direction: column; align-items: flex-start; } }
+
+/* Kişi kartı içeriği */
+.m-subtitle { font-size: .95rem; margin: 4px 0 6px; color: var(--ink); }
+.m-desc { color: var(--ink-2); margin: 0 0 18px; }
+.m-mail-lg { font-size: 1rem; }
+.m-clubs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.m-club {
+  display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg-tint); color: var(--ink); font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.m-club span { font-weight: 500; color: var(--muted); font-size: .8rem; }
+.m-club:hover { border-color: var(--cranberry); background: var(--cranberry-50); }

@@ -280,7 +280,6 @@
   function openClub(id) {
     const k = kulupById[id];
     if (!k) return;
-    lastFocus = document.activeElement;
     const t = k.toplanti || {};
     const mapsQuery = t.yer ? `${t.yer} ${t.adres || ""} ${k.ilce || ""} ${k.il}` : "";
     const maps = mapsQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}` : "";
@@ -310,7 +309,12 @@
         </div>
         <p class="m-note">Toplantı bilgileri My Rotary kayıtlarından alınmıştır. Ziyaret etmeden önce kulüple iletişime geçmenizi öneririz.</p>
       </div>`;
+    showModal();
+  }
+  function showModal() {
+    if (modal.hidden) lastFocus = document.activeElement;
     modal.hidden = false;
+    $(".modal-panel", modal).scrollTop = 0;
     document.body.style.overflow = "hidden";
     $$("body > header, body > main, body > footer").forEach((el) => (el.inert = true));
     $(".modal-close", modal).focus();
@@ -418,9 +422,52 @@
   const lead = GOREVLILER.find((g) => g.vurgu);
   const person = (g, extra = "") => `
     <li class="member ${extra}">
-      <div class="avatar">${g.foto ? `<img src="${esc(g.foto)}" alt="" loading="lazy">` : `<span>${esc(initials(g.ad))}</span>`}</div>
-      <div><h4>${esc(g.ad)}</h4><p class="role">${esc(g.unvan)}</p></div>
+      <button class="member-btn" data-person="${GOREVLILER.indexOf(g)}" aria-haspopup="dialog" aria-label="${esc(g.ad)}, ${esc(g.unvan)}: ayrıntıları aç">
+        <span class="avatar">${g.foto ? `<img src="${esc(g.foto)}" alt="" loading="lazy">` : `<span>${esc(initials(g.ad))}</span>`}</span>
+        <span class="member-text"><span class="member-name">${esc(g.ad)}</span><span class="role">${esc(g.unvan)}</span></span>
+      </button>
     </li>`;
+
+  // Görevli kartı: e-posta, kulüp, komite ve görevin ne işe yaradığı
+  const gorevAdi = (g) =>
+    g.ekip === "komite" ? `${g.unvan.split(" · ").join(" ve ")} ${g.unvan.includes(" · ") ? "komitelerinden" : "komitesinden"} sorumlu BRT yardımcısı`
+    : g.ekip === "grup" ? `${g.unvan} kulüplerinden sorumlu BRT yardımcısı`
+    : g.unvan;
+  function openPerson(i) {
+    const g = GOREVLILER[i];
+    if (!g) return;
+    const subject = encodeURIComponent("Rotaract Bölge 2430");
+    const grupKulupleri = g.ekip === "grup"
+      ? KULUPLER.filter((k) => (g.grupNo || []).includes(k.grup)).sort((a, b) => a.ad.localeCompare(b.ad, "tr"))
+      : [];
+    const aciklama = g.aciklama || (g.ekip === "grup"
+      ? `Grubundaki ${grupKulupleri.length} kulübün bölgeyle ilk iletişim noktasıdır. Kulüpleri ziyaret eder, toplantılarına katılır; kulüplerin ihtiyaçlarını ve sorularını bölge ekibine taşır, bölge duyurularını kulüplere ulaştırır.`
+      : "");
+    const komite = g.ekip === "komite" ? g.unvan.split(" · ") : [];
+    $("#modalBody").innerHTML = `
+      <div class="m-head">
+        ${g.foto
+          ? `<img class="m-photo" src="${esc(g.foto)}" alt="${esc(g.ad)}" width="84" height="84">`
+          : `<div class="club-badge">${esc(initials(g.ad))}</div>`}
+        <h3 id="modalTitle">${esc(g.ad)}</h3>
+        <p>${esc(gorevAdi(g))} · ${esc(SITE.donem)}</p>
+      </div>
+      <div class="m-body">
+        <div class="m-grid">
+          ${g.eposta ? `<div class="m-item wide"><small>E-posta</small><a class="m-mail m-mail-lg" href="mailto:${esc(g.eposta)}?subject=${subject}">${esc(g.eposta)}</a></div>` : ""}
+          ${g.kulup ? `<div class="m-item wide"><small>Kulübü</small><strong>${esc(g.kulup)}</strong></div>` : ""}
+          ${komite.length ? `<div class="m-item wide"><small>${komite.length > 1 ? "Komiteleri" : "Komitesi"}</small><strong>${komite.map(esc).join(", ")}</strong></div>` : ""}
+          ${g.ekip === "grup" ? `<div class="m-item wide"><small>Sorumlu olduğu grup</small><strong>${esc(g.unvan)}</strong></div>` : ""}
+        </div>
+        ${aciklama ? `<h4 class="m-subtitle">${g.ekip === "komite" ? "Komite ne yapar?" : "Bu görev ne yapar?"}</h4><p class="m-desc">${esc(aciklama)}</p>` : ""}
+        ${grupKulupleri.length ? `<h4 class="m-subtitle">Gruptaki kulüpler</h4>
+          <div class="m-clubs">${grupKulupleri.map((k) => `<button class="m-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}<span>${esc(k.il)}</span></button>`).join("")}</div>` : ""}
+        ${g.eposta ? `<div class="m-actions"><a class="btn btn-primary btn-sm" href="mailto:${esc(g.eposta)}?subject=${subject}">E-posta gönder</a></div>` : ""}
+      </div>`;
+    showModal();
+  }
+  modal.addEventListener("click", (e) => { const c = e.target.closest(".m-club"); if (c) openClub(c.dataset.club); });
+  if ($("#team")) $("#team").addEventListener("click", (e) => { const b = e.target.closest("[data-person]"); if (b) openPerson(+b.dataset.person); });
   const block = (title, sub, items) => `
     <div class="team-block">
       <div class="team-block-head"><h3>${title}</h3><p>${sub}</p></div>
