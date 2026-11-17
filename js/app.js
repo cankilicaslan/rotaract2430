@@ -751,6 +751,32 @@
       if (o?.durum === "aktif" && o.tarih) yer.textContent = tarihMetni(o.tarih);
       else if (o?.durum === "yakinda") yer.textContent = L("Yakında", "Coming soon");
     });
+
+    // Ana sayfa: Asamble ve Konferans kartları (site içi sayfalara gider)
+    const kartlar = $("#orgCards");
+    if (kartlar) {
+      const okIkon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+      const metaIkon = {
+        tarih: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+        yer: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+      };
+      kartlar.innerHTML = ["asamble", "konferans"].map((k) => {
+        const o = orgs[k] || {}, a = ayar[k] || {};
+        const tur = EN ? a.turEn || o.tur || k : a.tur || o.tur || k;
+        const aktif = o.durum === "aktif";
+        const ad = aktif ? o.ad || tur : L(`${tur} henüz duyurulmadı`, `${tur} not announced yet`);
+        const alt = aktif ? (EN ? "" : o.slogan || o.altBaslik || "") : L("Tarih, yer ve tema açıklandığında burada yer alacak.", "Date, venue and theme will appear here once announced.");
+        const meta = aktif ? [o.tarih && ["tarih", tarihMetni(o.tarih)], o.yer && ["yer", o.yer]].filter(Boolean) : [];
+        return `<a class="oc oc-${k}${aktif ? "" : " oc-bos"}" href="${k}.html">
+          <span class="oc-tur">${esc(tur)}</span>
+          <h3 class="oc-ad">${esc(ad)}</h3>
+          ${aktif && o.altBaslik && !EN ? `<p class="oc-alt">${esc(o.altBaslik)}</p>` : ""}
+          ${alt ? `<p class="oc-slogan">${esc(alt)}</p>` : ""}
+          ${meta.length ? `<ul class="oc-meta">${meta.map(([t, v]) => `<li>${metaIkon[t]}${esc(v)}</li>`).join("")}</ul>` : ""}
+          <span class="oc-cta">${L("Detayları gör", "See details")}${okIkon}</span>
+        </a>`;
+      }).join("");
+    }
     if (!sayfa) return;
 
     const id = document.body.dataset.org, o = orgs[id] || {}, a = ayar[id] || {};

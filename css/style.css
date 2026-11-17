@@ -903,3 +903,36 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 }
 .ev-add-sm .kisa { display: none; }
 @media (max-width: 420px) { .ev-add-sm .uzun { display: none; } .ev-add-sm .kisa { display: inline; } .ev-who .ev-club, .ev-who .ev-add-sm { min-height: 40px; } }
+
+/* ---------- Ana sayfa: Asamble ve Konferans kartları ---------- */
+.oc-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.oc {
+  position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 6px;
+  min-height: 260px; padding: 28px 28px 24px; border-radius: 24px; color: #fff;
+  background: linear-gradient(140deg, #2A0F1D, #160810);
+  box-shadow: 0 24px 50px -28px rgba(77, 6, 38, .55); transition: transform .25s var(--ease), box-shadow .25s;
+}
+.oc::after { content: ""; position: absolute; z-index: -1; width: 260px; height: 260px; right: -80px; bottom: -110px; border-radius: 50%; border: 36px solid var(--oc, var(--gold)); opacity: .22; }
+.oc-asamble { --oc: var(--gold); background: linear-gradient(140deg, #3B2300, #1E1206 70%); }
+.oc-konferans { --oc: var(--cranberry); background: linear-gradient(140deg, var(--cranberry-800), var(--cranberry-900)); }
+.oc-tur { align-self: flex-start; padding: 4px 12px; border-radius: 999px; background: var(--oc); color: #1D1A22; font-weight: 800; font-size: .82rem; letter-spacing: .02em; margin-bottom: 8px; }
+.oc-konferans .oc-tur { color: #fff; }
+.oc-ad { margin: 0; font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.15; color: #fff; text-wrap: balance; }
+.oc-alt { margin: 0; font-weight: 700; color: rgba(255, 255, 255, .85); }
+.oc-slogan { margin: 4px 0 0; color: rgba(255, 255, 255, .85); max-width: 32em; }
+.oc-meta { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.oc-meta li { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); font-weight: 600; font-size: .88rem; }
+.oc-meta svg, .oc-cta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.oc-cta { margin-top: auto; padding-top: 18px; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; color: var(--oc); }
+.oc-konferans .oc-cta { color: #FFB8D5; }
+.oc-cta svg { width: 20px; height: 20px; transition: transform .25s var(--ease); }
+.oc-bos .oc-ad { font-size: clamp(1.25rem, 2.2vw, 1.6rem); }
+@media (hover: hover) {
+  .oc:hover { transform: translateY(-3px); box-shadow: 0 30px 60px -28px rgba(77, 6, 38, .7); }
+  .oc:hover .oc-cta svg { transform: translateX(4px); }
+}
+.oc:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (max-width: 720px) {
+  .oc-list { grid-template-columns: 1fr; gap: 12px; }
+  .oc { min-height: 0; padding: 22px 20px 20px; }
+}
