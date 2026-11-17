@@ -256,5 +256,5 @@ window.ROTARY_BOLGELER = {
    -------------------------------------------------------------------------- */
 window.ORGANIZASYONLAR = [
   { id: "asamble", tur: "Asamble", turEn: "Assembly", site: "https://asambleinfinity.ankararotaract.org/", instagram: "https://www.instagram.com/asambleinfinity/" },
-  { id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "" }
+  { id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "https://www.instagram.com/38.rotaractkonferansi/" }
 ];
