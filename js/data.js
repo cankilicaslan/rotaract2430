@@ -255,6 +255,6 @@ window.ROTARY_BOLGELER = {
    site boşsa sayfada "henüz duyurulmadı" yazar.
    -------------------------------------------------------------------------- */
 window.ORGANIZASYONLAR = [
-  { id: "asamble", tur: "Asamble", turEn: "Assembly", site: "https://asambleinfinity.ankararotaract.org/", instagram: "" },
+  { id: "asamble", tur: "Asamble", turEn: "Assembly", site: "https://asambleinfinity.ankararotaract.org/", instagram: "https://www.instagram.com/asambleinfinity/" },
   { id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "" }
 ];
