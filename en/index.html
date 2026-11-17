@@ -2,7 +2,7 @@
 <html lang="en" data-base="../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rotaract District 2430</title>
   <meta name="description" content="Rotaract District 2430: 54 clubs, a club finder, this week's meeting calendar, the district team and the Rotary family.">
   <meta name="theme-color" content="#D41367">
@@ -11,10 +11,12 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../assets/icon-512.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#D41367">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261117f">
+  <link rel="stylesheet" href="../css/style.css?v=20261117g">
 </head>
 <body>
 
@@ -59,12 +61,12 @@
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <div class="hero-wheel"><img src="../assets/rotary.webp" alt=""></div>
+      <div class="hero-wheel"><img src="../assets/rotary.webp" alt="" fetchpriority="low" decoding="async"></div>
     </div>
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="hero-kicker load"><span class="donem"></span></p>
-        <h1 class="load hero-title"><img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)"></h1>
+        <h1 class="load hero-title"><img src="../assets/tema-beyaz.png" width="818" height="646" fetchpriority="high" alt="Kalıcı Etki Yarat (Create Lasting Impact)"></h1>
         <p class="lead load">Across Rotaract District 2430, from Ankara to the Mediterranean and from the Black Sea to Baku, <span data-count="kulup"></span> clubs meet every week in different cities and build projects for their own communities.</p>
         <div class="hero-actions load">
           <a href="kulupler.html" class="btn btn-light">Find your club</a>
@@ -304,7 +306,7 @@
     <div>
       <img src="../assets/rotaract-2430.png" alt="Rotaract District 2430" class="footer-logo">
       <p class="muted">Rotaract clubs of Rotary International District 2430</p>
-      <img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)" class="footer-theme">
+      <img src="../assets/tema-beyaz.png" alt="Kalıcı Etki Yarat (Create Lasting Impact)" class="footer-theme" loading="lazy" width="818" height="646">
     </div>
     <div>
       <h4>Explore</h4>
@@ -343,10 +345,10 @@
   </div>
 </div>
 
-<script src="../js/data.js?v=20261117f"></script>
-<script src="../js/data-en.js?v=20261117f"></script>
-<script src="../js/harita.js?v=20261117f"></script>
-<script src="../js/etkinlik.js?v=20261117f"></script>
-<script src="../js/app.js?v=20261117f"></script>
+<script src="../js/data.js?v=20261117g"></script>
+<script src="../js/data-en.js?v=20261117g"></script>
+<script src="../js/harita.js?v=20261117g"></script>
+<script src="../js/etkinlik.js?v=20261117g"></script>
+<script src="../js/app.js?v=20261117g"></script>
 </body>
 </html>

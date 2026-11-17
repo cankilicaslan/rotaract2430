@@ -96,17 +96,54 @@
   const toggle = $("#navToggle"), nav = $("#mainNav");
   const setMenu = (open) => {
     nav.classList.toggle("open", open);
+    document.body.classList.toggle("menu-open", open);
     toggle.setAttribute("aria-expanded", open);
+    const mt = $("#tabMenu"); if (mt) mt.setAttribute("aria-expanded", open);
     toggle.setAttribute("aria-label", open ? L("Menüyü kapat", "Close menu") : L("Menüyü aç", "Open menu"));
   };
   toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("open") && !e.target.closest("#header, .tabbar")) setMenu(false);
+  });
   $$("a", nav).forEach((a) => a.addEventListener("click", () => setMenu(false)));
   addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("open")) { setMenu(false); toggle.focus(); } });
+
+  /* ---------- Mobil alt sekme çubuğu ---------- */
+  const anaSayfa = !!$("#yakinda");
+  const IK = {
+    ev: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+    ara: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+    takvim: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+    saat: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    menu: '<path d="M4 7h16M4 12h16M4 17h10"/>',
+  };
+  const svgIk = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${IK[k]}</svg>`;
+  const tabbar = document.createElement("nav");
+  tabbar.className = "tabbar";
+  tabbar.setAttribute("aria-label", L("Hızlı erişim", "Quick access"));
+  const h = (id) => (anaSayfa ? `#${id}` : `index.html#${id}`);
+  tabbar.innerHTML = `
+    <a class="tab" href="${anaSayfa ? "#top" : "index.html"}" data-tab="top">${svgIk("ev")}<span>${L("Ana sayfa", "Home")}</span></a>
+    <a class="tab" href="${h("yakinda")}" data-tab="yakinda">${svgIk("takvim")}<span>${L("Yakında", "Upcoming")}</span></a>
+    <a class="tab tab-main" href="kulupler.html" data-tab="kulupler"><span class="ic">${svgIk("ara")}</span><b>${L("Kulüp bul", "Find club")}</b></a>
+    <a class="tab" href="${h("akis")}" data-tab="akis">${svgIk("saat")}<span>${L("Bu hafta", "This week")}</span></a>
+    <button class="tab" type="button" id="tabMenu" aria-controls="mainNav" aria-expanded="false">${svgIk("menu")}<span>${L("Menü", "Menu")}</span></button>`;
+  document.body.appendChild(tabbar);
+  const tabSec = (id) => $$(".tab[data-tab]", tabbar).forEach((t) => (t.dataset.tab === id ? t.setAttribute("aria-current", "true") : t.removeAttribute("aria-current")));
+  tabSec(/kulupler/.test(location.pathname) ? "kulupler" : anaSayfa ? "top" : "");
+  $("#tabMenu").addEventListener("click", () => {
+    const ac = !nav.classList.contains("open");
+    setMenu(ac);
+    if (ac) $("a", nav)?.focus({ preventScroll: true });
+  });
+  $$("a.tab", tabbar).forEach((a) => a.addEventListener("click", () => setMenu(false)));
 
   const navLinks = $$('.main-nav a[href^="#"]:not(.btn)');
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting) navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${e.target.id}`));
+      if (!e.isIntersecting) return;
+      navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${e.target.id}`));
+      tabSec(["yakinda", "akis"].includes(e.target.id) ? e.target.id : "top");
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   navLinks.forEach((a) => { const s = $(a.getAttribute("href")); if (s) spy.observe(s); });
@@ -253,23 +290,41 @@
     const showTip = (path, x, y) => {
       tip.innerHTML = `<strong>${esc(path.dataset.il)}</strong><span>${esc(path.dataset.info)}</span>`;
       tip.hidden = false;
-      const r = canvas.getBoundingClientRect();
-      const left = Math.min(Math.max(x - r.left, 70), r.width - 70);
-      tip.style.left = `${left}px`;
-      tip.style.top = `${y - r.top}px`;
+      // Ekrana göre konumla: kaydırılan harita kabı ipucunu kırpmasın
+      const w = tip.offsetWidth / 2 + 8;
+      tip.style.left = `${Math.min(Math.max(x, w), innerWidth - w)}px`;
+      tip.style.top = `${Math.max(y, tip.offsetHeight + 80)}px`;
     };
     svg.addEventListener("pointermove", (e) => {
       const p = e.target.closest(".il");
       if (p) showTip(p, e.clientX, e.clientY); else tip.hidden = true;
     });
-    svg.addEventListener("pointerleave", () => (tip.hidden = true));
+    // Dokunmatikte parmak kalkınca pointerleave gelir; ipucu açık kalsın
+    svg.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") tip.hidden = true; });
+    const ipucuKapat = () => { if (!tip.hidden) { tip.hidden = true; secili = null; } };
+    addEventListener("scroll", ipucuKapat, { passive: true });
+    canvas.addEventListener("scroll", ipucuKapat, { passive: true });
     svg.addEventListener("focusin", (e) => {
       const p = e.target.closest(".il"); if (!p) return;
       const b = p.getBoundingClientRect();
       showTip(p, b.left + b.width / 2, b.top + b.height / 2);
     });
     svg.addEventListener("focusout", () => (tip.hidden = true));
-    svg.addEventListener("click", (e) => { const p = e.target.closest(".il.has-club"); if (p) showClubsOf(p.dataset.ilKey || p.dataset.il); });
+    let secili = null;
+    const dokunmatik = matchMedia("(pointer: coarse)");
+    svg.addEventListener("click", (e) => {
+      const p = e.target.closest(".il.has-club"); if (!p) return;
+      if (dokunmatik.matches && secili !== p) {
+        secili = p; const b = p.getBoundingClientRect();
+        showTip(p, b.left + b.width / 2, b.top);
+        tip.insertAdjacentHTML("beforeend", `<em>${L("Kulüpleri görmek için tekrar dokunun", "Tap again to see clubs")}</em>`);
+        return;
+      }
+      showClubsOf(p.dataset.ilKey || p.dataset.il);
+    });
+    // Mobilde kaydırılabilir haritayı Bölge 2430'un ortasına getir
+    canvas.insertAdjacentHTML("afterend", `<p class="map-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg>${L("Haritayı yana kaydırın, ile dokunun", "Swipe the map, tap a province")}</p>`);
+    if (canvas.scrollWidth > canvas.clientWidth) canvas.scrollLeft = (canvas.scrollWidth - canvas.clientWidth) * 0.45;
     svg.addEventListener("keydown", (e) => {
       const p = e.target.closest(".il.has-club");
       if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showClubsOf(p.dataset.ilKey || p.dataset.il); }
@@ -374,13 +429,13 @@
     modal.hidden = false;
     $(".modal-panel", modal).scrollTop = 0;
     document.body.style.overflow = "hidden";
-    $$("body > header, body > main, body > footer").forEach((el) => (el.inert = true));
+    $$("body > .org-bar, body > header, body > main, body > footer, body > .tabbar").forEach((el) => (el.inert = true));
     $(".modal-close", modal).focus();
   }
   function closeModal() {
     modal.hidden = true;
     document.body.style.overflow = "";
-    $$("body > header, body > main, body > footer").forEach((el) => (el.inert = false));
+    $$("body > .org-bar, body > header, body > main, body > footer, body > .tabbar").forEach((el) => (el.inert = false));
     lastFocus?.focus();
   }
   modal.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) closeModal(); });
@@ -426,6 +481,7 @@
     $$(".day", tabs).forEach((x, j) => { x.setAttribute("aria-selected", j === i); x.tabIndex = j === i ? 0 : -1; });
     $("#agendaPanel").setAttribute("aria-labelledby", `day-${i}`);
     if (focus) $(`#day-${i}`).focus();
+    $(`#day-${i}`).scrollIntoView({ inline: "nearest", block: "nearest" });
     renderAgenda();
   };
   if (tabs) tabs.addEventListener("click", (e) => { const b = e.target.closest(".day"); if (b) selectDay(+b.dataset.i); });

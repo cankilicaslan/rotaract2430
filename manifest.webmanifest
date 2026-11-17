@@ -1,0 +1,15 @@
+{
+  "name": "Rotaract Bölge 2430",
+  "short_name": "Rotaract 2430",
+  "description": "Rotaract Bölge 2430 kulüpleri, toplantıları ve yaklaşan organizasyonları",
+  "lang": "tr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#D41367",
+  "icons": [
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
