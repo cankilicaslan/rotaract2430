@@ -337,7 +337,7 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .site-footer { background: #160810; color: rgba(255,255,255,.8); padding: 64px 0 28px; font-size: .93rem; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px; }
 .footer-logo { height: 52px; width: auto; filter: brightness(0) invert(1); margin-bottom: 12px; }
-.footer-theme { width: 120px; margin-top: 18px; opacity: .85; }
+.footer-theme { display: block; width: 132px; height: auto; margin-top: 20px; opacity: .9; }
 .site-footer h4 { color: #fff; font-size: .95rem; margin-bottom: 12px; letter-spacing: 0; }
 .site-footer a { display: block; color: rgba(255,255,255,.72); padding: 4px 0; transition: color .2s; }
 .site-footer a:hover { color: #fff; }
@@ -620,7 +620,7 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .ev-list::before { content: ""; position: absolute; left: 95px; top: 12px; bottom: 12px; width: 2px; background: repeating-linear-gradient(var(--line) 0 6px, transparent 6px 11px); }
 .ev {
   --c: var(--ev-parti); --cbg: var(--ev-parti-bg); --cfg: var(--ev-parti-fg);
-  position: relative; display: grid; grid-template-columns: 52px 44px minmax(0, 1fr) auto; align-items: center; gap: 0 12px;
+  position: relative; display: grid; grid-template-columns: 52px 44px minmax(0, 1fr); align-items: center; gap: 0 12px;
   background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 12px 12px 12px 10px;
   transition: transform .2s var(--ease), box-shadow .2s, border-color .2s;
   animation: evIn .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 40ms);
@@ -643,14 +643,15 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .ev-soon .ev-rel { color: var(--cfg); }
 .ev-title { margin: 0; font-size: 1.02rem; line-height: 1.3; overflow-wrap: anywhere; }
 .ev-when { margin: 0; font-size: .84rem; color: var(--ink-2); }
-.ev-who { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.ev-who { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 4px; }
 .ev-club {
   min-height: 30px; padding: 3px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-tint);
   font: inherit; font-size: .82rem; font-weight: 700; color: var(--ink); cursor: pointer; transition: border-color .2s, background .2s;
 }
 .ev-club:hover { border-color: var(--cranberry); background: var(--cranberry-50); }
 .ev-org { font-size: .82rem; color: var(--ink-2); }
-.ev-add-sm { justify-content: center; width: 44px; height: 44px; border-radius: 12px; color: var(--muted); transition: background .2s, color .2s; }
+.ev-add-sm { gap: 5px; min-height: 30px; padding: 3px 11px 3px 8px; border-radius: 999px; border: 1px dashed color-mix(in srgb, var(--c) 45%, var(--line)); font-size: .8rem; font-weight: 700; color: var(--cfg); transition: background .2s, color .2s; }
+.ev-add-sm svg { width: 16px; height: 16px; }
 .ev-add-sm:hover { background: var(--cbg); color: var(--cfg); }
 .ev-empty { color: var(--ink-2); padding: 28px 20px; background: #fff; border: 1px dashed var(--line); border-radius: var(--r-lg); margin: 0; }
 .ev-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; }
@@ -667,7 +668,6 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .ev-dot { width: 36px; height: 36px; }
   .ev-dot svg { width: 18px; height: 18px; }
   .ev-day { font-size: 1.4rem; }
-  .ev-add-sm { grid-column: 3; justify-self: start; width: auto; height: 36px; padding: 0 8px; margin-top: 6px; }
   .ev-next { padding: 22px 18px; }
   .ev-chip { padding: 0 12px 0 10px; }
 }
@@ -859,7 +859,6 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 
   /* Dokunma alanları ≥44px */
   .ev-club, .m-club, .ev-add-sm, .main-nav a.lang-switch { min-height: 44px; }
-  .ev-add-sm { min-width: 44px; justify-content: center; }
   .link-btn { min-height: 44px; padding: 0 8px; }
 
   /* Kulüp bulucu: arama tam genişlik, seçimler tek satır yana kayar */
@@ -879,3 +878,28 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .org-pill b { padding: 3px 8px; }
   .org-pill span { font-size: .78rem; }
 }
+
+@media (max-width: 720px) {
+  /* 4'lü Özdenetim mobilde gösterilmez */
+  #ozdenetim, a[href$="#ozdenetim"] { display: none !important; }
+
+  /* Bölge 2430: tek ekrana sığsın */
+  #bolge { padding-block: 32px 28px; }
+  #bolge .section-head { margin-bottom: 8px; }
+  #bolge .section-lead, #bolge .map-note, #bolge .region-info, #bolge > .container > .hint { display: none; }
+  #bolge .tr-map { margin-bottom: 10px; }
+  #bolge .tr-map-canvas { padding-block: 0; }
+  #bolge .tr-map figcaption { margin-top: 6px; gap: 0; }
+  #bolge .map-hint { margin: 0 0 6px; }
+  #bolge .map-legend { gap: 4px 12px; font-size: .78rem; }
+  #bolge .map-legend .sw { width: 12px; height: 12px; }
+  #bolge .region-layout { display: block; }
+  /* Şehirler tek satırda yana kayar */
+  .province-board { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding: 4px 16px 6px; scroll-padding-inline: 16px; scroll-snap-type: x proximity; }
+  .province-board::-webkit-scrollbar { display: none; }
+  .province-board .prov-group, .province-board .prov-tiles { display: contents; }
+  .province-board .prov-group h4 { display: none; }
+  .province-board .prov { flex: none; min-height: 44px; padding: 8px 10px 8px 14px; scroll-snap-align: start; }
+}
+.ev-add-sm .kisa { display: none; }
+@media (max-width: 420px) { .ev-add-sm .uzun { display: none; } .ev-add-sm .kisa { display: inline; } .ev-who .ev-club, .ev-who .ev-add-sm { min-height: 40px; } }

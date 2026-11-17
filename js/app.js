@@ -545,7 +545,7 @@
     };
     const TUM_IKON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
     const EKLE_IKON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
-    const ADIM = 8;
+    const ADIM = 4;
     let tumu = [], filtre = "", gosterilen = ADIM, sayac = null;
 
     // Saatli etkinliklerde günü İstanbul saatine göre al (00:00–03:00 arası UTC'de önceki güne düşer)
@@ -653,9 +653,8 @@
           <p class="ev-top"><span class="ev-type">${esc(TUR[tur].ad)}</span><span class="ev-rel">${esc(ne(n))}</span></p>
           <h4 class="ev-title">${esc(ad)}</h4>
           <p class="ev-when"><time datetime="${esc(e.baslangic)}">${esc(tarihMetni(e))}</time>${e.yer ? ` · ${esc(e.yer)}` : ""}</p>
-          <div class="ev-who">${kimHtml(e, duzenleyen)}</div>
+          <div class="ev-who">${kimHtml(e, duzenleyen)}<a class="ev-add-sm" href="${esc(takvimLink(e, ad))}" target="_blank" rel="noopener" aria-label="${esc(ad)}: ${L("takvimime ekle", "add to my calendar")}">${EKLE_IKON}<span class="uzun">${L("Takvime ekle", "Add to calendar")}</span><span class="kisa">${L("Ekle", "Add")}</span></a></div>
         </div>
-        <a class="ev-add-sm" href="${esc(takvimLink(e, ad))}" target="_blank" rel="noopener" aria-label="${esc(ad)}: ${L("takvimime ekle", "add to my calendar")}" title="${L("Takvimime ekle", "Add to my calendar")}">${EKLE_IKON}</a>
       </li>`;
     };
 
