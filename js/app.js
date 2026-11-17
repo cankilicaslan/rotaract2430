@@ -173,8 +173,9 @@
     const sayi = {};
     KULUPLER.forEach((k) => (sayi[k.il] = (sayi[k.il] || 0) + 1));
     // Sağda Bakü için yer bırak (Azerbaycan'daki kulüp)
-    const bakuVar = KULUPLER.some((k) => k.il === "Bakü");
-    svg.setAttribute("viewBox", `0 0 ${M.w + (bakuVar ? 170 : 0)} ${M.h}`);
+    const BAKU = (window.TR_HARITA_EK || []).find((x) => x.ad === "Bakü");
+    const bakuVar = !!BAKU && KULUPLER.some((k) => k.il === "Bakü");
+    svg.setAttribute("viewBox", `0 0 ${bakuVar ? BAKU.genislik : M.w} ${M.h}`);
     const ns = "http://www.w3.org/2000/svg";
     svg.innerHTML = `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <rect width="6" height="6" class="hatch-bg"/><line x1="0" y1="0" x2="0" y2="6" class="hatch-line"/></pattern></defs>`;
@@ -221,10 +222,11 @@
       }
     });
 
-    // Bakü: Türkiye haritasının sağında, gerçek enlemine yakın bir noktada tek işaret
+    // Bakü: Türkiye illeriyle aynı ölçekte kendi sınırıyla, haritanın sağında (mesafe kısaltıldı)
     if (bakuVar) {
-      const n = sayi["Bakü"], x = M.w + 95, y = 115;
-      const g = document.createElementNS(ns, "g");
+      const n = sayi["Bakü"], [x, y] = BAKU.c;
+      const g = document.createElementNS(ns, "path");
+      g.setAttribute("d", BAKU.d);
       g.setAttribute("class", "il b2430 has-club il-baku");
       g.dataset.il = ilText("Bakü");
       g.dataset.ilKey = "Bakü";
@@ -232,12 +234,19 @@
       g.setAttribute("tabindex", "0");
       g.setAttribute("role", "button");
       g.setAttribute("aria-label", `${ilText("Bakü")}, ${L("Azerbaycan", "Azerbaijan")}, ${etiket["2430"]}, ${plural(n, "Rotaract kulübü", "Rotaract club", "Rotaract clubs")}. ${L("Kulüpleri listele", "List clubs")}`);
-      g.innerHTML = `<line class="baku-yol" x1="${M.w - 12}" y1="${y}" x2="${x - 24}" y2="${y}"/>
-        <circle cx="${x}" cy="${y}" r="20"/>
-        <text class="baku-n" x="${x}" y="${y}">${n}</text>
-        <text class="baku-ad" x="${x}" y="${y + 40}">${esc(ilText("Bakü"))}</text>
-        <text class="baku-ulke" x="${x}" y="${y + 60}">${esc(L("Azerbaycan", "Azerbaijan"))}</text>`;
-      svg.appendChild(g);
+      // Kesikli çizgi (uzakta olduğunu anlatır) + il gibi sayı etiketi + ad
+      const ek = document.createElementNS(ns, "g");
+      ek.setAttribute("class", "baku-ek");
+      ek.setAttribute("aria-hidden", "true");
+      ek.innerHTML = `<line class="baku-yol" x1="${M.w - 8}" y1="${y}" x2="${BAKU.sol - 6}" y2="${y}"/>
+        <text class="baku-ad" x="${x}" y="${y + 52}">${esc(ilText("Bakü"))}</text>
+        <text class="baku-ulke" x="${x}" y="${y + 70}">${esc(L("Azerbaycan", "Azerbaijan"))}</text>`;
+      gIl.appendChild(g);
+      svg.insertBefore(ek, gIl);
+      const t = document.createElementNS(ns, "text");
+      t.setAttribute("x", x); t.setAttribute("y", y);
+      t.textContent = n;
+      gLbl.appendChild(t);
     }
 
     const tip = $("#mapTip"), canvas = $(".tr-map-canvas");
@@ -469,22 +478,31 @@
 
   /* ---------- Yakında: bölge takviminden yaklaşan organizasyonlar ---------- */
   // Veri: data/etkinlikler.json (GitHub Actions günde birkaç kez Google Takvim'den üretir)
+  // Solda "sıradaki" kart + canlı geri sayım, sağda ay ay gruplanmış zaman çizelgesi.
   (async () => {
-    const list = $("#evList"), Ek = window.Etkinlik;
+    const list = $("#evList"), next = $("#evNext"), Ek = window.Etkinlik;
     if (!list || !Ek) return;
-    const TUR = { parti: L("Parti", "Party"), etkinlik: L("Etkinlik", "Event"), proje: L("Proje", "Project") };
-    const ADIM = 6;
-    let tumu = [], filtre = "", gosterilen = ADIM;
+    const TUR = {
+      parti: { ad: L("Parti", "Party"), ikon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 9 7l8 8z"/><path d="M13 3.5 14 2M19.5 9 22 8M17 5l2.5-2.5M15.5 10.5 21 5"/><circle cx="20" cy="13" r=".6" fill="currentColor"/><circle cx="11" cy="3" r=".6" fill="currentColor"/></svg>' },
+      etkinlik: { ad: L("Etkinlik", "Event"), ikon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.6l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/></svg>' },
+      proje: { ad: L("Proje", "Project"), ikon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4A5 5 0 0 1 12 6.4a5 5 0 0 1 9.3 4.7c-1.8 4.8-9.3 9.4-9.3 9.4z"/></svg>' }
+    };
+    const TUM_IKON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+    const EKLE_IKON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
+    const ADIM = 8;
+    let tumu = [], filtre = "", gosterilen = ADIM, sayac = null;
 
     // Saatli etkinliklerde günü İstanbul saatine göre al (00:00–03:00 arası UTC'de önceki güne düşer)
     const trGun = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Istanbul" });
     const ymd = (s) => (s.length > 10 ? trGun.format(new Date(s)) : s);
-    const bugun = trGun.format(new Date());
+    let bugun = trGun.format(new Date());
     const gunFarki = (s) => Math.round((Date.parse(`${ymd(s)}T00:00:00Z`) - Date.parse(`${bugun}T00:00:00Z`)) / 864e5);
     const ne = (n) => n < 0 ? L("Devam ediyor", "Happening now") : n === 0 ? L("Bugün", "Today")
       : n === 1 ? L("Yarın", "Tomorrow") : L(`${n} gün sonra`, `In ${n} days`);
     const gun = (s, o) => new Date(`${ymd(s)}T12:00:00Z`).toLocaleDateString(LOC, { timeZone: "UTC", ...o });
     const saat = (s) => new Date(s).toLocaleTimeString(LOC, { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+    const baslangicAni = (e) => Date.parse(e.tumGun ? `${e.baslangic}T00:00:00+03:00` : e.baslangic);
+    const bitisAni = (e) => e.tumGun ? Date.parse(`${e.bitis}T23:59:59+03:00`) : Date.parse(e.bitis);
 
     // "Ankara X Rotaract Kulübü-Etkinlik adı" -> düzenleyen + etkinlik adı
     const parcala = (baslik) => {
@@ -492,65 +510,149 @@
       const m = b.match(/^(.*Kul[uü]b[uü])\s*-\s*(.+)$/i);
       return m ? { duzenleyen: m[1].trim(), ad: m[2].trim() } : { duzenleyen: "", ad: b };
     };
-
-    const kart = (e) => {
-      const tur = Ek.turBul(e.baslik), { duzenleyen, ad } = parcala(e.baslik);
-      const kulupler = Ek.kulupBul(e.baslik, KULUPLER);
-      const grup = kulupler.length ? null : Ek.grupBul(e.baslik, KULUPLER);
-      const sorumlu = grup != null ? GOREVLILER.findIndex((g) => (g.grupNo || []).includes(grup)) : -1;
-      const n = gunFarki(e.baslangic);
+    const tarihMetni = (e) => {
       const cokGun = ymd(e.bitis) !== ymd(e.baslangic);
-      const tarihMetni = cokGun
+      return cokGun
         ? `${gun(e.baslangic, { day: "numeric", month: "short" })} – ${gun(e.bitis, { day: "numeric", month: "short" })}`
-        : gun(e.baslangic, { weekday: "long" }) + (e.tumGun ? "" : `, ${saat(e.baslangic)}`);
-      let kim;
-      if (kulupler.length) {
-        kim = kulupler.map((k) => `<button type="button" class="ev-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}</button>`).join("");
-      } else if (sorumlu >= 0) {
-        kim = `<button type="button" class="ev-club" data-person="${sorumlu}">${esc(grupText(grup))}</button>`;
-      } else {
-        kim = `<span class="ev-org">${esc(duzenleyen || L("Rotary Bölge 2430", "Rotary District 2430"))}</span>`;
+        : gun(e.baslangic, { day: "numeric", month: "long", weekday: "long" }) + (e.tumGun ? "" : `, ${saat(e.baslangic)}`);
+    };
+    // Google Takvim'e ekleme bağlantısı
+    const takvimLink = (e, ad) => {
+      const d = (s) => s.replace(/-/g, "");
+      const z = (s) => new Date(s).toISOString().replace(/[-:]|\.\d{3}/g, "");
+      const ertesi = (s) => { const t = new Date(`${s}T00:00:00Z`); t.setUTCDate(t.getUTCDate() + 1); return t.toISOString().slice(0, 10); };
+      const tarih = e.tumGun ? `${d(e.baslangic)}/${d(ertesi(e.bitis))}` : `${z(e.baslangic)}/${z(e.bitis)}`;
+      const q = new URLSearchParams({ action: "TEMPLATE", text: ad, dates: tarih, details: L("Rotaract Bölge 2430 takvimi", "Rotaract District 2430 calendar"), ctz: "Europe/Istanbul" });
+      if (e.yer) q.set("location", e.yer);
+      return `https://calendar.google.com/calendar/render?${q}`;
+    };
+    // Düzenleyen: kulüp düğmeleri, grup sorumlusu ya da düz metin
+    const kimHtml = (e, duzenleyen) => {
+      const kulupler = Ek.kulupBul(e.baslik, KULUPLER);
+      if (kulupler.length) return kulupler.map((k) => `<button type="button" class="ev-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}</button>`).join("");
+      const grup = Ek.grupBul(e.baslik, KULUPLER);
+      const sorumlu = grup != null ? GOREVLILER.findIndex((g) => (g.grupNo || []).includes(grup)) : -1;
+      if (sorumlu >= 0) return `<button type="button" class="ev-club" data-person="${sorumlu}">${esc(grupText(grup))}</button>`;
+      return `<span class="ev-org">${esc(duzenleyen || L("Rotary Bölge 2430", "Rotary District 2430"))}</span>`;
+    };
+
+    // ---- Sıradaki organizasyon kartı + geri sayım ----
+    const kutu = (id, etiket) => `<div class="cd-box" aria-hidden="true"><span class="cd-n" data-cd="${id}">00</span><span class="cd-l">${etiket}</span></div>`;
+    const sayacGuncelle = (e) => {
+      const kalan = baslangicAni(e) - Date.now();
+      const alan = $(".ev-countdown", next);
+      if (!alan) return;
+      if (kalan <= 0) {
+        alan.innerHTML = `<p class="cd-now">${L("Şu an devam ediyor!", "Happening right now!")}</p>`;
+        clearInterval(sayac);
+        // Bitince listeden düşür ve sıradakine geç
+        sayac = setTimeout(() => { tumu = tumu.filter((x) => bitisAni(x) >= Date.now()); filtreCiz(); ciz(); },
+          Math.min(Math.max(bitisAni(e) - Date.now(), 0) + 1000, 2 ** 31 - 1));
+        return;
       }
-      return `<li class="ev ev-${tur}">
+      const s = Math.floor(kalan / 1000);
+      const parca = { g: Math.floor(s / 86400), s: Math.floor((s % 86400) / 3600), d: Math.floor((s % 3600) / 60), sn: s % 60 };
+      const sr = $(".cd-sr", alan);
+      const cumle = L(`Başlamasına ${parca.g} gün ${parca.s} saat ${parca.d} dakika var`, `Starts in ${parca.g} days ${parca.s} hours ${parca.d} minutes`);
+      if (sr && sr.textContent !== cumle) sr.textContent = cumle;
+      for (const [k, v] of Object.entries(parca)) {
+        const el = $(`[data-cd="${k}"]`, alan);
+        const yeni = String(v).padStart(2, "0");
+        if (el && el.textContent !== yeni) { el.textContent = yeni; el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); }
+      }
+    };
+    const sirdakiCiz = (e) => {
+      clearInterval(sayac); clearTimeout(sayac); sayac = null;
+      next.setAttribute("aria-busy", "false");
+      if (!e) { next.hidden = true; return; }
+      next.hidden = false;
+      const tur = Ek.turBul(e.baslik), { duzenleyen, ad } = parcala(e.baslik);
+      next.className = `ev-next ev-${tur}`;
+      next.innerHTML = `
+        <p class="ev-next-label">${L("Sıradaki organizasyon", "Next up")}</p>
+        <p class="ev-badge">${TUR[tur].ikon}${esc(TUR[tur].ad)}</p>
+        <h3 class="ev-next-title">${esc(ad)}</h3>
+        <p class="ev-next-date"><time datetime="${esc(e.baslangic)}">${esc(tarihMetni(e))}</time></p>
+        ${e.yer ? `<p class="ev-place">${esc(e.yer)}</p>` : ""}
+        <div class="ev-who">${kimHtml(e, duzenleyen)}</div>
+        <div class="ev-countdown"><span class="sr-only cd-sr"></span>
+          ${kutu("g", L("gün", "days"))}${kutu("s", L("saat", "hrs"))}${kutu("d", L("dakika", "min"))}${kutu("sn", L("saniye", "sec"))}
+        </div>
+        <a class="btn btn-light btn-sm ev-add" href="${esc(takvimLink(e, ad))}" target="_blank" rel="noopener">${EKLE_IKON}${L("Takvimime ekle", "Add to my calendar")}</a>`;
+      sayacGuncelle(e);
+      if (baslangicAni(e) > Date.now()) sayac = setInterval(() => sayacGuncelle(e), 1000);
+    };
+
+    // ---- Zaman çizelgesi (ay ay) ----
+    const satir = (e, i, eski) => {
+      const tur = Ek.turBul(e.baslik), { duzenleyen, ad } = parcala(e.baslik);
+      const n = gunFarki(e.baslangic);
+      return `<li class="ev ev-${tur}${n <= 7 ? " ev-soon" : ""}${i < eski ? " ev-eski" : ""}" style="--i:${Math.min(Math.max(i - eski, 0), 8)}">
         <div class="ev-date" aria-hidden="true">
           <span class="ev-day">${esc(gun(e.baslangic, { day: "numeric" }))}</span>
-          <span class="ev-mon">${esc(gun(e.baslangic, { month: "short" }))}</span>
+          <span class="ev-wd">${esc(gun(e.baslangic, { weekday: "short" }))}</span>
         </div>
+        <span class="ev-dot" aria-hidden="true">${TUR[tur].ikon}</span>
         <div class="ev-body">
-          <p class="ev-top"><span class="ev-type">${esc(TUR[tur])}</span><span class="ev-when"><time datetime="${esc(e.baslangic)}">${esc(tarihMetni)}</time> · ${esc(ne(n))}</span></p>
-          <h3 class="ev-title">${esc(ad)}</h3>
-          ${e.yer ? `<p class="ev-place">${esc(e.yer)}</p>` : ""}
-          <div class="ev-who">${kim}</div>
+          <p class="ev-top"><span class="ev-type">${esc(TUR[tur].ad)}</span><span class="ev-rel">${esc(ne(n))}</span></p>
+          <h4 class="ev-title">${esc(ad)}</h4>
+          <p class="ev-when"><time datetime="${esc(e.baslangic)}">${esc(tarihMetni(e))}</time>${e.yer ? ` · ${esc(e.yer)}` : ""}</p>
+          <div class="ev-who">${kimHtml(e, duzenleyen)}</div>
         </div>
+        <a class="ev-add-sm" href="${esc(takvimLink(e, ad))}" target="_blank" rel="noopener" aria-label="${esc(ad)}: ${L("takvimime ekle", "add to my calendar")}" title="${L("Takvimime ekle", "Add to my calendar")}">${EKLE_IKON}</a>
       </li>`;
     };
 
-    const ciz = () => {
+    const filtreCiz = () => {
+      const say = (t) => tumu.filter((e) => !t || Ek.turBul(e.baslik) === t).length;
+      $("#evFilters").innerHTML = [["", L("Tümü", "All"), TUM_IKON], ...Object.entries(TUR).map(([k, v]) => [k, v.ad, v.ikon])]
+        .map(([k, ad, ikon]) => `<button type="button" class="ev-chip${k ? ` ev-chip-${k}` : ""}" data-tur="${k}" aria-pressed="${k === filtre}" aria-label="${ad} (${say(k)})">${ikon}<span>${ad}</span><span class="n">${say(k)}</span></button>`)
+        .join("");
+    };
+
+    let onceki = 0;
+    const ciz = (dahaFazla) => {
+      bugun = trGun.format(new Date());
+      const eski = dahaFazla ? onceki : 0;
       const liste = tumu.filter((e) => !filtre || Ek.turBul(e.baslik) === filtre);
-      list.innerHTML = liste.slice(0, gosterilen).map(kart).join("");
+      sirdakiCiz(liste[0]);
+      const kalan = liste.slice(1), gorunen = kalan.slice(0, gosterilen);
+      const aylar = [];
+      gorunen.forEach((e) => {
+        const anahtar = ymd(e.baslangic).slice(0, 7);
+        let ay = aylar.find((a) => a.anahtar === anahtar);
+        if (!ay) aylar.push(ay = { anahtar, liste: [] });
+        ay.liste.push(e);
+      });
+      let i = 0;
+      list.innerHTML = aylar.map((a) => {
+        const toplam = kalan.filter((e) => ymd(e.baslangic).startsWith(a.anahtar)).length;
+        const baslik = new Date(`${a.anahtar}-15T12:00:00Z`).toLocaleDateString(LOC, { month: "long", year: "numeric", timeZone: "UTC" });
+        return `<section class="ev-month"><h3 class="ev-month-title">${esc(baslik)} <span>${plural(toplam, "organizasyon", "event", "events")}</span></h3>
+          <ol class="ev-list">${a.liste.map((e) => satir(e, i++, eski)).join("")}</ol></section>`;
+      }).join("");
       $("#evEmpty").hidden = liste.length > 0;
       $("#evEmpty").textContent = filtre
         ? L(`Yakında bu türde organizasyon yok. "Tümü"ne bakın.`, `Nothing of this type coming up. Try "All".`)
         : L("Takvimde yaklaşan organizasyon yok.", "No upcoming events in the calendar.");
-      $("#evMore").hidden = liste.length <= gosterilen;
-      $$(".ev-chip").forEach((b) => {
-        const t = b.dataset.tur;
-        b.setAttribute("aria-pressed", t === filtre);
-        $(".n", b).textContent = ` ${tumu.filter((e) => !t || Ek.turBul(e.baslik) === t).length}`;
-      });
+      $("#evMore").hidden = kalan.length <= gosterilen;
+      onceki = gorunen.length;
+      const durum = $("#evStatus");
+      if (durum) durum.textContent = L(`${liste.length} organizasyon gösteriliyor`, `Showing ${liste.length} events`);
+      $$(".ev-chip").forEach((b) => b.setAttribute("aria-pressed", b.dataset.tur === filtre));
     };
 
     $("#evFilters").addEventListener("click", (e) => {
       const b = e.target.closest(".ev-chip"); if (!b) return;
       filtre = b.dataset.tur; gosterilen = ADIM; ciz();
     });
-    $("#evMore").addEventListener("click", () => { gosterilen += ADIM; ciz(); });
-    list.addEventListener("click", (e) => {
+    $("#evMore").addEventListener("click", () => { gosterilen += ADIM; ciz(true); });
+    $("#yakinda").addEventListener("click", (e) => {
       const c = e.target.closest("[data-club]"); if (c) return openClub(c.dataset.club);
       const p = e.target.closest("[data-person]"); if (p) openPerson(+p.dataset.person);
     });
 
-    list.innerHTML = '<li class="ev is-loading"></li>'.repeat(3);
+    next.innerHTML = '<div class="ev-skel"></div>';
     try {
       const res = await fetch(`${BASE}data/etkinlikler.json`, { cache: "no-cache" });
       if (!res.ok) throw new Error(res.status);
@@ -564,6 +666,7 @@
       console.warn("Takvim verisi alınamadı:", err);
       tumu = [];
     }
+    filtreCiz();
     ciz();
   })();
 
