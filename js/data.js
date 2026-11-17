@@ -256,5 +256,40 @@ window.ROTARY_BOLGELER = {
    -------------------------------------------------------------------------- */
 window.ORGANIZASYONLAR = [
   { id: "asamble", tur: "Asamble", turEn: "Assembly", site: "https://asambleinfinity.ankararotaract.org/", instagram: "https://www.instagram.com/asambleinfinity/" },
-  { id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "https://www.instagram.com/38.rotaractkonferansi/" }
+  {
+    id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "https://www.instagram.com/38.rotaractkonferansi/",
+    // Site duyurulana kadar sayfada gösterilen tanıtım
+    ad: "38. Rotaract Konferansı", adEn: "38th Rotaract Conference",
+    duzenleyen: "Mersin Rotaract Kulübü", duzenleyenEn: "Rotaract Club of Mersin", kulupId: "mersin",
+    tanim: [
+      "Bölge Konferansı, Rotaract yılının kapanış buluşmasıdır. Bölgedeki kulüpler dönemin sonuna doğru bir araya gelir; yıl boyunca üretilen projeler, verilen emekler ve kurulan dostluklar tek bir çatı altında görünür olur.",
+      "Asamble yeni döneme hazırlıksa, Konferans yaşanan dönemin hikâyesini birlikte anlatmaktır: neler yaptık, neler öğrendik, bir sonraki adımı nasıl daha güçlü atarız?"
+    ],
+    tanimEn: [
+      "The District Conference is the closing gathering of the Rotaract year. Clubs from across the district come together near the end of the term, and the projects, effort and friendships of the whole year meet under one roof.",
+      "If the Assembly prepares us for the new term, the Conference is where we tell the story of the year together: what we did, what we learned, and how we take the next step stronger."
+    ],
+    nedenler: [
+      ["Dönemi değerlendirmek", "Bölge ekibi ve kulüpler yıl boyunca yapılanları paylaşır; neyin işe yaradığını birlikte konuşur."],
+      ["Emeği görünür kılmak", "Öne çıkan projeler ve kulüpler tanınır, ödüllendirilir; iyi örnekler diğer kulüplere ilham olur."],
+      ["Öğrenmek ve ilham almak", "Oturumlar, konuşmacılar ve atölyelerle liderlik, proje ve iletişim becerileri gelişir."],
+      ["Bağları güçlendirmek", "Ankara'dan Bakü'ye farklı şehirlerden Rotaractörler tanışır; sosyal programlarla dostluk büyür."]
+    ],
+    nedenlerEn: [
+      ["Reviewing the year", "The district team and clubs share what they did during the year and talk about what worked."],
+      ["Recognising the work", "Standout projects and clubs are recognised and awarded; good examples inspire other clubs."],
+      ["Learning and inspiration", "Sessions, speakers and workshops build leadership, project and communication skills."],
+      ["Stronger bonds", "Rotaractors from Ankara to Baku meet in person, and social programmes turn contacts into friendships."]
+    ],
+    sirlar: [
+      ["tarih", "Tarih", "Rotary yılı bitmeden, takvimde bir hafta sonu çoktan işaretlendi. Hangisi olduğu şimdilik mühürlü."],
+      ["mekan", "Mekân", "Ev sahibi Mersin'den. Kapıların nerede açılacağı ise henüz zarfın içinde."],
+      ["konsept", "Konsept", "Bir tema, bir hikâye, bir renk paleti… İlk ipucu Instagram'a düştüğünde burada da olacak."]
+    ],
+    sirlarEn: [
+      ["tarih", "Date", "Before the Rotary year ends, a weekend is already circled on the calendar. Which one is still sealed."],
+      ["mekan", "Venue", "The host club is from Mersin. Where the doors will open is still inside the envelope."],
+      ["konsept", "Concept", "A theme, a story, a colour palette… When the first clue drops on Instagram, it will appear here too."]
+    ]
+  }
 ];

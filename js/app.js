@@ -764,8 +764,11 @@
         const o = orgs[k] || {}, a = ayar[k] || {};
         const tur = EN ? a.turEn || o.tur || k : a.tur || o.tur || k;
         const aktif = o.durum === "aktif";
-        const ad = aktif ? o.ad || tur : L(`${tur} henüz duyurulmadı`, `${tur} not announced yet`);
-        const alt = aktif ? (EN ? "" : o.slogan || o.altBaslik || "") : L("Tarih, yer ve tema açıklandığında burada yer alacak.", "Date, venue and theme will appear here once announced.");
+        const tanitim = !aktif && a.ad;
+        const ad = aktif ? o.ad || tur : tanitim ? (EN ? a.adEn || a.ad : a.ad) : L(`${tur} henüz duyurulmadı`, `${tur} not announced yet`);
+        const alt = aktif ? (EN ? "" : o.slogan || o.altBaslik || "")
+          : tanitim ? L(`Ev sahibi ${a.duzenleyen}. Tarih, mekân ve konsept şimdilik bir sır…`, `Hosted by the ${a.duzenleyenEn || a.duzenleyen}. Date, venue and concept are still a secret…`)
+          : L("Tarih, yer ve tema açıklandığında burada yer alacak.", "Date, venue and theme will appear here once announced.");
         const meta = aktif ? [o.tarih && ["tarih", tarihMetni(o.tarih)], o.yer && ["yer", o.yer]].filter(Boolean) : [];
         return `<a class="oc oc-${k}${aktif ? "" : " oc-bos"}" href="${k}.html">
           <span class="oc-tur">${esc(tur)}</span>
@@ -773,6 +776,7 @@
           ${aktif && o.altBaslik && !EN ? `<p class="oc-alt">${esc(o.altBaslik)}</p>` : ""}
           ${alt ? `<p class="oc-slogan">${esc(alt)}</p>` : ""}
           ${meta.length ? `<ul class="oc-meta">${meta.map(([t, v]) => `<li>${metaIkon[t]}${esc(v)}</li>`).join("")}</ul>` : ""}
+          ${tanitim ? `<ul class="oc-meta oc-sir">${[["tarih", L("Tarih", "Date")], ["yer", L("Mekân", "Venue")]].map(([t, v]) => `<li>${metaIkon[t]}${v}: <b aria-label="${L("henüz açıklanmadı", "not announced yet")}">???</b></li>`).join("")}</ul>` : ""}
           <span class="oc-cta">${L("Detayları gör", "See details")}${okIkon}</span>
         </a>`;
       }).join("");
@@ -792,6 +796,68 @@
         ${instagram ? `<a class="btn ${koyu ? "btn-ghost-light" : "btn-outline"}" href="${esc(instagram)}" target="_blank" rel="noopener">${ikon.ig}Instagram</a>` : ""}
         ${o.kayit ? `<a class="btn ${koyu ? "btn-ghost-light" : "btn-outline"}" href="${esc(o.kayit)}" target="_blank" rel="noopener">${L("Kayıt ol", "Register")}</a>` : ""}
       </div>`;
+
+    if (o.durum !== "aktif" && a.ad) {
+      const ad = EN ? a.adEn || a.ad : a.ad;
+      const duz = EN ? a.duzenleyenEn || a.duzenleyen : a.duzenleyen;
+      document.title = `${ad} · ${L("Rotaract Bölge 2430", "Rotaract District 2430")}`;
+      const kilit = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg>';
+      const sirIkon = {
+        tarih: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
+        mekan: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+        konsept: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9V16h5v-.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3z"/></svg>',
+      };
+      const nedenIkon = [
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8.5 13 7 21l5-3 5 3-1.5-8"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v14H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5V6.5"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5M14.5 14.6c2.6-.4 5.6.9 6.5 4.4"/></svg>',
+      ];
+      const ig = instagram ? `<a class="btn btn-light" href="${esc(instagram)}" target="_blank" rel="noopener">${ikon.ig}${L("İpuçları için takip et", "Follow for clues")}</a>` : "";
+      sayfa.innerHTML = `
+        <section class="org-hero org-hero-bos kf-hero">
+          <div class="kf-q" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>
+          <div class="container">
+            <p class="org-tur">${esc(tur)}</p>
+            <h1>${esc(ad)}</h1>
+            <p class="org-slogan">${L(`Ev sahibi <strong>${esc(duz)}</strong>. Bir sonraki büyük buluşmamız hazırlanıyor; tarih, mekân ve konsept şimdilik bir sır.`,
+              `Hosted by the <strong>${esc(duz)}</strong>. Our next big gathering is in the making; date, venue and concept are still a secret.`)}</p>
+            <div class="org-actions">${ig}<a class="btn btn-ghost-light" href="index.html#yakinda">${L("Yaklaşan organizasyonlar", "Upcoming events")}</a></div>
+          </div>
+        </section>
+        <section class="kf-sir"><div class="container">
+          <p class="eyebrow">${L("Henüz açıklanmadı", "Not announced yet")}</p>
+          <h2>${L("Zarfın içinde ne var?", "What's inside the envelope?")}</h2>
+          <div class="kf-kartlar">
+            ${(EN ? a.sirlarEn || a.sirlar : a.sirlar).map(([k, baslik, ipucu], i) => `
+              <article class="kf-kart" style="--i:${i}">
+                <div class="kf-ust"><span class="kf-ikon">${sirIkon[k] || ""}</span><span class="kf-kilit" title="${L("Mühürlü", "Sealed")}">${kilit}</span></div>
+                <h3>${esc(baslik)}</h3>
+                <p class="kf-gizli" aria-label="${L("henüz açıklanmadı", "not announced yet")}"><span aria-hidden="true">${"█".repeat(6 + i * 2)}</span></p>
+                <p class="kf-ipucu">${esc(ipucu)}</p>
+              </article>`).join("")}
+          </div>
+        </div></section>
+        <section class="section"><div class="container kf-tanim">
+          <div class="kf-tanim-metin">
+            <p class="eyebrow">${L("Konferans nedir?", "What is the Conference?")}</p>
+            <h2>${L("Dönemin hikâyesini birlikte anlatırız", "We tell the story of the year together")}</h2>
+            ${(EN ? a.tanimEn || a.tanim : a.tanim).map((p) => `<p>${esc(p)}</p>`).join("")}
+            <p class="kf-ev">${L("Bu yılın ev sahibi:", "This year's host:")} <a href="kulupler.html#${esc(a.kulupId || "")}">${esc(duz)}</a></p>
+          </div>
+          <div>
+            <h3 class="kf-neden-baslik">${L("Neden yapılır?", "Why do we hold it?")}</h3>
+            <ul class="kf-nedenler">
+              ${(EN ? a.nedenlerEn || a.nedenler : a.nedenler).map(([b, m], i) => `<li><span class="kf-n-ikon">${nedenIkon[i % 4]}</span><div><strong>${esc(b)}</strong><span>${esc(m)}</span></div></li>`).join("")}
+            </ul>
+          </div>
+        </div></section>
+        <section class="org-cta"><div class="container org-cta-inner">
+          <h2>${L("İlk ipucunu kaçırma", "Don't miss the first clue")}</h2>
+          <div class="org-actions">${ig}</div>
+        </div></section>`;
+      return;
+    }
 
     if (o.durum !== "aktif") {
       document.title = `${tur} · ${L("Rotaract Bölge 2430", "Rotaract District 2430")}`;
