@@ -49,7 +49,7 @@ p { margin: 0 0 1em; }
 
 .container { width: min(1200px, 100% - 32px); margin-inline: auto; }
 .muted { color: var(--muted); }
-.hint { color: var(--muted); font-size: .9rem; margin-top: 20px; }
+.hint { color: var(--muted); font-size: .9rem; margin: 14px 0 0; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -147,11 +147,11 @@ p { margin: 0 0 1em; }
 @keyframes ticker { to { transform: translateX(-50%); } }
 
 /* ---------- Sections ---------- */
-.section { padding: clamp(72px, 10vw, 116px) 0; }
+.section { padding: clamp(56px, 6.5vw, 84px) 0; }
 .section-tint { background: var(--bg-tint); }
 .section-dark { background: linear-gradient(160deg, #2A0F1D, #160810); color: #fff; }
 .section-dark .section-lead { color: rgba(255, 255, 255, .72); }
-.section-head { margin-bottom: 44px; max-width: 760px; }
+.section-head { margin-bottom: 32px; max-width: 760px; }
 .section-lead { font-size: 1.07rem; color: var(--ink-2); max-width: 40em; }
 .eyebrow { font-weight: 700; font-size: .95rem; color: var(--cranberry); margin-bottom: 10px; }
 .eyebrow-light { color: #FFB8D5; }
@@ -263,7 +263,7 @@ p { margin: 0 0 1em; }
 .insta-icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; }
 
 /* ---------- Team ---------- */
-.team-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 40px; }
+.team-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 32px; }
 .team-lead { list-style: none; margin: 0; padding: 0; }
 .team-lead .member.lead {
   list-style: none; display: flex; align-items: center; gap: 22px; padding: 26px 28px; border-radius: var(--r-lg);
@@ -289,14 +289,14 @@ p { margin: 0 0 1em; }
 .member .role { margin: 0; font-size: .86rem; color: rgba(255, 255, 255, .68); line-height: 1.35; }
 
 /* ---------- Four-Way Test ---------- */
-.fourway-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+.fourway-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: center; }
 .fourway { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); }
 .fourway li { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 16px; padding: 18px 4px; border-bottom: 1px solid var(--line); }
 .fourway .num { font-size: 2.6rem; font-weight: 800; font-style: italic; line-height: 1; color: var(--cranberry); }
 .fourway p { font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700; margin: 0; line-height: 1.3; }
 
 /* ---------- Rotary International ---------- */
-.ri-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+.ri-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; align-items: center; }
 .ri-copy p { color: var(--ink-2); font-size: 1.04rem; }
 .ri-emblem { width: 96px; height: 96px; border-radius: 50%; background: var(--royal); padding: 12px; margin-bottom: 22px; }
 .focus { background: #fff; border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow); border-top: 5px solid var(--gold); }
@@ -327,7 +327,7 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .fam-card.is-pending .fam-link { color: var(--muted); font-weight: 600; }
 
 /* ---------- CTA ---------- */
-.cta { background: linear-gradient(120deg, var(--cranberry), var(--cranberry-800)); color: #fff; padding: 72px 0; }
+.cta { background: linear-gradient(120deg, var(--cranberry), var(--cranberry-800)); color: #fff; padding: 60px 0; }
 .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .cta h2 { margin-bottom: 8px; }
 .cta p { opacity: .9; margin: 0; max-width: 34em; }
@@ -439,7 +439,7 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   --map-unk-bg: #F1ECF0;
   --map-unk-line: #BDB3BC;
 }
-.tr-map { margin: 0 0 56px; }
+.tr-map { margin: 0 0 32px; }
 .tr-map-canvas { position: relative; }
 .tr-map svg { display: block; width: 100%; height: auto; max-width: 100%; overflow: visible; }
 .tr-map .il { stroke: #fff; stroke-width: .8; stroke-linejoin: round; transition: filter .15s, opacity .15s; }
@@ -936,3 +936,6 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .oc-list { grid-template-columns: 1fr; gap: 12px; }
   .oc { min-height: 0; padding: 22px 20px 20px; }
 }
+
+/* Aynı zemindeki ardışık bölümler: araya çift boşluk girmesin */
+.ev-section + .org-sec { padding-top: 8px; }
