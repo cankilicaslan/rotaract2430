@@ -172,7 +172,9 @@
     const etiket = { "2420": `${B} 2420`, "2430": `${B} 2430`, "2440": `${B} 2440`, unk: L("Bölgesi doğrulanacak", "District to be confirmed") };
     const sayi = {};
     KULUPLER.forEach((k) => (sayi[k.il] = (sayi[k.il] || 0) + 1));
-    svg.setAttribute("viewBox", `0 0 ${M.w} ${M.h}`);
+    // Sağda Bakü için yer bırak (Azerbaycan'daki kulüp)
+    const bakuVar = KULUPLER.some((k) => k.il === "Bakü");
+    svg.setAttribute("viewBox", `0 0 ${M.w + (bakuVar ? 170 : 0)} ${M.h}`);
     const ns = "http://www.w3.org/2000/svg";
     svg.innerHTML = `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <rect width="6" height="6" class="hatch-bg"/><line x1="0" y1="0" x2="0" y2="6" class="hatch-line"/></pattern></defs>`;
@@ -219,6 +221,25 @@
       }
     });
 
+    // Bakü: Türkiye haritasının sağında, gerçek enlemine yakın bir noktada tek işaret
+    if (bakuVar) {
+      const n = sayi["Bakü"], x = M.w + 95, y = 115;
+      const g = document.createElementNS(ns, "g");
+      g.setAttribute("class", "il b2430 has-club il-baku");
+      g.dataset.il = ilText("Bakü");
+      g.dataset.ilKey = "Bakü";
+      g.dataset.info = `${etiket["2430"]} · ${L("Azerbaycan", "Azerbaijan")} · ${KULUPLER.filter((k) => k.il === "Bakü").map((k) => clubName(k.ad)).join(", ")}`;
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", `${ilText("Bakü")}, ${L("Azerbaycan", "Azerbaijan")}, ${etiket["2430"]}, ${plural(n, "Rotaract kulübü", "Rotaract club", "Rotaract clubs")}. ${L("Kulüpleri listele", "List clubs")}`);
+      g.innerHTML = `<line class="baku-yol" x1="${M.w - 12}" y1="${y}" x2="${x - 24}" y2="${y}"/>
+        <circle cx="${x}" cy="${y}" r="20"/>
+        <text class="baku-n" x="${x}" y="${y}">${n}</text>
+        <text class="baku-ad" x="${x}" y="${y + 40}">${esc(ilText("Bakü"))}</text>
+        <text class="baku-ulke" x="${x}" y="${y + 60}">${esc(L("Azerbaycan", "Azerbaijan"))}</text>`;
+      svg.appendChild(g);
+    }
+
     const tip = $("#mapTip"), canvas = $(".tr-map-canvas");
     const showTip = (path, x, y) => {
       tip.innerHTML = `<strong>${esc(path.dataset.il)}</strong><span>${esc(path.dataset.info)}</span>`;
@@ -239,10 +260,10 @@
       showTip(p, b.left + b.width / 2, b.top + b.height / 2);
     });
     svg.addEventListener("focusout", () => (tip.hidden = true));
-    svg.addEventListener("click", (e) => { const p = e.target.closest(".il.has-club"); if (p) showClubsOf(p.dataset.il); });
+    svg.addEventListener("click", (e) => { const p = e.target.closest(".il.has-club"); if (p) showClubsOf(p.dataset.ilKey || p.dataset.il); });
     svg.addEventListener("keydown", (e) => {
       const p = e.target.closest(".il.has-club");
-      if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showClubsOf(p.dataset.il); }
+      if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); showClubsOf(p.dataset.ilKey || p.dataset.il); }
     });
   })();
 

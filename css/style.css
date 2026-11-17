@@ -651,3 +651,17 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .org-grid { grid-template-columns: 1fr; }
   .org-card { padding: 22px 20px; }
 }
+
+/* Haritada Bakü işareti (Türkiye'nin sağında) */
+.tr-map .il-baku circle { stroke: #fff; stroke-width: 3; }
+.tr-map .il-baku .baku-yol { stroke: var(--map-2430-club); stroke-width: 2; stroke-dasharray: 4 5; fill: none; }
+.tr-map .il-baku text { text-anchor: middle; font-family: inherit; pointer-events: none; stroke: none; }
+.tr-map .il-baku .baku-n { fill: #fff; font-size: 15px; font-weight: 800; dominant-baseline: central; }
+.tr-map .il-baku .baku-ad { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.tr-map .il-baku .baku-ulke { fill: var(--muted); font-size: 13px; }
+.tr-map .il-baku:focus-visible circle { stroke: var(--ink); }
+@media (max-width: 720px) {
+  .tr-map .il-baku .baku-n { font-size: 22px; }
+  .tr-map .il-baku .baku-ad { font-size: 26px; }
+  .tr-map .il-baku .baku-ulke { font-size: 20px; }
+}
