@@ -446,6 +446,227 @@
     $("#feed").addEventListener("click", (e) => { const b = e.target.closest("[data-club]"); if (b) openClub(b.dataset.club); });
   }
 
+  /* ---------- Yakında: bölge takviminden yaklaşan organizasyonlar ---------- */
+  // Veri: data/etkinlikler.json (GitHub Actions günde birkaç kez Google Takvim'den üretir)
+  (async () => {
+    const list = $("#evList"), Ek = window.Etkinlik;
+    if (!list || !Ek) return;
+    const TUR = { parti: L("Parti", "Party"), etkinlik: L("Etkinlik", "Event"), proje: L("Proje", "Project") };
+    const ADIM = 6;
+    let tumu = [], filtre = "", gosterilen = ADIM;
+
+    // Saatli etkinliklerde günü İstanbul saatine göre al (00:00–03:00 arası UTC'de önceki güne düşer)
+    const trGun = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Istanbul" });
+    const ymd = (s) => (s.length > 10 ? trGun.format(new Date(s)) : s);
+    const bugun = trGun.format(new Date());
+    const gunFarki = (s) => Math.round((Date.parse(`${ymd(s)}T00:00:00Z`) - Date.parse(`${bugun}T00:00:00Z`)) / 864e5);
+    const ne = (n) => n < 0 ? L("Devam ediyor", "Happening now") : n === 0 ? L("Bugün", "Today")
+      : n === 1 ? L("Yarın", "Tomorrow") : L(`${n} gün sonra`, `In ${n} days`);
+    const gun = (s, o) => new Date(`${ymd(s)}T12:00:00Z`).toLocaleDateString(LOC, { timeZone: "UTC", ...o });
+    const saat = (s) => new Date(s).toLocaleTimeString(LOC, { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+
+    // "Ankara X Rotaract Kulübü-Etkinlik adı" -> düzenleyen + etkinlik adı
+    const parcala = (baslik) => {
+      const b = Ek.baslikTemizle(baslik);
+      const m = b.match(/^(.*Kul[uü]b[uü])\s*-\s*(.+)$/i);
+      return m ? { duzenleyen: m[1].trim(), ad: m[2].trim() } : { duzenleyen: "", ad: b };
+    };
+
+    const kart = (e) => {
+      const tur = Ek.turBul(e.baslik), { duzenleyen, ad } = parcala(e.baslik);
+      const kulupler = Ek.kulupBul(e.baslik, KULUPLER);
+      const grup = kulupler.length ? null : Ek.grupBul(e.baslik, KULUPLER);
+      const sorumlu = grup != null ? GOREVLILER.findIndex((g) => (g.grupNo || []).includes(grup)) : -1;
+      const n = gunFarki(e.baslangic);
+      const cokGun = ymd(e.bitis) !== ymd(e.baslangic);
+      const tarihMetni = cokGun
+        ? `${gun(e.baslangic, { day: "numeric", month: "short" })} – ${gun(e.bitis, { day: "numeric", month: "short" })}`
+        : gun(e.baslangic, { weekday: "long" }) + (e.tumGun ? "" : `, ${saat(e.baslangic)}`);
+      let kim;
+      if (kulupler.length) {
+        kim = kulupler.map((k) => `<button type="button" class="ev-club" data-club="${esc(k.id)}">${esc(shortName(k.ad))}</button>`).join("");
+      } else if (sorumlu >= 0) {
+        kim = `<button type="button" class="ev-club" data-person="${sorumlu}">${esc(grupText(grup))}</button>`;
+      } else {
+        kim = `<span class="ev-org">${esc(duzenleyen || L("Rotary Bölge 2430", "Rotary District 2430"))}</span>`;
+      }
+      return `<li class="ev ev-${tur}">
+        <div class="ev-date" aria-hidden="true">
+          <span class="ev-day">${esc(gun(e.baslangic, { day: "numeric" }))}</span>
+          <span class="ev-mon">${esc(gun(e.baslangic, { month: "short" }))}</span>
+        </div>
+        <div class="ev-body">
+          <p class="ev-top"><span class="ev-type">${esc(TUR[tur])}</span><span class="ev-when"><time datetime="${esc(e.baslangic)}">${esc(tarihMetni)}</time> · ${esc(ne(n))}</span></p>
+          <h3 class="ev-title">${esc(ad)}</h3>
+          ${e.yer ? `<p class="ev-place">${esc(e.yer)}</p>` : ""}
+          <div class="ev-who">${kim}</div>
+        </div>
+      </li>`;
+    };
+
+    const ciz = () => {
+      const liste = tumu.filter((e) => !filtre || Ek.turBul(e.baslik) === filtre);
+      list.innerHTML = liste.slice(0, gosterilen).map(kart).join("");
+      $("#evEmpty").hidden = liste.length > 0;
+      $("#evEmpty").textContent = filtre
+        ? L(`Yakında bu türde organizasyon yok. "Tümü"ne bakın.`, `Nothing of this type coming up. Try "All".`)
+        : L("Takvimde yaklaşan organizasyon yok.", "No upcoming events in the calendar.");
+      $("#evMore").hidden = liste.length <= gosterilen;
+      $$(".ev-chip").forEach((b) => {
+        const t = b.dataset.tur;
+        b.setAttribute("aria-pressed", t === filtre);
+        $(".n", b).textContent = ` ${tumu.filter((e) => !t || Ek.turBul(e.baslik) === t).length}`;
+      });
+    };
+
+    $("#evFilters").addEventListener("click", (e) => {
+      const b = e.target.closest(".ev-chip"); if (!b) return;
+      filtre = b.dataset.tur; gosterilen = ADIM; ciz();
+    });
+    $("#evMore").addEventListener("click", () => { gosterilen += ADIM; ciz(); });
+    list.addEventListener("click", (e) => {
+      const c = e.target.closest("[data-club]"); if (c) return openClub(c.dataset.club);
+      const p = e.target.closest("[data-person]"); if (p) openPerson(+p.dataset.person);
+    });
+
+    list.innerHTML = '<li class="ev is-loading"></li>'.repeat(3);
+    try {
+      const res = await fetch(`${BASE}data/etkinlikler.json`, { cache: "no-cache" });
+      if (!res.ok) throw new Error(res.status);
+      const veri = await res.json();
+      tumu = Ek.yaklasanlar(veri.etkinlikler || [], new Date());
+      if (veri.guncelleme) {
+        $("#evUpdated").textContent = L("Takvimdeki son değişiklik:", "Last calendar change:") + " " +
+          new Date(veri.guncelleme).toLocaleString(LOC, { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" }) + ".";
+      }
+    } catch (err) {
+      console.warn("Takvim verisi alınamadı:", err);
+      tumu = [];
+    }
+    ciz();
+  })();
+
+  /* ---------- Bölge organizasyonları: üst şerit + asamble/konferans sayfaları ---------- */
+  // Veri: data/organizasyonlar.json (GitHub Actions organizasyon sitelerinden günde 4 kez üretir)
+  (async () => {
+    const serit = $("#orgBar"), sayfa = $("#orgPage");
+    if (!serit && !sayfa) return;
+    let veri = {};
+    try {
+      const res = await fetch(`${BASE}data/organizasyonlar.json`, { cache: "no-cache" });
+      if (res.ok) veri = await res.json();
+    } catch (err) { console.warn("Organizasyon verisi alınamadı:", err); }
+    const orgs = veri.organizasyonlar || {};
+    const ayar = Object.fromEntries((window.ORGANIZASYONLAR || []).map((o) => [o.id, o]));
+    const tarihMetni = (t) => {
+      if (!t?.baslangic) return "";
+      if (!EN) return t.metin;
+      const g = (s, o) => new Date(`${s}T12:00:00Z`).toLocaleDateString("en-GB", { timeZone: "UTC", ...o });
+      return `${g(t.baslangic, { day: "numeric" })}–${g(t.bitis, { day: "numeric", month: "long", year: "numeric" })}`;
+    };
+
+    // Şerit: tarihleri veriden güncelle
+    $$("[data-org-pill]").forEach((a) => {
+      const o = orgs[a.dataset.orgPill];
+      const yer = $("[data-org-tarih]", a);
+      if (o?.durum === "aktif" && o.tarih) yer.textContent = tarihMetni(o.tarih);
+      else if (o?.durum === "yakinda") yer.textContent = L("Yakında", "Coming soon");
+    });
+    if (!sayfa) return;
+
+    const id = document.body.dataset.org, o = orgs[id] || {}, a = ayar[id] || {};
+    const tur = EN ? a.turEn || o.tur : a.tur || o.tur;
+    const instagram = a.instagram || o.instagram || "";
+    const ikon = {
+      site: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>',
+      ig: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>'
+    };
+    const butonlar = (koyu) => `
+      <div class="org-actions">
+        ${o.site ? `<a class="btn ${koyu ? "btn-light" : "btn-primary"}" href="${esc(o.site)}" target="_blank" rel="noopener">${ikon.site}${L("Organizasyon sitesine git", "Visit the event website")}</a>` : ""}
+        ${instagram ? `<a class="btn ${koyu ? "btn-ghost-light" : "btn-outline"}" href="${esc(instagram)}" target="_blank" rel="noopener">${ikon.ig}Instagram</a>` : ""}
+        ${o.kayit ? `<a class="btn ${koyu ? "btn-ghost-light" : "btn-outline"}" href="${esc(o.kayit)}" target="_blank" rel="noopener">${L("Kayıt ol", "Register")}</a>` : ""}
+      </div>`;
+
+    if (o.durum !== "aktif") {
+      document.title = `${tur} · ${L("Rotaract Bölge 2430", "Rotaract District 2430")}`;
+      sayfa.innerHTML = `
+        <section class="org-hero org-hero-bos"><div class="container">
+          <p class="org-tur">${esc(tur)}</p>
+          <h1>${L(`${esc(tur)} henüz duyurulmadı`, `The ${esc(tur.toLowerCase())} has not been announced yet`)}</h1>
+          <p class="org-slogan">${L("Tarih, yer ve web sitesi açıklandığında bu sayfa kendiliğinden güncellenecek. O zamana kadar bölgenin yaklaşan organizasyonlarına göz atın.",
+            "This page will update automatically once the date, venue and website are announced. Meanwhile, see what's coming up in the district.")}</p>
+          <div class="org-actions"><a class="btn btn-light" href="index.html#yakinda">${L("Yaklaşan organizasyonlar", "Upcoming events")}</a>
+          ${instagram ? `<a class="btn btn-ghost-light" href="${esc(instagram)}" target="_blank" rel="noopener">${ikon.ig}Instagram</a>` : ""}</div>
+        </div></section>`;
+      return;
+    }
+
+    document.title = `${o.ad} · ${L("Rotaract Bölge 2430", "Rotaract District 2430")}`;
+    const p = (dizi) => (dizi || []).map((s) => `<p>${esc(s)}</p>`).join("");
+    const kalan = o.tarih ? Math.ceil((Date.parse(`${o.tarih.baslangic}T00:00:00+03:00`) - Date.now()) / 864e5) : null;
+    const harita = o.yer ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(o.yer)}` : "";
+    const kaynak = new URL(o.site).hostname;
+    sayfa.innerHTML = `
+      <section class="org-hero"${o.gorsel ? ` style="--org-img:url('${esc(o.gorsel)}')"` : ""}>
+        <div class="container org-hero-inner">
+          <p class="org-tur">${esc(tur)}${o.altBaslik ? ` · ${esc(o.altBaslik)}` : ""}</p>
+          <h1>${esc(o.ad)}</h1>
+          ${o.slogan ? `<p class="org-slogan">${esc(o.slogan)}</p>` : ""}
+          <p class="org-when">
+            ${o.tarih ? `<span><strong>${esc(tarihMetni(o.tarih))}</strong>${kalan > 0 ? ` · ${L(`${kalan} gün kaldı`, `${kalan} days to go`)}` : ""}</span>` : ""}
+            ${o.yer ? `<span>${esc(o.yer)}</span>` : ""}
+          </p>
+          ${butonlar(true)}
+        </div>
+      </section>
+
+      <div class="container org-grid">
+        ${o.amac?.aciklama?.length ? `<section class="org-card org-card-wide">
+          <h2>${L("Ne amaçla yapılıyor?", "What is it for?")}</h2>
+          ${o.amac.alt ? `<p class="org-lead">${esc(o.amac.alt)}</p>` : ""}
+          ${p(o.amac.aciklama)}
+          ${o.odaklar?.length ? `<ul class="org-tags">${o.odaklar.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        </section>` : ""}
+
+        ${o.tema?.alt || o.slogan ? `<section class="org-card">
+          <h2>${L("Tema", "Theme")}</h2>
+          <p class="org-lead">${esc(o.ad)}${o.slogan ? `: ${esc(o.slogan)}` : ""}</p>
+          ${o.tema?.alt ? `<p><em>${esc(o.tema.alt)}</em></p>` : ""}
+          ${p(o.tema?.aciklama)}
+          ${o.tema?.degerler?.length ? `<ul class="org-tags">${o.tema.degerler.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        </section>` : ""}
+
+        ${o.duzenleyen || o.kisiler?.length ? `<section class="org-card">
+          <h2>${L("Kim düzenliyor?", "Who organises it?")}</h2>
+          ${o.duzenleyen ? `<p class="org-lead">${esc(o.duzenleyen)}</p>` : ""}
+          ${o.hakkinda?.[0] ? `<p>${esc(o.hakkinda[0])}</p>` : ""}
+          ${o.kisiler?.length ? `<ul class="org-people">${o.kisiler.map((k) => `<li><strong>${esc(k.ad)}</strong><span>${esc(k.gorev)}</span></li>`).join("")}</ul>` : ""}
+          ${o.ekipSayisi ? `<p class="org-note">${L(`Organizasyon ekibinde ${o.ekipSayisi} kişi var.`, `The organising team has ${o.ekipSayisi} members.`)}</p>` : ""}
+        </section>` : ""}
+
+        <section class="org-card">
+          <h2>${L("Tarih ve yer", "Date and venue")}</h2>
+          <dl class="org-facts">
+            ${o.tarih ? `<div><dt>${L("Tarih", "Date")}</dt><dd>${esc(tarihMetni(o.tarih))}</dd></div>` : ""}
+            ${o.yer ? `<div><dt>${L("Yer", "Venue")}</dt><dd>${esc(o.yer)}</dd></div>` : ""}
+            ${o.eposta ? `<div><dt>${L("E-posta", "Email")}</dt><dd><a href="mailto:${esc(o.eposta)}">${esc(o.eposta)}</a></dd></div>` : ""}
+          </dl>
+          ${harita ? `<a class="btn btn-outline btn-sm" href="${esc(harita)}" target="_blank" rel="noopener">${L("Haritada aç", "Open in Maps")}</a>` : ""}
+        </section>
+      </div>
+
+      <section class="org-cta"><div class="container org-cta-inner">
+        <h2>${esc(o.ad)}</h2>
+        ${butonlar(true)}
+      </div></section>
+
+      <p class="container org-source">${L(
+        `Bu sayfadaki bilgiler ${esc(kaynak)} adresinden otomatik alınır ve günde 4 kez kontrol edilir.${EN ? "" : ""}`,
+        `Details on this page are taken automatically from ${esc(kaynak)} (in Turkish) and checked 4 times a day.`)}
+        ${veri.guncelleme ? L(" Son değişiklik: ", " Last change: ") + esc(new Date(veri.guncelleme).toLocaleString(LOC, { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" })) + "." : ""}</p>`;
+  })();
+
   /* ---------- Görevliler ---------- */
   const lead = GOREVLILER.find((g) => g.vurgu);
   // İngilizce unvan/açıklama js/data-en.js içinden gelir (unvanEn, aciklamaEn)

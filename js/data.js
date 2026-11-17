@@ -245,3 +245,16 @@ window.ROTARY_BOLGELER = {
   dogrulanacak: ["Kocaeli", "Sakarya", "Yalova", "Bilecik", "Bolu", "Düzce", "Zonguldak", "Bartın",
                  "Karabük", "Kütahya", "Afyonkarahisar", "Uşak", "Isparta", "Burdur"]
 };
+
+/* --------------------------------------------------------------------------
+   BÖLGE ORGANİZASYONLARI — sitenin üst bandında ve kendi sayfalarında gösterilir
+   site:      organizasyonun web sitesi. Bilgiler (amaç, düzenleyen, tema, tarih,
+              yer) bu siteden GitHub Actions ile günde 2 kez otomatik çekilir
+              (scripts/organizasyon.mjs -> data/organizasyonlar.json).
+   instagram: Instagram hesabının tam adresi (sitede bulunamazsa buraya yazın)
+   site boşsa sayfada "henüz duyurulmadı" yazar.
+   -------------------------------------------------------------------------- */
+window.ORGANIZASYONLAR = [
+  { id: "asamble", tur: "Asamble", turEn: "Assembly", site: "https://asambleinfinity.ankararotaract.org/", instagram: "" },
+  { id: "konferans", tur: "Konferans", turEn: "Conference", site: "", instagram: "" }
+];

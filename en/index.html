@@ -18,6 +18,19 @@
 </head>
 <body>
 
+<!-- ============ ORGANİZASYON ŞERİDİ ============ -->
+<div class="org-bar" id="orgBar">
+  <div class="container org-bar-inner">
+    <span class="org-bar-label">District events</span>
+    <a class="org-pill org-pill-asamble" href="asamble.html" data-org-pill="asamble">
+      <b>Assembly</b><span data-org-tarih>5–7 March 2027</span>
+    </a>
+    <a class="org-pill org-pill-konferans" href="konferans.html" data-org-pill="konferans">
+      <b>Conference</b><span data-org-tarih>Coming soon</span>
+    </a>
+  </div>
+</div>
+
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="header">
   <div class="container header-inner">
@@ -27,6 +40,7 @@
     <nav class="main-nav" id="mainNav" aria-label="Main menu">
       <a href="#bolge">District</a>
       <a href="kulupler.html">Club finder</a>
+      <a href="#yakinda">Upcoming</a>
       <a href="#akis">This week</a>
       <a href="#gorevliler">District team</a>
       <a href="#ozdenetim">Four-Way Test</a>
@@ -122,6 +136,31 @@
         <p class="section-lead">Search by city, district, club or president, and see each club's president, venue, meeting day and time.</p>
       </div>
       <a href="kulupler.html" class="btn btn-primary btn-lg">Open the club finder</a>
+    </div>
+  </section>
+
+  <!-- ============ YAKINDA (bölge takvimi) ============ -->
+  <section class="section section-tint" id="yakinda">
+    <div class="container">
+      <div class="section-head section-head-row">
+        <div>
+          <p class="eyebrow">District calendar</p>
+          <h2>What's coming up?</h2>
+          <p class="section-lead">Upcoming parties, events and projects from our clubs and the district. The list updates automatically from the district calendar several times a day; click a club to open its details.</p>
+        </div>
+        <div class="ev-filters" id="evFilters" role="group" aria-label="Filter by type">
+          <button type="button" class="ev-chip" data-tur="" aria-pressed="true">All<span class="n"></span></button>
+          <button type="button" class="ev-chip" data-tur="parti" aria-pressed="false">Party<span class="n"></span></button>
+          <button type="button" class="ev-chip" data-tur="etkinlik" aria-pressed="false">Event<span class="n"></span></button>
+          <button type="button" class="ev-chip" data-tur="proje" aria-pressed="false">Project<span class="n"></span></button>
+        </div>
+      </div>
+      <ol class="ev-list" id="evList" aria-live="polite"></ol>
+      <p class="ev-empty" id="evEmpty" hidden></p>
+      <div class="ev-foot">
+        <button type="button" class="btn btn-outline btn-sm" id="evMore" hidden>Show more</button>
+        <p class="ev-meta"><span id="evUpdated"></span> <a href="https://calendar.google.com/calendar/embed?src=4ac81012596c6ed97410d0d7dd0fbdb896f464ecaa55b26d8ead80ca5c4f2ba6%40group.calendar.google.com&amp;ctz=Europe%2FIstanbul" target="_blank" rel="noopener">Open in Google Calendar</a></p>
+      </div>
     </div>
   </section>
 
@@ -306,6 +345,7 @@
 <script src="../js/data.js"></script>
 <script src="../js/data-en.js"></script>
 <script src="../js/harita.js"></script>
+<script src="../js/etkinlik.js"></script>
 <script src="../js/app.js"></script>
 </body>
 </html>

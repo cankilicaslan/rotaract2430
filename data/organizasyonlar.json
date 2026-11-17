@@ -1,0 +1,76 @@
+{
+  "guncelleme": "2026-11-17T17:44:02.035Z",
+  "organizasyonlar": {
+    "asamble": {
+      "tur": "Asamble",
+      "ad": "Asamble Infinity",
+      "slogan": "Geçmişten geleceğe sınırsız etki",
+      "aciklama": "UR Bölge 2430 39. Rotaract Asamblesi — Asamble Infinity. Geçmişten geleceğe sınırsız etki. 5–7 Mart 2027, Antalya.",
+      "tarih": {
+        "baslangic": "2027-03-05",
+        "bitis": "2027-03-07",
+        "metin": "5–7 Mart 2027"
+      },
+      "gorsel": "https://asambleinfinity.ankararotaract.org/og-image.jpg",
+      "site": "https://asambleinfinity.ankararotaract.org/",
+      "durum": "aktif",
+      "altBaslik": "39. Rotaract Asamblesi",
+      "duzenleyen": "Ankara Rotaract Kulübü & Asamble Infinity Ekibi",
+      "hakkinda": [
+        "Ankara Rotaract Kulübü, farklı yetkinliklere ve bakış açılarına sahip genç bireyleri bir araya getiren; dostluğu, dayanışmayı ve hizmet bilincini benimseyen bir topluluktur.",
+        "Bizim için Ankara Rotaract, yalnızca projeler üretmekten ibaret değil; fikirlerimizi gerçeğe dönüştürdüğümüz, birlikte geliştiğimiz ve her adımda daha iyisini hedeflediğimiz bir yolculuktur. Farklılıklarımızdan güç alarak yeni fikirler üretmeyi ve kalıcı değerler yaratmayı amaçlıyoruz.",
+        "Asamble Infinity ekibi olarak, sürecin her aşamasını özen ve profesyonellikle yönetirken ekip ruhumuzu ve işimize duyduğumuz heyecanı da koruyoruz. Hedefimiz, birlikte çalışmanın keyfini yansıtan ve hafızalarda yer edecek bir asamble deneyimi sunmak."
+      ],
+      "tema": {
+        "alt": "Bir insanda başlayan hizmet, başka hayatlarda devam eder",
+        "aciklama": [
+          "Infinity burada yalnızca sonsuzluk değil; devredilen cesareti, taşınan dostluğu ve büyüyen etkiyi temsil eder. Rotaract'ın sürekliliği aynı insanların hep kalmasında değil, her yeni neslin aldığı emanete kendinden yeni bir anlam katmasındadır."
+        ],
+        "degerler": [
+          "İnsan",
+          "Bağ",
+          "Eylem",
+          "Süreklilik"
+        ]
+      },
+      "amac": {
+        "alt": "Yeni dönemin ilk adımı",
+        "aciklama": [
+          "Bölge Asamblesi, Rotaract yılının en önemli hazırlık etkinliğidir. Her yıl temmuzda başlayacak yeni döneme yönelik olarak mart ayında düzenlenir. Başkanlar, sekreterler, saymanlar ve komite başkanları gibi kilit görevlerdeki üyelere görev, sorumluluk ve dönem vizyonu konusunda donanım kazandırır.",
+          "Aynı zamanda kulüpler arası bağı güçlendiren sosyal deneyimler ve networking fırsatları sunar."
+        ]
+      },
+      "odaklar": [
+        "Liderlik gelişimi",
+        "Proje yönetimi",
+        "İletişim ve PR",
+        "Uluslararası hizmet",
+        "Üyelik gelişimi",
+        "Kulüp yönetimi ve paylaşım"
+      ],
+      "kayit": "https://asambleinfinity.ankararotaract.org/booking",
+      "ekipSayisi": 16,
+      "kisiler": [
+        {
+          "ad": "Mert Keleş",
+          "gorev": "UR Bölge 2430 Bölge Rotaract Temsilcisi"
+        },
+        {
+          "ad": "Zeynep Sude Zarif",
+          "gorev": "UR Bölge 2430 Ankara Rotaract Kulübü 2026-2027 Dönem Başkanı"
+        },
+        {
+          "ad": "Irmak Seren Serdar",
+          "gorev": "Asamble Infinity Ana Komite Başkanı"
+        }
+      ],
+      "yer": "Pine Beach Belek, Antalya",
+      "eposta": "asambleinfinity.rotaract@gmail.com"
+    },
+    "konferans": {
+      "tur": "Konferans",
+      "durum": "yakinda",
+      "instagram": ""
+    }
+  }
+}

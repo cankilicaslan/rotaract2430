@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Konferans · Rotaract Bölge 2430</title>
+  <meta name="description" content="Rotaract Bölge 2430 konferans: amacı, düzenleyeni, teması, tarihi ve yeri.">
+  <meta name="theme-color" content="#D41367">
+  <link rel="alternate" hreflang="tr" href="konferans.html">
+  <link rel="alternate" hreflang="en" href="en/konferans.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-org="konferans">
+
+<!-- ============ ORGANİZASYON ŞERİDİ ============ -->
+<div class="org-bar" id="orgBar">
+  <div class="container org-bar-inner">
+    <span class="org-bar-label">Bölge organizasyonları</span>
+    <a class="org-pill org-pill-asamble" href="asamble.html" data-org-pill="asamble">
+      <b>Asamble</b><span data-org-tarih>5–7 Mart 2027</span>
+    </a>
+    <a class="org-pill org-pill-konferans" href="konferans.html" data-org-pill="konferans" aria-current="page">
+      <b>Konferans</b><span data-org-tarih>Yakında</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="Rotaract Bölge 2430 ana sayfa">
+      <img src="assets/rotaract-2430.png" alt="Rotaract Bölge 2430" class="brand-logo">
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Ana menü">
+      <a href="index.html#bolge">Bölge</a>
+      <a href="kulupler.html" >Kulüp bulucu</a>
+      <a href="index.html#akis">Bu hafta</a>
+      <a href="index.html#gorevliler">Bölge ekibi</a>
+      <a href="index.html#ozdenetim">4'lü Özdenetim</a>
+      <a href="index.html#aile">Rotary ailesi</a>
+      <a href="en/konferans.html" class="lang-switch" hreflang="en" lang="en" aria-label="English version">EN</a>
+      <a href="index.html#katil" class="btn btn-sm btn-primary nav-cta">Katıl</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <nav class="crumbs container" aria-label="Konum"><a href="index.html">Ana sayfa</a><span aria-hidden="true">/</span><span>Konferans</span></nav>
+
+  <div class="org-page" id="orgPage" aria-live="polite"></div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="assets/rotaract-2430.png" alt="Rotaract Bölge 2430" class="footer-logo">
+      <p class="muted">Uluslararası Rotary 2430. Bölge Rotaract kulüpleri</p>
+      <img src="assets/tema-beyaz.png" alt="Kalıcı Etki Yarat" class="footer-theme">
+    </div>
+    <div>
+      <h4>Keşfet</h4>
+      <a href="index.html#bolge">Bölge</a>
+      <a href="kulupler.html">Kulüp bulucu</a>
+      <a href="index.html#akis">Bu hafta</a>
+      <a href="index.html#gorevliler">Bölge ekibi</a>
+    </div>
+    <div>
+      <h4>Rotary ailesi</h4>
+      <a href="#" data-link="rotaryInternational" target="_blank" rel="noopener">Uluslararası Rotary</a>
+      <a href="#" data-link="rotary2430" target="_blank" rel="noopener">Rotary 2430</a>
+      <a href="#" data-link="interact2430" target="_blank" rel="noopener">Interact 2430</a>
+      <a href="#" data-link="myRotary" target="_blank" rel="noopener">My Rotary</a>
+    </div>
+    <div>
+      <h4>İletişim</h4>
+      <a href="#" data-social="instagram" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" data-social="youtube" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" id="footerMail"></a>
+      <a href="en/konferans.html" hreflang="en" lang="en">English</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Rotaract Bölge 2430</span>
+    <span class="muted">Rotary, Rotaract ve Interact markaları Uluslararası Rotary'ye aittir.</span>
+  </div>
+</footer>
+
+<!-- ============ KULÜP MODAL ============ -->
+<div class="modal" id="clubModal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close aria-label="Kapat">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
