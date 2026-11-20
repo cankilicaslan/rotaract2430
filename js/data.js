@@ -240,10 +240,10 @@ window.GOREVLILER = [
    Doğrulandıkça ilgili listeye taşıyın.
    -------------------------------------------------------------------------- */
 window.ROTARY_BOLGELER = {
-  "2420": ["İstanbul", "Edirne", "Kırklareli", "Tekirdağ"],
+  // Kaynak: rotary2430.org.tr Bölge Haritası. Listede olmayan iller Bölge 2430'dadır.
+  "2420": ["İstanbul", "Edirne", "Kırklareli", "Tekirdağ", "Kocaeli", "Yalova"],
   "2440": ["Çanakkale", "Balıkesir", "Bursa", "Manisa", "İzmir", "Aydın", "Muğla", "Denizli"],
-  dogrulanacak: ["Kocaeli", "Sakarya", "Yalova", "Bilecik", "Bolu", "Düzce", "Zonguldak", "Bartın",
-                 "Karabük", "Kütahya", "Afyonkarahisar", "Uşak", "Isparta", "Burdur"]
+  dogrulanacak: []
 };
 
 /* --------------------------------------------------------------------------
