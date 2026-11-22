@@ -44,7 +44,6 @@ window.ILLER = [
   { il: "Adana",     bolge: "Akdeniz" },
   { il: "Hatay",     bolge: "Akdeniz" },
   { il: "Samsun",    bolge: "Karadeniz" },
-  { il: "Trabzon",   bolge: "Karadeniz" },
   { il: "Amasya",    bolge: "Karadeniz" },
   { il: "Gaziantep", bolge: "Güneydoğu Anadolu" },
   { il: "Bakü",      bolge: "Azerbaycan" }
@@ -128,8 +127,6 @@ window.KULUPLER = [
     toplanti: T("Salı", "19:00", "Sheraton Hotel", "", { adres: "Liman, Atatürk Bulvarı No:55, İlkadım/Samsun 55100" }), instagram: "canikrotaract" },
   { id: "ilkadim-1919", ad: "İlkadım 1919 Rotaract Kulübü", il: "Samsun", ilce: "İlkadım", grup: "5-6", baskan: "Veli Can Erdoğan", baskanFoto: "assets/foto/veli-can-erdogan.jpg", eposta: "veli.c0709@gmail.com",
     toplanti: T("Perşembe", "19:00", "Samsun Anemon Hotel", "", { adres: "Yenimahalle, Çarşamba Cad. No:52, Canik/Samsun 55080" }) },
-  { id: "trabzon-ortahisar", ad: "Trabzon Ortahisar Rotaract Kulübü", il: "Trabzon", ilce: "Ortahisar", grup: "5-6", baskan: "Hamza İrtem", eposta: "irtembusiness@gmail.com",
-    toplanti: T("Salı", "18:30", "Mercure Hotel", "", { adres: "Yalıncak Mah., Rize Caddesi No:50, Ortahisar/Trabzon 61299" }) },
   { id: "amasya-yesilirmak", ad: "Amasya Yeşilırmak Rotaract Kulübü", il: "Amasya", ilce: "Merkez", grup: "5-6", baskan: "Simge Kılınç", baskanFoto: "assets/foto/simge-kilinc.jpg", eposta: "simgekilinc21@gmail.com",
     toplanti: T("Pazar", "20:00", "Eysa Etkinlik Salonu", "", { format: "Yüz yüze ve çevrim içi (Zoom)", adres: "Alptekin Sok. No:31/A, Amasya 05100" }) },
 
