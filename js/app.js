@@ -377,7 +377,7 @@
       showClubsOf(p.dataset.ilKey || p.dataset.il);
     });
     // Mobilde kaydırılabilir haritayı Bölge 2430'un ortasına getir
-    canvas.insertAdjacentHTML("afterend", `<p class="map-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg>${L("Haritayı yana kaydırın, ile dokunun", "Swipe the map, tap a province")}</p>`);
+    canvas.insertAdjacentHTML("afterend", `<p class="map-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>${L("Kulüpleri görmek için ile iki kez dokunun", "Tap a province twice to see its clubs")}</p>`);
     if (canvas.scrollWidth > canvas.clientWidth) canvas.scrollLeft = (canvas.scrollWidth - canvas.clientWidth) * 0.45;
     svg.addEventListener("keydown", (e) => {
       const p = e.target.closest(".il.has-club");
@@ -847,8 +847,12 @@
     $$("[data-org-pill]").forEach((a) => {
       const o = orgs[a.dataset.orgPill];
       const yer = $("[data-org-tarih]", a);
-      if (o?.durum === "aktif" && o.tarih) yer.textContent = tarihMetni(o.tarih);
-      else if (o?.durum === "yakinda") yer.textContent = ayar[a.dataset.orgPill]?.tarih ? tarihMetni(ayar[a.dataset.orgPill].tarih) : L("Yakında", "Coming soon");
+      const t = o?.durum === "aktif" && o.tarih ? o.tarih : o?.durum === "yakinda" ? ayar[a.dataset.orgPill]?.tarih : null;
+      if (t) {
+        yer.textContent = tarihMetni(t);
+        const g = (s, op) => new Date(`${s}T12:00:00Z`).toLocaleDateString(LOC, { timeZone: "UTC", ...op });
+        yer.dataset.kisa = `${g(t.baslangic, { day: "numeric" })}–${g(t.bitis, { day: "numeric" })} ${g(t.bitis, { month: "short" }).replace(".", "")}`;
+      } else if (o?.durum === "yakinda") { yer.textContent = L("Yakında", "Coming soon"); yer.dataset.kisa = yer.textContent; }
     });
 
     // Ana sayfa: Asamble ve Konferans kartları (site içi sayfalara gider)
