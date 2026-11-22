@@ -1,0 +1,213 @@
+{
+ "ankara-incek": {
+  "guid": "53c2fa10-ed58-44cd-9e9e-77b48dbe6387",
+  "iz": "fa89dd11"
+ },
+ "ankara-anittepe": {
+  "guid": "d58c0ad9-e5c9-4076-b5a9-09803cf7a55b",
+  "iz": "f9791273"
+ },
+ "ankara-ulus": {
+  "guid": "3d35bae4-59f1-43df-b11e-2c543041f800",
+  "iz": "dd89aa82"
+ },
+ "ankara-kavaklidere": {
+  "guid": "54198c47-e1a6-4dba-b8ab-2a1ced32b301",
+  "iz": "212f5884"
+ },
+ "ankara": {
+  "guid": "a046fcda-7585-4914-a9cb-efebd416d020",
+  "iz": "058843dc"
+ },
+ "cankaya": {
+  "guid": "d72a7277-e7d1-4def-b8a6-bdc9cbe02d61",
+  "iz": "bf128352"
+ },
+ "anadolu-evrensel": {
+  "guid": "90316faa-6f90-4d71-9f20-fe64e4bdc8bb",
+  "iz": "7c1de152"
+ },
+ "ankara-kizilay": {
+  "guid": "3872117d-7042-46c2-86f1-25f13d28b5ff",
+  "iz": "e4db1cc5"
+ },
+ "ankara-cayyolu": {
+  "guid": "6b95460a-d561-4202-b09a-d6f775a7ecef"
+ },
+ "ankara-gaziosmanpasa": {
+  "guid": "4bdad37e-b9a2-4ec7-abe4-9922aa9e6745",
+  "iz": "84a2dda1"
+ },
+ "ankara-beysukent": {
+  "guid": "6f9848f5-7d76-4c05-94fa-722ff8c92657",
+  "iz": "ff9ad8dd"
+ },
+ "ankara-international": {
+  "guid": "39433e5d-1438-4824-99cc-db7af5d5731a",
+  "iz": "2ef6f3bc"
+ },
+ "gazi": {
+  "guid": "714d52d2-7752-4552-b0d1-fe381b19660f",
+  "iz": "0827d083"
+ },
+ "konya-meram": {
+  "guid": "514d71b8-6c1e-4173-9957-fad6562ca0ea",
+  "iz": "61abba91"
+ },
+ "ankara-kocatepe": {
+  "guid": "4b67ca1c-750c-41b0-a171-6c7a954cd98c",
+  "iz": "656d8847"
+ },
+ "ankara-tandogan": {
+  "guid": "fb486718-ff85-40c1-80ec-0a0659721b7d",
+  "iz": "4989824d"
+ },
+ "ankara-baskent": {
+  "guid": "0ce51c34-81c3-4da5-b6cb-7002c8f52ee4",
+  "iz": "183b9ff4"
+ },
+ "ankara-maltepe": {
+  "guid": "0500692a-9bd9-4c26-842e-da6e7ae908e8",
+  "iz": "30ec5701"
+ },
+ "ankara-koru": {
+  "guid": "1076283a-bcd7-426d-b52b-4558882e84d2",
+  "iz": "dfc0556d"
+ },
+ "ankara-bahcelievler": {
+  "guid": "4bff848f-805b-4362-bcc8-d2a9104ed0f9",
+  "iz": "bddb4b03"
+ },
+ "mersin-kizkalesi": {
+  "guid": "e7924686-5bd4-4d3b-a63a-a93f260b6be5",
+  "iz": "2579ea91"
+ },
+ "mersin": {
+  "guid": "963a562a-a137-4acc-b253-7ec61e24d5a4",
+  "iz": "abaf3db6"
+ },
+ "akdeniz": {
+  "guid": "fe428a81-1095-4e06-a542-f11c1a3ec567",
+  "iz": "06383397"
+ },
+ "mersin-toros": {
+  "guid": "f7a415eb-cba5-4350-a550-f3095bc136fa",
+  "iz": "a687d0cc"
+ },
+ "tarsus": {
+  "guid": "70ea1f87-93c4-4579-abf6-03bb4b9f94e7",
+  "iz": "f37c9f32"
+ },
+ "samsun": {
+  "guid": "b565f71c-f458-4b8c-bdd1-ee410583ff8f"
+ },
+ "samsun-atakum": {
+  "guid": "300ce5eb-765d-4d25-9538-c838f842114c",
+  "iz": "54c8fa48"
+ },
+ "samsun-canik": {
+  "guid": "059929b9-d56f-495c-b17d-1314b140d836",
+  "iz": "9cf867f3"
+ },
+ "ilkadim-1919": {
+  "guid": "1c64bf49-332b-45bf-b464-665f16ef3f0c",
+  "iz": "36a2d4b9"
+ },
+ "trabzon-ortahisar": {
+  "guid": "7ad6a9fe-ef65-4eb7-a5e5-352d2e9b47ee",
+  "iz": "90c2a533"
+ },
+ "amasya-yesilirmak": {
+  "guid": "6e960cfa-71ce-4958-aaf1-7998fc54d54c",
+  "iz": "34cef07c"
+ },
+ "alanya": {
+  "guid": "cf66c4a8-d4da-4162-9e25-cd8bb9a2df42",
+  "iz": "8d9f68e9"
+ },
+ "antalya": {
+  "guid": "8c8f8ab8-2cf3-4d26-a16d-689a396ec983",
+  "iz": "313683fa"
+ },
+ "antalya-aspendos": {
+  "guid": "7ff29957-5c5b-4da9-8afe-c8ae26297bf3",
+  "iz": "9079e3e9"
+ },
+ "antalya-falez": {
+  "guid": "272d2ca1-9fe9-46eb-ba73-8ae390318fdd"
+ },
+ "antalya-kaleici": {
+  "guid": "f79d4cea-2f3a-4cd0-9dcb-ad3ec4e1efc9",
+  "iz": "b389caf8"
+ },
+ "antalya-perge": {
+  "guid": "8116c169-ec17-4656-a4b3-88adfb484761",
+  "iz": "c084f732"
+ },
+ "baku-khazar": {
+  "guid": "7dd85534-00d6-4a5f-967c-3b520f9501d0",
+  "iz": "b3adf9d7"
+ },
+ "gaziantep-alleben": {
+  "guid": "cbd64200-a197-4b33-a764-56ebdd5a05a8",
+  "iz": "e5ae7ef7"
+ },
+ "gaziantep-ipekyolu": {
+  "guid": "61365687-5d73-4b0e-9694-700e47497c01",
+  "iz": "9a04b5af"
+ },
+ "gaziantep-kavaklik": {
+  "guid": "f99a962b-d126-49f1-9f1e-24e98fb9980d",
+  "iz": "c4f6fd4f"
+ },
+ "gaziantep-yesemek": {
+  "guid": "62c34bdf-41dc-46c3-bc5c-4996049d92ce",
+  "iz": "c6d2351d"
+ },
+ "adana": {
+  "guid": "c3a38808-c864-455f-bf7a-78ceff24d431",
+  "iz": "470212d5"
+ },
+ "adana-5-ocak": {
+  "guid": "8f199460-08d6-48c4-8e58-49f80cee6f31",
+  "iz": "c555d7d0"
+ },
+ "adana-cukurova": {
+  "guid": "b6938cf5-94e3-4375-a989-945bab2fe73d",
+  "iz": "05cce344"
+ },
+ "adana-guney": {
+  "guid": "ddbac6f3-f69f-4fc2-93b3-2a600f9a7dfc",
+  "iz": "89a2d0e7"
+ },
+ "adana-seyhan": {
+  "guid": "14a8b10b-76d5-440a-afce-1e70a42edd4b",
+  "iz": "f1a3ba34"
+ },
+ "antakya": {
+  "guid": "e08dccb5-e4a0-4842-b97b-ff4119c7f0c0",
+  "iz": "bb862b57"
+ },
+ "kayseri": {
+  "guid": "ae853089-c641-4f46-bad8-9cebf5f86650",
+  "iz": "289b5d98"
+ },
+ "eskisehir-yazilikaya": {
+  "guid": "a54b9297-ff27-402b-8966-969a61376f57",
+  "iz": "b0fbe6ff"
+ },
+ "eskisehir-yunus-emre": {
+  "guid": "89e1734b-5f8a-4ed6-afec-c219e91192a5"
+ },
+ "eskisehir": {
+  "guid": "00729e6b-b0b1-44ac-a7b5-eed0751e8c64",
+  "iz": "eec6ea6b"
+ },
+ "eskisehir-gordion": {
+  "guid": "6ffde131-8908-4370-8d80-63aaf0b0a20e"
+ },
+ "eskisehir-anadolu": {
+  "guid": "f8481987-0547-41c4-9d36-8139527cd59d",
+  "iz": "50c5eadf"
+ }
+}
