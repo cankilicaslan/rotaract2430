@@ -71,8 +71,56 @@
     if (url) a.href = url; else a.remove();
   });
   const mail = `mailto:${SITE.iletisim.eposta}`;
-  if ($("#ctaMail")) $("#ctaMail").href = mail;
+  // Formun olduğu sayfada düğme doğrudan e-posta açar; diğer sayfalarda ana sayfadaki forma gider
+  if ($("#ctaMail")) $("#ctaMail").href = $("#iletisimForm") ? mail : "index.html#katil";
   if ($("#footerMail")) { $("#footerMail").href = mail; $("#footerMail").textContent = SITE.iletisim.eposta; }
+
+  /* ---------- İletişim formu (FormSubmit -> bölge e-postası) ---------- */
+  const form = $("#iletisimForm");
+  if (form) {
+    const durum = $("#iletisimDurum"), dugme = $(".if-gonder", form);
+    const yaz = (metin, tur) => { durum.textContent = metin; durum.className = `if-durum${tur ? " " + tur : ""}`; };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        const ilk = $(":invalid", form);
+        ilk?.focus();
+        yaz(ilk?.name === "onay" ? L("Göndermek için onay kutusunu işaretleyin.", "Please tick the consent box to send.")
+          : ilk?.name === "email" ? L("Geçerli bir e-posta adresi yazın.", "Please enter a valid email address.")
+          : L("Lütfen zorunlu alanları doldurun.", "Please fill in the required fields."), "hata");
+        return;
+      }
+      const v = Object.fromEntries(new FormData(form));
+      if (v._honey) return; // bot
+      dugme.disabled = true; dugme.textContent = L("Gönderiliyor…", "Sending…"); yaz("");
+      try {
+        const res = await fetch(`https://formsubmit.co/ajax/${SITE.iletisim.eposta}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: `[Site] ${v.konu} · ${v.ad}`,
+            _template: "table",
+            _captcha: "false",
+            [L("Ad soyad", "Name")]: v.ad,
+            email: v.email,
+            [L("Konu", "Topic")]: v.konu,
+            [L("Şehir / kulüp", "City / club")]: v.sehir || "-",
+            [L("Mesaj", "Message")]: v.mesaj,
+            [L("Sayfa", "Page")]: location.href,
+          }),
+        });
+        const sonuc = await res.json().catch(() => ({}));
+        if (!res.ok || String(sonuc.success) !== "true") throw new Error(sonuc.message || res.status);
+        form.reset();
+        yaz(L("Teşekkürler! Mesajın bölge ekibine ulaştı; en kısa sürede e-postayla dönüş yapılacak.", "Thank you! Your message reached the district team; they will reply by email soon."), "ok");
+      } catch (err) {
+        console.warn("Form gönderilemedi:", err);
+        yaz(L(`Mesaj şu an gönderilemedi. Lütfen ${SITE.iletisim.eposta} adresine doğrudan yazın.`, `The message could not be sent right now. Please write directly to ${SITE.iletisim.eposta}.`), "hata");
+      } finally {
+        dugme.disabled = false; dugme.textContent = L("Mesajı gönder", "Send message");
+      }
+    });
+  }
   if ($("#instaBand")) { $("#instaBand").href = SITE.iletisim.instagram; $("#instaHandle").textContent = SITE.iletisim.instagramKullanici; }
 
   // Şehir adı <-> adres çubuğu etiketi (kulupler.html#eskisehir)

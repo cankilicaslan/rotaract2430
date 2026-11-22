@@ -991,3 +991,35 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
 .kf-acik::after { display: none; }
 .kf-rozet { padding: 4px 10px; border-radius: 999px; background: var(--gold); color: #2a1a00; font-size: .75rem; font-weight: 800; }
 .kf-deger { margin: 0 0 12px; font-size: 1.35rem; font-weight: 800; color: var(--gold); }
+
+/* ---------- İletişim formu (Sen de aramıza katıl) ---------- */
+.cta-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+.cta-metin .cta-actions { margin-top: 22px; }
+.iletisim { background: #fff; color: var(--ink); border-radius: 22px; padding: 24px; display: grid; gap: 12px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .45); }
+.iletisim h3 { margin: 0 0 2px; font-size: 1.25rem; }
+.if-satir { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.if-alan { display: grid; gap: 5px; min-width: 0; }
+.if-alan span { font-size: .85rem; font-weight: 700; color: var(--ink-2); }
+.if-alan em { font-style: normal; font-weight: 500; color: var(--muted); }
+.if-alan input, .if-alan select, .if-alan textarea {
+  width: 100%; min-height: 46px; padding: 10px 14px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff;
+  font: inherit; font-size: 1rem; color: var(--ink); transition: border-color .2s, box-shadow .2s;
+}
+.if-alan textarea { resize: vertical; min-height: 110px; }
+.if-alan select { appearance: none; padding-right: 36px; cursor: pointer; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236E6876' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; }
+.if-alan :is(input, select, textarea):focus { outline: none; border-color: var(--cranberry); box-shadow: 0 0 0 4px rgba(212, 19, 103, .12); }
+.if-tuzak { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.if-onay { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: .85rem; color: var(--ink-2); cursor: pointer; }
+.if-onay input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--cranberry); }
+.if-gonder { justify-self: start; min-height: 48px; }
+.if-gonder:disabled { opacity: .7; cursor: progress; }
+.if-durum { margin: 0; font-size: .92rem; font-weight: 600; }
+.if-durum:empty { display: none; }
+.if-durum.ok { color: #0B7A43; }
+.if-durum.hata { color: #B3123F; }
+@media (max-width: 920px) { .cta-grid { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 560px) {
+  .if-satir { grid-template-columns: 1fr; }
+  .iletisim { padding: 20px 16px; border-radius: 18px; }
+  .if-gonder { justify-self: stretch; justify-content: center; }
+}
