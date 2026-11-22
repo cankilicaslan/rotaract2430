@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261122e">
+  <link rel="stylesheet" href="css/style.css?v=20261122f">
 </head>
 <body>
 
@@ -313,8 +313,8 @@
       <form class="iletisim" id="iletisimForm" novalidate>
         <h3>Bölgeye yaz</h3>
         <div class="if-satir">
-          <label class="if-alan"><span>Ad soyad</span><input name="ad" autocomplete="name" required maxlength="80"></label>
-          <label class="if-alan"><span>E-posta</span><input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120"></label>
+          <label class="if-alan"><span>Ad soyad</span><input name="ad" autocomplete="name" autocapitalize="words" enterkeyhint="next" required maxlength="80"></label>
+          <label class="if-alan"><span>E-posta</span><input name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" required maxlength="120"></label>
         </div>
         <div class="if-satir">
           <label class="if-alan"><span>Konu</span>
@@ -325,7 +325,7 @@
               <option value="İş birliği / sponsorluk">İş birliği / sponsorluk</option>
               <option value="Diğer">Diğer</option>
             </select></label>
-          <label class="if-alan"><span>Şehir / kulüp <em>(isteğe bağlı)</em></span><input name="sehir" autocomplete="address-level2" maxlength="80"></label>
+          <label class="if-alan"><span>Şehir / kulüp <em>(isteğe bağlı)</em></span><input name="sehir" autocomplete="address-level2" autocapitalize="words" enterkeyhint="next" maxlength="80"></label>
         </div>
         <label class="if-alan"><span>Mesaj</span><textarea name="mesaj" rows="4" required maxlength="3000"></textarea></label>
         <input type="text" name="_honey" class="if-tuzak" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -382,9 +382,9 @@
   </div>
 </div>
 
-<script src="js/data.js?v=20261122e"></script>
-<script src="js/harita.js?v=20261122e"></script>
-<script src="js/etkinlik.js?v=20261122e"></script>
-<script src="js/app.js?v=20261122e"></script>
+<script src="js/data.js?v=20261122f"></script>
+<script src="js/harita.js?v=20261122f"></script>
+<script src="js/etkinlik.js?v=20261122f"></script>
+<script src="js/app.js?v=20261122f"></script>
 </body>
 </html>

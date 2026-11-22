@@ -88,11 +88,16 @@
       eposta: L("Geçerli bir e-posta adresi yazın.", "Please enter a valid email address."),
       eksik: L("Lütfen zorunlu alanları doldurun.", "Please fill in the required fields."),
     };
+    form.addEventListener("input", (e) => e.target.removeAttribute?.("aria-invalid"));
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.checkValidity()) {
         const ilk = $(":invalid", form);
-        ilk?.focus();
+        $$("[aria-invalid]", form).forEach((x) => x.removeAttribute("aria-invalid"));
+        if (ilk) {
+          ilk.setAttribute("aria-invalid", "true"); ilk.setAttribute("aria-describedby", "iletisimDurum");
+          ilk.focus({ preventScroll: true }); ilk.scrollIntoView({ block: "center", behavior: "smooth" });
+        }
         yaz(ilk?.name === "onay" ? L("Göndermek için onay kutusunu işaretleyin.", "Please tick the consent box to send.")
           : ilk?.name === "email" ? HATA.eposta : HATA.eksik, "hata");
         return;
@@ -109,8 +114,9 @@
           body: JSON.stringify({ ad: v.ad, email: v.email, konu: v.konu, sehir: v.sehir, mesaj: v.mesaj, _honey: v._honey, t: acilis, sayfa: location.href }),
         });
         const sonuc = await res.json();
-        if (!sonuc.ok) { yaz(HATA[sonuc.hata] || yedek, "hata"); return; }
+        if (!sonuc.ok) { yaz(HATA[sonuc.hata] || yedek, "hata"); durum.scrollIntoView({ block: "center", behavior: "smooth" }); return; }
         form.reset();
+        durum.scrollIntoView({ block: "center", behavior: "smooth" });
         yaz(L("Teşekkürler! Mesajın bölge ekibine ulaştı. Onay e-postası adresine gönderildi; en kısa sürede dönüş yapılacak.", "Thank you! Your message reached the district team. A confirmation email is on its way; they will reply soon."), "ok");
       } catch (err) {
         console.warn("Form gönderilemedi:", err);
@@ -146,7 +152,7 @@
     nav.classList.toggle("open", open);
     document.body.classList.toggle("menu-open", open);
     toggle.setAttribute("aria-expanded", open);
-    const mt = $("#tabMenu"); if (mt) mt.setAttribute("aria-expanded", open);
+    const mt = $("#tabMenu"); if (mt) { mt.setAttribute("aria-expanded", open); mt.setAttribute("aria-label", open ? L("Menüyü kapat", "Close menu") : L("Menü", "Menu")); }
     toggle.setAttribute("aria-label", open ? L("Menüyü kapat", "Close menu") : L("Menüyü aç", "Open menu"));
   };
   toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
@@ -177,7 +183,7 @@
     <a class="tab" href="${h("akis")}" data-tab="akis">${svgIk("saat")}<span>${L("Bu hafta", "This week")}</span></a>
     <button class="tab" type="button" id="tabMenu" aria-controls="mainNav" aria-expanded="false">${svgIk("menu")}<span>${L("Menü", "Menu")}</span></button>`;
   document.body.appendChild(tabbar);
-  const tabSec = (id) => $$(".tab[data-tab]", tabbar).forEach((t) => (t.dataset.tab === id ? t.setAttribute("aria-current", "true") : t.removeAttribute("aria-current")));
+  const tabSec = (id) => $$(".tab[data-tab]", tabbar).forEach((t) => (t.dataset.tab === id ? t.setAttribute("aria-current", id === "kulupler" ? "page" : "location") : t.removeAttribute("aria-current")));
   tabSec(/kulupler/.test(location.pathname) ? "kulupler" : anaSayfa ? "top" : "");
   $("#tabMenu").addEventListener("click", () => {
     const ac = !nav.classList.contains("open");
@@ -418,18 +424,37 @@
 
     $("#clubGrid").innerHTML = list.map(clubCard).join("");
     $("#clubEmpty").hidden = list.length > 0;
-    $("#finderCount").textContent = plural(list.length, "kulüp", "club", "clubs");
+    clearTimeout(renderClubs.t);
+    renderClubs.t = setTimeout(() => { $("#finderCount").textContent = plural(list.length, "kulüp", "club", "clubs"); }, 250);
     $("#finderReset").hidden = !(q || il || grup || gun);
+    // Geri gelince ya da yenilenince filtreler kalsın
+    const p = new URLSearchParams(Object.entries({ q: search.value.trim(), il, grup, gun }).filter(([, v]) => v));
+    history.replaceState(history.state, "", location.pathname + (p.toString() ? "?" + p : "") + location.hash);
   }
   if (hasFinder) {
     // Adres çubuğundaki şehir (#eskisehir) seçili gelsin
     const applyHash = () => {
       const il = ilBySlug[decodeURIComponent(location.hash.slice(1))];
       if (il) { search.value = ""; grupSelect.value = ""; gunSelect.value = ""; ilSelect.value = il; }
+      else {
+        const p = new URLSearchParams(location.search);
+        if (p.get("q")) search.value = p.get("q");
+        if (p.get("il")) ilSelect.value = p.get("il");
+        if (p.get("grup")) grupSelect.value = p.get("grup");
+        if (p.get("gun")) gunSelect.value = p.get("gun");
+      }
       renderClubs();
     };
     [search, ilSelect, grupSelect, gunSelect].forEach((el) => el.addEventListener("input", renderClubs));
-    $("#finderReset").addEventListener("click", () => { search.value = ""; ilSelect.value = ""; grupSelect.value = ""; gunSelect.value = ""; renderClubs(); });
+    const sifirla = () => { search.value = ""; ilSelect.value = ""; grupSelect.value = ""; gunSelect.value = ""; renderClubs(); };
+    $("#finderReset").addEventListener("click", sifirla);
+    $("#clubEmpty").addEventListener("click", (e) => { if (e.target.closest("[data-reset]")) sifirla(); });
+    search.setAttribute("enterkeyhint", "search");
+    search.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter") return;
+      e.preventDefault(); search.blur();
+      $("#finderCount").scrollIntoView({ block: "start", behavior: "smooth" });
+    });
     $("#clubGrid").addEventListener("click", (e) => { const c = e.target.closest("[data-club]"); if (c) openClub(c.dataset.club); });
     addEventListener("hashchange", applyHash);
     applyHash();
@@ -473,20 +498,39 @@
     showModal();
   }
   function showModal() {
-    if (modal.hidden) lastFocus = document.activeElement;
+    if (modal.hidden) { lastFocus = document.activeElement; history.pushState({ pencere: 1 }, ""); }
     modal.hidden = false;
     $(".modal-panel", modal).scrollTop = 0;
     document.body.style.overflow = "hidden";
     $$("body > .org-bar, body > header, body > main, body > footer, body > .tabbar").forEach((el) => (el.inert = true));
     $(".modal-close", modal).focus();
   }
-  function closeModal() {
+  function closeModal(geriden) {
+    if (modal.hidden) return;
+    if (!geriden && history.state?.pencere) history.back();
+    $(".modal-panel", modal).style.transform = "";
     modal.hidden = true;
     document.body.style.overflow = "";
     $$("body > .org-bar, body > header, body > main, body > footer, body > .tabbar").forEach((el) => (el.inert = false));
     lastFocus?.focus();
   }
   modal.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) closeModal(); });
+  addEventListener("popstate", () => { if (!modal.hidden) closeModal(true); });
+  {
+    const panel = $(".modal-panel", modal);
+    let y0 = null, dy = 0;
+    panel.addEventListener("touchstart", (e) => { y0 = panel.scrollTop <= 0 ? e.touches[0].clientY : null; dy = 0; }, { passive: true });
+    panel.addEventListener("touchmove", (e) => {
+      if (y0 == null) return;
+      dy = Math.max(0, e.touches[0].clientY - y0);
+      if (dy > 0) panel.style.transform = `translateY(${dy}px)`;
+    }, { passive: true });
+    panel.addEventListener("touchend", () => {
+      if (y0 == null) return;
+      if (dy > 90) closeModal(); else panel.style.transform = "";
+      y0 = null;
+    });
+  }
   addEventListener("keydown", (e) => {
     if (modal.hidden) return;
     if (e.key === "Escape") closeModal();
@@ -524,8 +568,9 @@
       <span class="day-date">${d.toLocaleDateString(LOC, { day: "numeric", month: "short" })}</span>
       <span class="day-n">${plural(n, "toplantı", "meeting", "meetings")}</span></button>`;
   }).join("");
+  let tumunuGoster = false;
   const selectDay = (i, focus = false) => {
-    activeDay = i;
+    activeDay = i; tumunuGoster = false;
     $$(".day", tabs).forEach((x, j) => { x.setAttribute("aria-selected", j === i); x.tabIndex = j === i ? 0 : -1; });
     $("#agendaPanel").setAttribute("aria-labelledby", `day-${i}`);
     if (focus) $(`#day-${i}`).focus();
@@ -546,18 +591,24 @@
       $("#agenda").innerHTML = `<li class="agenda-empty">${L(`Bu ${esc(gun.toLocaleLowerCase("tr"))} kayıtlı kulüp toplantısı yok. Başka bir güne bakın.`, `No club meetings on record for this ${esc(dayName(gun))}. Try another day.`)}</li>`;
       return;
     }
-    $("#agenda").innerHTML = list.map((k) => `
+    const SINIR = matchMedia("(max-width: 720px)").matches ? 6 : 999;
+    const gorunen = tumunuGoster ? list : list.slice(0, SINIR);
+    $("#agenda").innerHTML = gorunen.map((k) => `
       <li>
         <time>${esc(k.toplanti.saat)}</time>
         <button class="agenda-club" data-club="${esc(k.id)}">
           <strong>${esc(shortName(k.ad))}</strong>
-          <span>${esc(k.toplanti.yer || L("Yer bilgisi için kulüple iletişime geçin", "Contact the club for the venue"))}${k.toplanti.siklik ? ` — ${esc(EN ? siklikText(k.toplanti.siklik) : k.toplanti.siklik.toLocaleLowerCase("tr"))}` : ""}</span>
+          <span><em class="agenda-il">${esc(ilText(k.il))} · </em>${esc(k.toplanti.yer || L("Yer bilgisi için kulüple iletişime geçin", "Contact the club for the venue"))}${k.toplanti.siklik ? ` — ${esc(EN ? siklikText(k.toplanti.siklik) : k.toplanti.siklik.toLocaleLowerCase("tr"))}` : ""}</span>
         </button>
         <span class="agenda-city">${esc(ilText(k.il))}</span>
-      </li>`).join("");
+      </li>`).join("") + (gorunen.length < list.length
+      ? `<li class="agenda-more"><button type="button" class="btn btn-outline btn-sm" data-tumu>${L(`Tümünü göster (${list.length})`, `Show all (${list.length})`)}</button></li>` : "");
   }
   if (tabs) {
-    $("#agenda").addEventListener("click", (e) => { const b = e.target.closest("[data-club]"); if (b) openClub(b.dataset.club); });
+    $("#agenda").addEventListener("click", (e) => {
+      if (e.target.closest("[data-tumu]")) { tumunuGoster = true; renderAgenda(); return; }
+      const b = e.target.closest("[data-club]"); if (b) openClub(b.dataset.club);
+    });
     renderAgenda();
   }
 
