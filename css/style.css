@@ -1119,3 +1119,18 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .org-actions .btn:first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 360px) { .tab { font-size: .68rem; } }
+
+/* ---------- Dil seçici: [TR bayrağı TR | EN EN bayrağı] ---------- */
+.lang-toggle { display: inline-flex; align-items: center; gap: 2px; margin-left: 8px; padding: 3px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; }
+.main-nav a.lang-opt {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 5px 10px; border-radius: 999px; border: 0;
+  font-weight: 700; font-size: .82rem; letter-spacing: .02em; color: var(--ink-2); transition: background .2s, color .2s;
+}
+.main-nav a.lang-opt::after { display: none; }
+.main-nav a.lang-opt:hover { color: var(--cranberry); background: var(--cranberry-50); }
+.main-nav a.lang-opt[aria-current] { background: var(--cranberry); color: #fff; }
+.lang-opt .bayrak { width: 22px; height: 15px; flex: none; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .1); }
+@media (max-width: 920px) {
+  .lang-toggle { align-self: flex-start; margin: 14px 0 0; }
+  .main-nav a.lang-opt { min-height: 44px; padding: 8px 16px; border-bottom: 0; font-size: .95rem; }
+}

@@ -74,7 +74,7 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "19:30", "Suit Ofis", "Ayın 2. ve 4. Perşembesi", { dil: "Türkçe" }) },
   { id: "cankaya", ad: "Çankaya Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "1", baskan: "Fatih Acemoğlu", baskanFoto: "assets/foto/fatih-acemoglu.jpg", eposta: "fatihacemoglu1@gmail.com",
     toplanti: T("Perşembe", "19:30", "", "", { dil: "Türkçe" }) },
-  { id: "anadolu-evrensel", ad: "Anadolu Evrensel Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "1", baskan: "Zeynep Su Öncel", eposta: "zeynepsuoncel@gmail.com",
+  { id: "anadolu-evrensel", ad: "Anadolu Evrensel Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "1", baskan: "Zeynep Su Öncel", baskanFoto: "assets/foto/zeynep-su-oncel.jpg", eposta: "zeynepsuoncel@gmail.com",
     toplanti: T("Pazar", "20:30"), instagram: "evrenselrotaract" },
 
   /* ---- 2. GRUP ---- */
@@ -142,13 +142,13 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "20:00", "", "", { dil: "Türkçe" }) },
   { id: "antalya-falez", ad: "Antalya Falez Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Barış Can Kalkay", baskanFoto: "assets/foto/baris-can-kalkay.jpg", eposta: "kalkaybariscan@gmail.com",
     toplanti: T("", "") },
-  { id: "antalya-kaleici", ad: "Antalya Kaleiçi Rotaract Kulübü", il: "Antalya", ilce: "Muratpaşa", grup: "7", baskan: "Nurol Arlıoğlu",
+  { id: "antalya-kaleici", ad: "Antalya Kaleiçi Rotaract Kulübü", il: "Antalya", ilce: "Muratpaşa", grup: "7", baskan: "Nurol Arlıoğlu", baskanFoto: "assets/foto/nurol-arlioglu.jpg",
     toplanti: T("Salı", "20:00", "Lara Balık Evi", "Ayın 2. ve 4. Salısı") },
   { id: "antalya-perge", ad: "Antalya Perge Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Niyazi Şen", baskanFoto: "assets/foto/niyazi-sen.jpg", eposta: "av.niyazisen@gmail.com",
     toplanti: T("Çarşamba", "19:30", "", "Ayın 1. ve 3. haftası", { dil: "Türkçe" }) },
 
   /* ---- 8. GRUP ---- */
-  { id: "baku-khazar", ad: "Bakü Khazar Rotaract Kulübü", il: "Bakü", ilce: "", grup: "8", baskan: "Nihad Ahmadli", eposta: "nihad.ahmadli.03@gmail.com",
+  { id: "baku-khazar", ad: "Bakü Khazar Rotaract Kulübü", il: "Bakü", ilce: "", grup: "8", baskan: "Nihad Ahmadli", baskanFoto: "assets/foto/nihad-ahmadli.jpg", eposta: "nihad.ahmadli.03@gmail.com",
     toplanti: T("Cuma", "19:00") },
 
   /* ---- 9. GRUP ---- */
@@ -166,7 +166,7 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "19:00", "Dedeman Hotel Adana", "", { dil: "Türkçe" }) },
   { id: "adana-5-ocak", ad: "Adana 5 Ocak Rotaract Kulübü", il: "Adana", ilce: "Seyhan", grup: "10", baskan: "Berzan Bozkurt", baskanFoto: "assets/foto/berzan-bozkurt.jpg", eposta: "berzz.nn011@gmail.com",
     toplanti: T("Pazar", "14:30") },
-  { id: "adana-cukurova", ad: "Adana Çukurova Rotaract Kulübü", il: "Adana", ilce: "Çukurova", grup: "10", baskan: "Nil Yüzereroğlu", eposta: "nil@yuzereroglu.com",
+  { id: "adana-cukurova", ad: "Adana Çukurova Rotaract Kulübü", il: "Adana", ilce: "Çukurova", grup: "10", baskan: "Nil Yüzereroğlu", baskanFoto: "assets/foto/nil-yuzereroglu.jpg", eposta: "nil@yuzereroglu.com",
     toplanti: T("Salı", "19:30", "", "", { dil: "Türkçe" }) },
   { id: "adana-guney", ad: "Adana Güney Rotaract Kulübü", il: "Adana", ilce: "", grup: "10", baskan: "Ayşe Büşra Şimşek", baskanFoto: "assets/foto/ayse-busra-simsek.jpg", eposta: "aysebusrasimsek@gmail.com",
     toplanti: T("Çarşamba", "19:30", "DoubleTree by Hilton", "Ayın 2. ve 4. Çarşambası", { dil: "Türkçe" }) },
@@ -186,7 +186,7 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "20:00", "Leto City Hotel", "Ayın 2. ve 4. Perşembesi", { dil: "İngilizce" }) },
   { id: "eskisehir-gordion", ad: "Eskişehir Gordion Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Ecem Su Yılman", baskanFoto: "assets/foto/ecem-su-yilman.jpg", eposta: "ecemsuyilman@gmail.com",
     toplanti: T("", "") },
-  { id: "eskisehir-anadolu", ad: "Eskişehir Anadolu Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Furkan Kenar",
+  { id: "eskisehir-anadolu", ad: "Eskişehir Anadolu Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Furkan Kenar", baskanFoto: "assets/foto/furkan-kenar.jpg",
     toplanti: T("Çarşamba", "19:00"), instagram: "anadolurotaract" }
 ];
 }
