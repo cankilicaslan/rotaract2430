@@ -30,7 +30,7 @@
     const tail = /hafta/i.test(m[3]) ? "week of the month" : (Object.entries(GUN_EN).sort((x, y) => y[0].length - x[0].length).find(([tr]) => m[3].startsWith(tr))?.[1] || "") + " of the month";
     return `${ORD[m[1]]} & ${ORD[m[2]]} ${tail}`.replace(/\s+/g, " ");
   };
-  const TERIM_EN = { "Türkçe": "Turkish", "İngilizce": "English", "Yüz yüze ve çevrim içi (Zoom)": "In person and online (Zoom)" };
+  const TERIM_EN = { "Türkçe": "Turkish", "İngilizce": "English", "Yüz yüze ve çevrim içi (Zoom)": "In person and online (Zoom)", "Çevrim içi (Zoom)": "Online (Zoom)" };
   const term = (s) => (EN ? TERIM_EN[s] || s : s);
   const BOLGE_EN = { "İç Anadolu": "Central Anatolia", "Akdeniz": "Mediterranean", "Karadeniz": "Black Sea", "Güneydoğu Anadolu": "Southeastern Anatolia", "Azerbaycan": "Azerbaijan" };
   const regionText = (r) => (EN ? BOLGE_EN[r] || r : r);

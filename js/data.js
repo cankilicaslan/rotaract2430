@@ -73,9 +73,9 @@ window.KULUPLER = [
   { id: "ankara", ad: "Ankara Rotaract Kulübü", il: "Ankara", ilce: "", grup: "1", baskan: "Zeynep Sude Zarif", baskanFoto: "assets/foto/zeynep-sude-zarif.jpg", eposta: "zeynepszarif@gmail.com",
     toplanti: T("Perşembe", "19:30", "Suit Ofis", "Ayın 2. ve 4. Perşembesi", { dil: "Türkçe" }) },
   { id: "cankaya", ad: "Çankaya Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "1", baskan: "Fatih Acemoğlu", baskanFoto: "assets/foto/fatih-acemoglu.jpg", eposta: "fatihacemoglu1@gmail.com",
-    toplanti: T("Perşembe", "19:30", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Perşembe", "19:30", "Workinton Next Level", "", { dil: "Türkçe", adres: "Kızılırmak Mah., 06510 Çankaya/Ankara" }) },
   { id: "anadolu-evrensel", ad: "Anadolu Evrensel Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "1", baskan: "Zeynep Su Öncel", baskanFoto: "assets/foto/zeynep-su-oncel.jpg", eposta: "zeynepsuoncel@gmail.com",
-    toplanti: T("Pazar", "20:30"), instagram: "evrenselrotaract" },
+    toplanti: T("Pazar", "20:30", "Çevrim içi (Zoom)", "", { format: "Çevrim içi (Zoom)" }), instagram: "evrenselrotaract" },
 
   /* ---- 2. GRUP ---- */
   { id: "ankara-kizilay", ad: "Ankara Kızılay Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "2", baskan: "Gözde Bal", baskanFoto: "assets/foto/gozde-bal.jpg", eposta: "gozdebal@hotmail.com",
@@ -85,13 +85,13 @@ window.KULUPLER = [
   { id: "ankara-gaziosmanpasa", ad: "Ankara Gaziosmanpaşa Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "2", baskan: "İsmail Eser", baskanFoto: "assets/foto/ismail-eser.jpg", eposta: "eserismail65@gmail.com",
     toplanti: T("Salı", "19:30", "Workinton Next Level", "Ayın 2. ve 4. Salısı", { dil: "Türkçe" }) },
   { id: "ankara-beysukent", ad: "Ankara Beysukent Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "2", baskan: "Mücahit Çekici", baskanFoto: "assets/foto/mucahit-cekici.jpg", eposta: "mucahit.cekici@icloud.com",
-    toplanti: T("Pazartesi", "19:30", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Pazartesi", "19:30", "Workinton Next Level", "", { dil: "Türkçe", adres: "Kızılırmak Mah., Dumlupınar Bulvarı No:3/C1, Çankaya/Ankara 06520" }) },
   { id: "ankara-international", ad: "Ankara International Rotaract Kulübü", il: "Ankara", ilce: "", grup: "2", baskan: "Mehmet Ali Özkavacıklı", baskanFoto: "assets/foto/mehmet-ali-ozkavacikli.jpg", eposta: "mehmetaliozkavacikli@gmail.com",
-    toplanti: T("Pazartesi", "19:00", "", "", { dil: "İngilizce" }) },
+    toplanti: T("Pazartesi", "19:00", "Tunalı Walker's Coffee", "", { dil: "İngilizce", adres: "Barbaros, Güniz Sok. No:48 D:1, Çankaya/Ankara 06700" }) },
   { id: "gazi", ad: "Gazi Rotaract Kulübü", il: "Ankara", ilce: "", grup: "2", baskan: "Ahmet Furkan Ardıç", baskanFoto: "assets/foto/ahmet-furkan-ardic.jpg", eposta: "ahmetfurkanardic@gmail.com",
-    toplanti: T("", "") },
+    toplanti: T("Perşembe", "19:30", "Walker's Coffee House", "", { adres: "Barbaros, Güniz Sok. No:48 D:1, Çankaya/Ankara 06700", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
   { id: "konya-meram", ad: "Konya Meram Rotaract Kulübü", il: "Konya", ilce: "Meram", grup: "2", baskan: "Necati Erdem Esen", baskanFoto: "assets/foto/necati-erdem-esen.jpg", eposta: "necatierdem.esen@gmail.com",
-    toplanti: T("Perşembe", "20:00", "", "", { format: "Yüz yüze ve çevrim içi (Zoom)" }) },
+    toplanti: T("Perşembe", "20:00", "Novotel Konya", "", { format: "Yüz yüze ve çevrim içi (Zoom)", adres: "Şeker Mah., Çevreyolu Cad. No:38, Selçuklu/Konya 42080" }) },
 
   /* ---- 3. GRUP ---- */
   { id: "ankara-kocatepe", ad: "Ankara Kocatepe Rotaract Kulübü", il: "Ankara", ilce: "", grup: "3", baskan: "Müge Acar", baskanFoto: "assets/foto/muge-acar.jpg", eposta: "muge.gulenn@gmail.com",
@@ -111,13 +111,13 @@ window.KULUPLER = [
   { id: "mersin-kizkalesi", ad: "Mersin Kızkalesi Rotaract Kulübü", il: "Mersin", ilce: "Erdemli", grup: "4", baskan: "Hazal Pırıl Demirkol", baskanFoto: "assets/foto/hazal-piril-demirkol.jpg", eposta: "hazlp7@gmail.com",
     toplanti: T("Çarşamba", "19:30", "Rotary Evi", "Ayın 1. ve 3. Çarşambası", { dil: "Türkçe" }) },
   { id: "mersin", ad: "Mersin Rotaract Kulübü", il: "Mersin", ilce: "", grup: "4", baskan: "Simay Ünlü", baskanFoto: "assets/foto/simay-unlu.jpg", eposta: "av.simaykurtoglu@gmail.com",
-    toplanti: T("Perşembe", "19:30", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Perşembe", "19:30", "Radisson Hotel Mersin", "", { dil: "Türkçe", adres: "Eğriçam, Hüseyin Okan Merzeci Bulvarı, 33120 Yenişehir/Mersin" }) },
   { id: "akdeniz", ad: "Akdeniz Rotaract Kulübü", il: "Mersin", ilce: "Akdeniz", grup: "4", baskan: "Tuğçe Derkuş", baskanFoto: "assets/foto/tugce-derkus.jpg", eposta: "psk.tugcederkus@gmail.com",
     toplanti: T("Salı", "19:15", "Mersin Divan Otel", "", { dil: "İngilizce" }) },
   { id: "mersin-toros", ad: "Mersin Toros Rotaract Kulübü", il: "Mersin", ilce: "", grup: "4", baskan: "Mehmet Babaoğlu", baskanFoto: "assets/foto/mehmet-babaoglu.jpg", eposta: "babaoglu.mehmet@hotmail.com",
-    toplanti: T("Salı", "19:30", "", "Ayın 2. ve 4. Salısı", { dil: "Türkçe" }) },
+    toplanti: T("Salı", "19:30", "Rotary Evim (Rotary House)", "Ayın 2. ve 4. Salısı", { dil: "Türkçe", adres: "Yenişehir/Mersin 33110" }) },
   { id: "tarsus", ad: "Tarsus Rotaract Kulübü", il: "Mersin", ilce: "Tarsus", grup: "4", baskan: "Mehmet Yarkın Yılmaz", baskanFoto: "assets/foto/mehmet-yarkin-yilmaz.jpg", eposta: "myarkinyilmaz@gmail.com",
-    toplanti: T("Çarşamba", "19:30", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Çarşamba", "19:30", "Wyndham Tarsus St. Paul Hotel", "", { dil: "Türkçe", adres: "Kızılmurat Mah., Kemal Tursunbay 2721 Sk. No:38/1, 33400 Tarsus/Mersin" }) },
 
   /* ---- 5-6. GRUP ---- */
   { id: "samsun", ad: "Samsun Rotaract Kulübü", il: "Samsun", ilce: "", grup: "5-6", baskan: "Polen Su Uzdil", baskanFoto: "assets/foto/polen-su-uzdil.jpg", eposta: "polensuzdil@gmail.com",
@@ -125,13 +125,13 @@ window.KULUPLER = [
   { id: "samsun-atakum", ad: "Samsun Atakum Rotaract Kulübü", il: "Samsun", ilce: "Atakum", grup: "5-6", baskan: "Hale Unutmaz", baskanFoto: "assets/foto/hale-unutmaz.jpg", eposta: "hale.unutmaz96@gmail.com",
     toplanti: T("Perşembe", "19:30", "Dedeman Elina Otel", "Ayın 2. ve 4. Perşembesi", { dil: "Türkçe" }) },
   { id: "samsun-canik", ad: "Samsun Canik Rotaract Kulübü", il: "Samsun", ilce: "Canik", grup: "5-6", baskan: "Hanedan Bilevci", baskanFoto: "assets/foto/hanedan-bilevci.jpg", eposta: "bilevcihanedan@gmail.com",
-    toplanti: T("Salı", "19:00"), instagram: "canikrotaract" },
+    toplanti: T("Salı", "19:00", "Sheraton Hotel", "", { adres: "Liman, Atatürk Bulvarı No:55, İlkadım/Samsun 55100" }), instagram: "canikrotaract" },
   { id: "ilkadim-1919", ad: "İlkadım 1919 Rotaract Kulübü", il: "Samsun", ilce: "İlkadım", grup: "5-6", baskan: "Veli Can Erdoğan", baskanFoto: "assets/foto/veli-can-erdogan.jpg", eposta: "veli.c0709@gmail.com",
-    toplanti: T("Perşembe", "19:00") },
+    toplanti: T("Perşembe", "19:00", "Samsun Anemon Hotel", "", { adres: "Yenimahalle, Çarşamba Cad. No:52, Canik/Samsun 55080" }) },
   { id: "trabzon-ortahisar", ad: "Trabzon Ortahisar Rotaract Kulübü", il: "Trabzon", ilce: "Ortahisar", grup: "5-6", baskan: "Hamza İrtem", eposta: "irtembusiness@gmail.com",
-    toplanti: T("Salı", "18:30") },
+    toplanti: T("Salı", "18:30", "Mercure Hotel", "", { adres: "Yalıncak Mah., Rize Caddesi No:50, Ortahisar/Trabzon 61299" }) },
   { id: "amasya-yesilirmak", ad: "Amasya Yeşilırmak Rotaract Kulübü", il: "Amasya", ilce: "Merkez", grup: "5-6", baskan: "Simge Kılınç", baskanFoto: "assets/foto/simge-kilinc.jpg", eposta: "simgekilinc21@gmail.com",
-    toplanti: T("Pazar", "20:00", "", "", { format: "Yüz yüze ve çevrim içi (Zoom)" }) },
+    toplanti: T("Pazar", "20:00", "Eysa Etkinlik Salonu", "", { format: "Yüz yüze ve çevrim içi (Zoom)", adres: "Alptekin Sok. No:31/A, Amasya 05100" }) },
 
   /* ---- 7. GRUP ---- */
   { id: "alanya", ad: "Alanya Rotaract Kulübü", il: "Antalya", ilce: "Alanya", grup: "7", baskan: "Türkan Nil Bakalım", baskanFoto: "assets/foto/turkan-nil-bakalim.jpg", eposta: "nilbakalim@gmail.com",
@@ -139,17 +139,17 @@ window.KULUPLER = [
   { id: "antalya", ad: "Antalya Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Gamze Akdemir", baskanFoto: "assets/foto/gamze-akdemir.jpg", eposta: "gamzeakdemirr@gmail.com",
     toplanti: T("Cumartesi", "20:00", "Lara Balık Evi", "", { dil: "Türkçe", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
   { id: "antalya-aspendos", ad: "Antalya Aspendos Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Nuriye Ceren Acar", baskanFoto: "assets/foto/nuriye-ceren-acar.jpg", eposta: "ncerenacar@gmail.com",
-    toplanti: T("Perşembe", "20:00", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Perşembe", "20:00", "Lara Balık", "", { dil: "Türkçe", adres: "Şirinyalı Mah., Lara Cad. No:24, Antalya 07050" }) },
   { id: "antalya-falez", ad: "Antalya Falez Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Barış Can Kalkay", baskanFoto: "assets/foto/baris-can-kalkay.jpg", eposta: "kalkaybariscan@gmail.com",
     toplanti: T("", "") },
   { id: "antalya-kaleici", ad: "Antalya Kaleiçi Rotaract Kulübü", il: "Antalya", ilce: "Muratpaşa", grup: "7", baskan: "Nurol Arlıoğlu", baskanFoto: "assets/foto/nurol-arlioglu.jpg",
     toplanti: T("Salı", "20:00", "Lara Balık Evi", "Ayın 2. ve 4. Salısı") },
   { id: "antalya-perge", ad: "Antalya Perge Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Niyazi Şen", baskanFoto: "assets/foto/niyazi-sen.jpg", eposta: "av.niyazisen@gmail.com",
-    toplanti: T("Çarşamba", "19:30", "", "Ayın 1. ve 3. haftası", { dil: "Türkçe" }) },
+    toplanti: T("Çarşamba", "19:30", "Gençlik Mah., Tevfik Işık Cad. No:8", "Ayın 1. ve 3. haftası", { dil: "Türkçe", adres: "07100 Muratpaşa/Antalya" }) },
 
   /* ---- 8. GRUP ---- */
   { id: "baku-khazar", ad: "Bakü Khazar Rotaract Kulübü", il: "Bakü", ilce: "", grup: "8", baskan: "Nihad Ahmadli", baskanFoto: "assets/foto/nihad-ahmadli.jpg", eposta: "nihad.ahmadli.03@gmail.com",
-    toplanti: T("Cuma", "19:00") },
+    toplanti: T("Cuma", "19:00", "64 Khojali Avenue", "", { adres: "Baku 1025, Azerbaijan", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
 
   /* ---- 9. GRUP ---- */
   { id: "gaziantep-alleben", ad: "Gaziantep Alleben Rotaract Kulübü", il: "Gaziantep", ilce: "", grup: "9", baskan: "İlayda Kıroğlu", baskanFoto: "assets/foto/ilayda-kiroglu.jpg", eposta: "ilayda.krogluu@gmail.com",
@@ -165,7 +165,7 @@ window.KULUPLER = [
   { id: "adana", ad: "Adana Rotaract Kulübü", il: "Adana", ilce: "", grup: "10", baskan: "Esra Göbelek", baskanFoto: "assets/foto/esra-gobelek.jpg", eposta: "esragobelek@gmail.com",
     toplanti: T("Perşembe", "19:00", "Dedeman Hotel Adana", "", { dil: "Türkçe" }) },
   { id: "adana-5-ocak", ad: "Adana 5 Ocak Rotaract Kulübü", il: "Adana", ilce: "Seyhan", grup: "10", baskan: "Berzan Bozkurt", baskanFoto: "assets/foto/berzan-bozkurt.jpg", eposta: "berzz.nn011@gmail.com",
-    toplanti: T("Pazar", "14:30") },
+    toplanti: T("Pazar", "14:30", "DoubleTree by Hilton Adana", "", { adres: "Kurtuluş, Mithat Saraçoğlu Cad. No:3, Seyhan/Adana 01130" }) },
   { id: "adana-cukurova", ad: "Adana Çukurova Rotaract Kulübü", il: "Adana", ilce: "Çukurova", grup: "10", baskan: "Nil Yüzereroğlu", baskanFoto: "assets/foto/nil-yuzereroglu.jpg", eposta: "nil@yuzereroglu.com",
     toplanti: T("Salı", "19:30", "", "", { dil: "Türkçe" }) },
   { id: "adana-guney", ad: "Adana Güney Rotaract Kulübü", il: "Adana", ilce: "", grup: "10", baskan: "Ayşe Büşra Şimşek", baskanFoto: "assets/foto/ayse-busra-simsek.jpg", eposta: "aysebusrasimsek@gmail.com",
@@ -175,11 +175,11 @@ window.KULUPLER = [
   { id: "antakya", ad: "Antakya Rotaract Kulübü", il: "Hatay", ilce: "Antakya", grup: "10", baskan: "Hakan Ayabaktı", baskanFoto: "assets/foto/hakan-ayabakti.jpg", eposta: "hakanayabakti@hotmail.com",
     toplanti: T("Perşembe", "19:00", "Antakya Şehir Kulübü") },
   { id: "kayseri", ad: "Kayseri Rotaract Kulübü", il: "Kayseri", ilce: "Kocasinan", grup: "10", baskan: "Osman Yoka", baskanFoto: "assets/foto/osman-yoka.jpg", eposta: "osmanyoka@gmail.com",
-    toplanti: T("Salı", "19:30", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Salı", "19:30", "Holiday Inn Kayseri", "", { dil: "Türkçe", adres: "Osman Kavuncu Cad., Kenarcık Sk. No:2, Kocasinan/Kayseri 38090" }) },
 
   /* ---- 11. GRUP ---- */
   { id: "eskisehir-yazilikaya", ad: "Eskişehir Yazılıkaya Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Ezgi Göcen", baskanFoto: "assets/foto/ezgi-gocen.jpg", eposta: "ezgocen@gmail.com",
-    toplanti: T("Perşembe", "20:00", "", "", { dil: "Türkçe" }) },
+    toplanti: T("Perşembe", "20:00", "Leto City Otel", "", { dil: "Türkçe", adres: "Odunpazarı/Eskişehir" }) },
   { id: "eskisehir-yunus-emre", ad: "Eskişehir Yunus Emre Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Kaan Kabak", baskanFoto: "assets/foto/kaan-kabak.jpg", eposta: "kaann.kbk@gmail.com",
     toplanti: T("", "") },
   { id: "eskisehir", ad: "Eskişehir Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Anıl Koşar", baskanFoto: "assets/foto/anil-kosar.jpg", eposta: "anilkosar913@gmail.com",
@@ -187,7 +187,7 @@ window.KULUPLER = [
   { id: "eskisehir-gordion", ad: "Eskişehir Gordion Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Ecem Su Yılman", baskanFoto: "assets/foto/ecem-su-yilman.jpg", eposta: "ecemsuyilman@gmail.com",
     toplanti: T("", "") },
   { id: "eskisehir-anadolu", ad: "Eskişehir Anadolu Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Furkan Kenar", baskanFoto: "assets/foto/furkan-kenar.jpg",
-    toplanti: T("Çarşamba", "19:00"), instagram: "anadolurotaract" }
+    toplanti: T("Çarşamba", "19:00", "Başkurt İş Merkezi", "", { adres: "Hoşnudiye Mah., İsmet İnönü-1 Cad. No:42 D:26, Eskişehir 26130" }), instagram: "anadolurotaract" }
 ];
 }
 
