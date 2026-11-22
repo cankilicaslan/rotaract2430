@@ -1134,3 +1134,17 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .lang-toggle { align-self: flex-start; margin: 14px 0 0; }
   .main-nav a.lang-opt { min-height: 44px; padding: 8px 16px; border-bottom: 0; font-size: .95rem; }
 }
+
+/* ---------- Bölge organizasyonları şeridi header'ın içinde, birlikte yapışkan ---------- */
+:root { --org-h: 48px; }
+.site-header .org-bar { position: relative; }
+.site-header .org-bar-inner { min-height: var(--org-h); padding-block: 5px; }
+html { scroll-padding-top: calc(var(--header-h) + var(--org-h) + 8px); }
+.week-tabs { top: calc(var(--header-h) + var(--org-h) + 16px); }
+@media (min-width: 921px) and (min-height: 760px) { .ev-next { top: calc(var(--header-h) + var(--org-h) + 20px); } }
+@media (max-width: 720px) {
+  :root { --org-h: 46px; }
+  .site-header .org-bar-inner { padding-block: 4px; }
+  .site-header .org-pill { min-height: 36px; }
+  .main-nav { max-height: calc(100svh - var(--header-h) - var(--org-h) - var(--tabbar-h) - 20px); }
+}
