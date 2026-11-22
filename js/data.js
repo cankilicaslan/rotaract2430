@@ -74,7 +74,7 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "19:30", "Suit Ofis", "Ayın 2. ve 4. Perşembesi", { dil: "Türkçe" }) },
   { id: "cankaya", ad: "Çankaya Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "1", baskan: "Fatih Acemoğlu", baskanFoto: "assets/foto/fatih-acemoglu.jpg", eposta: "fatihacemoglu1@gmail.com",
     toplanti: T("Perşembe", "19:30", "Workinton Next Level", "", { dil: "Türkçe", adres: "Kızılırmak Mah., 06510 Çankaya/Ankara" }) },
-  { id: "anadolu-evrensel", ad: "Anadolu Evrensel Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "1", baskan: "Zeynep Su Öncel", baskanFoto: "assets/foto/zeynep-su-oncel.jpg", eposta: "zeynepsuoncel@gmail.com",
+  { id: "anadolu-evrensel", ad: "Anadolu Evrensel Rotaract Kulübü", il: "Ankara", ilce: "", grup: "1", baskan: "Zeynep Su Öncel", baskanFoto: "assets/foto/zeynep-su-oncel.jpg", eposta: "zeynepsuoncel@gmail.com",
     toplanti: T("Pazar", "20:30", "Çevrim içi (Zoom)", "", { format: "Çevrim içi (Zoom)" }), instagram: "evrenselrotaract" },
 
   /* ---- 2. GRUP ---- */
