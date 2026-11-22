@@ -1023,3 +1023,16 @@ a.fam-card[href]:hover { box-shadow: var(--shadow); }
   .iletisim { padding: 20px 16px; border-radius: 18px; }
   .if-gonder { justify-self: stretch; justify-content: center; }
 }
+
+/* ---------- Kişi fotoğrafları: portre (3:4), yüzler net ---------- */
+.avatar { width: 58px; height: 77px; border-radius: 14px; }
+.avatar span, .avatar img { border-radius: 12px; }
+.avatar img { object-fit: cover; object-position: 50% 30%; }
+.team-lead .avatar { width: 126px; height: 168px; border-radius: 22px; padding: 3px; }
+.team-lead .avatar span, .team-lead .avatar img { border-radius: 19px; }
+.club-photo { width: 54px; height: 72px; border-radius: 12px; object-position: 50% 30%; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--cranberry-100); }
+.m-photo { width: 108px; height: 144px; border-radius: 18px; object-position: 50% 30%; box-shadow: 0 0 0 3px rgba(255, 255, 255, .85), 0 14px 30px -14px rgba(0, 0, 0, .5); }
+@media (max-width: 720px) {
+  .team-lead .avatar { width: 108px; height: 144px; }
+  .m-photo { width: 96px; height: 128px; }
+}

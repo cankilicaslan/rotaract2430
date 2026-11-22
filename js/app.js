@@ -18,6 +18,8 @@
   const L = (tr, en) => (EN ? en : tr);
   const LOC = EN ? "en-GB" : "tr-TR";
   const asset = (p) => (p && !/^(https?:|data:)/.test(p) ? BASE + p : p);
+  // Kişi fotoğrafları: yüze yakınlaştırılmış 3:4 portre sürümü (assets/foto/portre/)
+  const portre = (p) => asset(p ? p.replace("assets/foto/", "assets/foto/portre/") : p);
   const GUN_EN = { Pazartesi: "Monday", Salı: "Tuesday", Çarşamba: "Wednesday", Perşembe: "Thursday", Cuma: "Friday", Cumartesi: "Saturday", Pazar: "Sunday" };
   const dayName = (g) => (EN ? GUN_EN[g] || g : g);
   const ORD = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th" };
@@ -395,7 +397,7 @@
     <button class="club-card" data-club="${esc(k.id)}" aria-label="${esc(clubName(k.ad))}, ${esc(ilText(k.il))}: ${L("ayrıntıları aç", "open details")}">
       <span class="club-top">
         ${k.baskanFoto
-          ? `<img class="club-badge club-photo" src="${esc(asset(k.baskanFoto))}" alt="" loading="lazy" width="44" height="44">`
+          ? `<img class="club-badge club-photo" src="${esc(portre(k.baskanFoto))}" alt="" loading="lazy" width="60" height="80">`
           : `<span class="club-badge" aria-hidden="true">${esc(initials(k.ad))}</span>`}
         <span><span class="club-name">${esc(shortName(k.ad))}</span><span class="club-loc">${esc(k.ilce ? `${k.ilce}, ${ilText(k.il)}` : ilText(k.il))}</span></span>
       </span>
@@ -450,7 +452,7 @@
     $("#modalBody").innerHTML = `
       <div class="m-head">
         ${k.baskanFoto
-          ? `<img class="m-photo" src="${esc(asset(k.baskanFoto))}" alt="${esc(k.baskan)}, ${L("kulüp başkanı", "club president")}" width="84" height="84">`
+          ? `<img class="m-photo" src="${esc(portre(k.baskanFoto))}" alt="${esc(k.baskan)}, ${L("kulüp başkanı", "club president")}" width="108" height="144">`
           : `<div class="club-badge">${esc(initials(k.ad))}</div>`}
         <h3 id="modalTitle">${esc(clubName(k.ad))}</h3>
         <p>${esc(k.ilce ? `${k.ilce}, ${ilText(k.il)}` : ilText(k.il))} · ${esc(grupText(k.grup))}</p>
@@ -1011,7 +1013,7 @@
   const person = (g, extra = "") => `
     <li class="member ${extra}">
       <button class="member-btn" data-person="${GOREVLILER.indexOf(g)}" aria-haspopup="dialog" aria-label="${esc(g.ad)}, ${esc(unvanOf(g))}: ${L("ayrıntıları aç", "open details")}">
-        <span class="avatar">${g.foto ? `<img src="${esc(asset(g.foto))}" alt="" loading="lazy">` : `<span>${esc(initials(g.ad))}</span>`}</span>
+        <span class="avatar">${g.foto ? `<img src="${esc(portre(g.foto))}" alt="" loading="lazy" width="60" height="80">` : `<span>${esc(initials(g.ad))}</span>`}</span>
         <span class="member-text"><span class="member-name">${esc(g.ad)}</span><span class="role">${esc(unvanOf(g))}</span></span>
       </button>
     </li>`;
@@ -1038,7 +1040,7 @@
     $("#modalBody").innerHTML = `
       <div class="m-head">
         ${g.foto
-          ? `<img class="m-photo" src="${esc(asset(g.foto))}" alt="${esc(g.ad)}" width="84" height="84">`
+          ? `<img class="m-photo" src="${esc(portre(g.foto))}" alt="${esc(g.ad)}" width="108" height="144">`
           : `<div class="club-badge">${esc(initials(g.ad))}</div>`}
         <h3 id="modalTitle">${esc(g.ad)}</h3>
         <p>${esc(gorevAdi(g))} · ${esc(SITE.donem)}</p>
