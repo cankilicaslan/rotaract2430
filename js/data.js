@@ -261,6 +261,8 @@ window.ORGANIZASYONLAR = [
     // Site duyurulana kadar sayfada gösterilen tanıtım
     ad: "38. Rotaract Konferansı", adEn: "38th Rotaract Conference",
     duzenleyen: "Mersin Rotaract Kulübü", duzenleyenEn: "Rotaract Club of Mersin", kulupId: "mersin",
+    // Açıklanan bilgiler (mekân ve konsept açıklanınca buraya eklenir)
+    tarih: { baslangic: "2027-05-21", bitis: "2027-05-23", metin: "21–23 Mayıs 2027" },
     tanim: [
       "Bölge Konferansı, Rotaract yılının kapanış buluşmasıdır. Bölgedeki kulüpler dönemin sonuna doğru bir araya gelir; yıl boyunca üretilen projeler, verilen emekler ve kurulan dostluklar tek bir çatı altında görünür olur.",
       "Asamble yeni döneme hazırlıksa, Konferans yaşanan dönemin hikâyesini birlikte anlatmaktır: neler yaptık, neler öğrendik, bir sonraki adımı nasıl daha güçlü atarız?"
@@ -282,12 +284,12 @@ window.ORGANIZASYONLAR = [
       ["Stronger bonds", "Rotaractors from Ankara to Baku meet in person, and social programmes turn contacts into friendships."]
     ],
     sirlar: [
-      ["tarih", "Tarih", "Rotary yılı bitmeden, takvimde bir hafta sonu çoktan işaretlendi. Hangisi olduğu şimdilik mühürlü."],
+      ["tarih", "Tarih", "Rotary yılı bitmeden, takvimde bir hafta sonu çoktan işaretlendi. Hangisi olduğu şimdilik mühürlü.", "Mühür kırıldı! Cuma'dan Pazar'a üç gün boyunca bölge bir arada."],
       ["mekan", "Mekân", "Ev sahibi Mersin'den. Kapıların nerede açılacağı ise henüz zarfın içinde."],
       ["konsept", "Konsept", "Bir tema, bir hikâye, bir renk paleti… İlk ipucu Instagram'a düştüğünde burada da olacak."]
     ],
     sirlarEn: [
-      ["tarih", "Date", "Before the Rotary year ends, a weekend is already circled on the calendar. Which one is still sealed."],
+      ["tarih", "Date", "Before the Rotary year ends, a weekend is already circled on the calendar. Which one is still sealed.", "The seal is broken! Three days, Friday to Sunday, with the whole district together."],
       ["mekan", "Venue", "The host club is from Mersin. Where the doors will open is still inside the envelope."],
       ["konsept", "Concept", "A theme, a story, a colour palette… When the first clue drops on Instagram, it will appear here too."]
     ]

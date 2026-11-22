@@ -749,7 +749,7 @@
       const o = orgs[a.dataset.orgPill];
       const yer = $("[data-org-tarih]", a);
       if (o?.durum === "aktif" && o.tarih) yer.textContent = tarihMetni(o.tarih);
-      else if (o?.durum === "yakinda") yer.textContent = L("Yakında", "Coming soon");
+      else if (o?.durum === "yakinda") yer.textContent = ayar[a.dataset.orgPill]?.tarih ? tarihMetni(ayar[a.dataset.orgPill].tarih) : L("Yakında", "Coming soon");
     });
 
     // Ana sayfa: Asamble ve Konferans kartları (site içi sayfalara gider)
@@ -767,7 +767,9 @@
         const tanitim = !aktif && a.ad;
         const ad = aktif ? o.ad || tur : tanitim ? (EN ? a.adEn || a.ad : a.ad) : L(`${tur} henüz duyurulmadı`, `${tur} not announced yet`);
         const alt = aktif ? (EN ? "" : o.slogan || o.altBaslik || "")
-          : tanitim ? L(`Ev sahibi ${a.duzenleyen}. Tarih, mekân ve konsept şimdilik bir sır…`, `Hosted by the ${a.duzenleyenEn || a.duzenleyen}. Date, venue and concept are still a secret…`)
+          : tanitim ? (a.tarih
+            ? L(`Ev sahibi ${a.duzenleyen}. Tarih belli; mekân ve konsept şimdilik bir sır…`, `Hosted by the ${a.duzenleyenEn || a.duzenleyen}. The date is set; venue and concept are still a secret…`)
+            : L(`Ev sahibi ${a.duzenleyen}. Tarih, mekân ve konsept şimdilik bir sır…`, `Hosted by the ${a.duzenleyenEn || a.duzenleyen}. Date, venue and concept are still a secret…`))
           : L("Tarih, yer ve tema açıklandığında burada yer alacak.", "Date, venue and theme will appear here once announced.");
         const meta = aktif ? [o.tarih && ["tarih", tarihMetni(o.tarih)], o.yer && ["yer", o.yer]].filter(Boolean) : [];
         return `<a class="oc oc-${k}${aktif ? "" : " oc-bos"}" href="${k}.html">
@@ -776,7 +778,7 @@
           ${aktif && o.altBaslik && !EN ? `<p class="oc-alt">${esc(o.altBaslik)}</p>` : ""}
           ${alt ? `<p class="oc-slogan">${esc(alt)}</p>` : ""}
           ${meta.length ? `<ul class="oc-meta">${meta.map(([t, v]) => `<li>${metaIkon[t]}${esc(v)}</li>`).join("")}</ul>` : ""}
-          ${tanitim ? `<ul class="oc-meta oc-sir">${[["tarih", L("Tarih", "Date")], ["yer", L("Mekân", "Venue")]].map(([t, v]) => `<li>${metaIkon[t]}${v}: <b aria-label="${L("henüz açıklanmadı", "not announced yet")}">???</b></li>`).join("")}</ul>` : ""}
+          ${tanitim ? `<ul class="oc-meta oc-sir">${[["tarih", L("Tarih", "Date"), a.tarih && tarihMetni(a.tarih)], ["yer", L("Mekân", "Venue"), a.yer]].map(([t, v, deger]) => deger ? `<li>${metaIkon[t]}${esc(deger)}</li>` : `<li>${metaIkon[t]}${v}: <b aria-label="${L("henüz açıklanmadı", "not announced yet")}">???</b></li>`).join("")}</ul>` : ""}
           <span class="oc-cta">${L("Detayları gör", "See details")}${okIkon}</span>
         </a>`;
       }).join("");
@@ -797,6 +799,11 @@
         ${o.kayit ? `<a class="btn ${koyu ? "btn-ghost-light" : "btn-outline"}" href="${esc(o.kayit)}" target="_blank" rel="noopener">${L("Kayıt ol", "Register")}</a>` : ""}
       </div>`;
 
+    const takvimeEkle = (baslik, t) => {
+      const ertesi = new Date(`${t.bitis}T00:00:00Z`); ertesi.setUTCDate(ertesi.getUTCDate() + 1);
+      const q = new URLSearchParams({ action: "TEMPLATE", text: baslik, dates: `${t.baslangic.replace(/-/g, "")}/${ertesi.toISOString().slice(0, 10).replace(/-/g, "")}`, details: L("Rotaract Bölge 2430", "Rotaract District 2430") });
+      return `https://calendar.google.com/calendar/render?${q}`;
+    };
     if (o.durum !== "aktif" && a.ad) {
       const ad = EN ? a.adEn || a.ad : a.ad;
       const duz = EN ? a.duzenleyenEn || a.duzenleyen : a.duzenleyen;
@@ -820,22 +827,33 @@
           <div class="container">
             <p class="org-tur">${esc(tur)}</p>
             <h1>${esc(ad)}</h1>
-            <p class="org-slogan">${L(`Ev sahibi <strong>${esc(duz)}</strong>. Bir sonraki büyük buluşmamız hazırlanıyor; tarih, mekân ve konsept şimdilik bir sır.`,
-              `Hosted by the <strong>${esc(duz)}</strong>. Our next big gathering is in the making; date, venue and concept are still a secret.`)}</p>
-            <div class="org-actions">${ig}<a class="btn btn-ghost-light" href="index.html#yakinda">${L("Yaklaşan organizasyonlar", "Upcoming events")}</a></div>
+            <p class="org-slogan">${a.tarih
+              ? L(`Ev sahibi <strong>${esc(duz)}</strong>. Takvimler işaretlendi; mekân ve konsept şimdilik bir sır.`, `Hosted by the <strong>${esc(duz)}</strong>. The date is set; venue and concept are still a secret.`)
+              : L(`Ev sahibi <strong>${esc(duz)}</strong>. Bir sonraki büyük buluşmamız hazırlanıyor; tarih, mekân ve konsept şimdilik bir sır.`, `Hosted by the <strong>${esc(duz)}</strong>. Our next big gathering is in the making; date, venue and concept are still a secret.`)}</p>
+            ${a.tarih ? `<p class="kf-tarih">${sirIkon.tarih}<span>${esc(tarihMetni(a.tarih))}</span></p>` : ""}
+            <div class="org-actions">${a.tarih ? `<a class="btn btn-light" href="${esc(takvimeEkle(ad, a.tarih))}" target="_blank" rel="noopener">${sirIkon.tarih}${L("Takvimime ekle", "Add to my calendar")}</a>` : ""}${ig.replace("btn-light", a.tarih ? "btn-ghost-light" : "btn-light")}<a class="btn btn-ghost-light" href="index.html#yakinda">${L("Yaklaşan organizasyonlar", "Upcoming events")}</a></div>
           </div>
         </section>
         <section class="kf-sir"><div class="container">
-          <p class="eyebrow">${L("Henüz açıklanmadı", "Not announced yet")}</p>
+          <p class="eyebrow">${a.tarih ? L("İlk mühür kırıldı", "The first seal is broken") : L("Henüz açıklanmadı", "Not announced yet")}</p>
           <h2>${L("Zarfın içinde ne var?", "What's inside the envelope?")}</h2>
           <div class="kf-kartlar">
-            ${(EN ? a.sirlarEn || a.sirlar : a.sirlar).map(([k, baslik, ipucu], i) => `
+            ${(EN ? a.sirlarEn || a.sirlar : a.sirlar).map(([k, baslik, ipucu, acikMetin], i) => {
+              const deger = k === "tarih" && a.tarih ? tarihMetni(a.tarih) : k === "mekan" && a.yer ? a.yer : k === "konsept" && a.konsept ? a.konsept : "";
+              return deger ? `
+              <article class="kf-kart kf-acik" style="--i:${i}">
+                <div class="kf-ust"><span class="kf-ikon">${sirIkon[k] || ""}</span><span class="kf-rozet">${L("Açıklandı", "Revealed")}</span></div>
+                <h3>${esc(baslik)}</h3>
+                <p class="kf-deger">${esc(deger)}</p>
+                <p class="kf-ipucu">${esc(acikMetin || "")}</p>
+              </article>` : `
               <article class="kf-kart" style="--i:${i}">
                 <div class="kf-ust"><span class="kf-ikon">${sirIkon[k] || ""}</span><span class="kf-kilit" title="${L("Mühürlü", "Sealed")}">${kilit}</span></div>
                 <h3>${esc(baslik)}</h3>
                 <p class="kf-gizli" aria-label="${L("henüz açıklanmadı", "not announced yet")}"><span aria-hidden="true">${"█".repeat(6 + i * 2)}</span></p>
                 <p class="kf-ipucu">${esc(ipucu)}</p>
-              </article>`).join("")}
+              </article>`;
+            }).join("")}
           </div>
         </div></section>
         <section class="section"><div class="container kf-tanim">
