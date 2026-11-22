@@ -15,6 +15,8 @@ window.SITE = {
 
   iletisim: {
     eposta: "2430brt@gmail.com",
+    // "Bölgeye yaz" formu: Google Apps Script web uygulaması adresi (scripts/form-apps-script.gs)
+    formUrl: "",
     instagram: "https://www.instagram.com/2430rotaract/",
     instagramKullanici: "@2430rotaract",
     youtube: "https://www.youtube.com/@rotaractb%C3%B6lge2430"

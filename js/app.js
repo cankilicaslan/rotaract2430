@@ -81,48 +81,46 @@
   const form = $("#iletisimForm");
   if (form) {
     const durum = $("#iletisimDurum"), dugme = $(".if-gonder", form);
+    const acilis = Date.now(); // çok hızlı (bot) gönderimleri ayırt etmek için
     const yaz = (metin, tur) => { durum.textContent = metin; durum.className = `if-durum${tur ? " " + tur : ""}`; };
+    const HATA = {
+      sik: L("Bu e-posta adresinden kısa süre önce mesaj gönderildi. Lütfen biraz sonra tekrar deneyin.", "A message was sent from this address a moment ago. Please try again a little later."),
+      eposta: L("Geçerli bir e-posta adresi yazın.", "Please enter a valid email address."),
+      eksik: L("Lütfen zorunlu alanları doldurun.", "Please fill in the required fields."),
+    };
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.checkValidity()) {
         const ilk = $(":invalid", form);
         ilk?.focus();
         yaz(ilk?.name === "onay" ? L("Göndermek için onay kutusunu işaretleyin.", "Please tick the consent box to send.")
-          : ilk?.name === "email" ? L("Geçerli bir e-posta adresi yazın.", "Please enter a valid email address.")
-          : L("Lütfen zorunlu alanları doldurun.", "Please fill in the required fields."), "hata");
+          : ilk?.name === "email" ? HATA.eposta : HATA.eksik, "hata");
         return;
       }
       const v = Object.fromEntries(new FormData(form));
-      if (v._honey) return; // bot
+      const yedek = L(`Mesaj şu an gönderilemedi. Lütfen ${SITE.iletisim.eposta} adresine doğrudan yazın.`, `The message could not be sent right now. Please write directly to ${SITE.iletisim.eposta}.`);
+      if (!SITE.iletisim.formUrl) { yaz(yedek, "hata"); return; }
       dugme.disabled = true; dugme.textContent = L("Gönderiliyor…", "Sending…"); yaz("");
       try {
-        const res = await fetch(`https://formsubmit.co/ajax/${SITE.iletisim.eposta}`, {
+        // text/plain: tarayıcı ön kontrol (CORS preflight) yapmaz; Apps Script gövdeyi JSON olarak okur
+        const res = await fetch(SITE.iletisim.formUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            _subject: `[Site] ${v.konu} · ${v.ad}`,
-            _template: "table",
-            _captcha: "false",
-            [L("Ad soyad", "Name")]: v.ad,
-            email: v.email,
-            [L("Konu", "Topic")]: v.konu,
-            [L("Şehir / kulüp", "City / club")]: v.sehir || "-",
-            [L("Mesaj", "Message")]: v.mesaj,
-            [L("Sayfa", "Page")]: location.href,
-          }),
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ ad: v.ad, email: v.email, konu: v.konu, sehir: v.sehir, mesaj: v.mesaj, _honey: v._honey, t: acilis, sayfa: location.href }),
         });
-        const sonuc = await res.json().catch(() => ({}));
-        if (!res.ok || String(sonuc.success) !== "true") throw new Error(sonuc.message || res.status);
+        const sonuc = await res.json();
+        if (!sonuc.ok) { yaz(HATA[sonuc.hata] || yedek, "hata"); return; }
         form.reset();
-        yaz(L("Teşekkürler! Mesajın bölge ekibine ulaştı; en kısa sürede e-postayla dönüş yapılacak.", "Thank you! Your message reached the district team; they will reply by email soon."), "ok");
+        yaz(L("Teşekkürler! Mesajın bölge ekibine ulaştı. Onay e-postası adresine gönderildi; en kısa sürede dönüş yapılacak.", "Thank you! Your message reached the district team. A confirmation email is on its way; they will reply soon."), "ok");
       } catch (err) {
         console.warn("Form gönderilemedi:", err);
-        yaz(L(`Mesaj şu an gönderilemedi. Lütfen ${SITE.iletisim.eposta} adresine doğrudan yazın.`, `The message could not be sent right now. Please write directly to ${SITE.iletisim.eposta}.`), "hata");
+        yaz(yedek, "hata");
       } finally {
         dugme.disabled = false; dugme.textContent = L("Mesajı gönder", "Send message");
       }
     });
   }
+
   if ($("#instaBand")) { $("#instaBand").href = SITE.iletisim.instagram; $("#instaHandle").textContent = SITE.iletisim.instagramKullanici; }
 
   // Şehir adı <-> adres çubuğu etiketi (kulupler.html#eskisehir)
