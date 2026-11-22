@@ -135,7 +135,7 @@ window.KULUPLER = [
 
   /* ---- 7. GRUP ---- */
   { id: "alanya", ad: "Alanya Rotaract Kulübü", il: "Antalya", ilce: "Alanya", grup: "7", baskan: "Türkan Nil Bakalım", baskanFoto: "assets/foto/turkan-nil-bakalim.jpg", eposta: "nilbakalim@gmail.com",
-    toplanti: T("Perşembe", "19:00", "İskele Kaptan Otel", "Ayın 1. ve 3. haftası") },
+    toplanti: T("Perşembe", "19:00", "İskele Kaptan Hotel", "Ayın 1. ve 3. haftası", { adres: "İskele Caddesi, Alanya/Antalya 07400" }) },
   { id: "antalya", ad: "Antalya Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Gamze Akdemir", baskanFoto: "assets/foto/gamze-akdemir.jpg", eposta: "gamzeakdemirr@gmail.com",
     toplanti: T("Cumartesi", "20:00", "Lara Balık Evi", "", { dil: "Türkçe", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
   { id: "antalya-aspendos", ad: "Antalya Aspendos Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Nuriye Ceren Acar", baskanFoto: "assets/foto/nuriye-ceren-acar.jpg", eposta: "ncerenacar@gmail.com",
