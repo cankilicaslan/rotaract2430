@@ -64,7 +64,7 @@ window.KULUPLER = [
   { id: "ankara-incek", ad: "Ankara İncek Rotaract Kulübü", il: "Ankara", ilce: "", grup: "1", baskan: "Furkan Ceran", baskanFoto: "assets/foto/furkan-ceran.jpg", eposta: "frknceran@gmail.com",
     toplanti: T("Perşembe", "19:30", "Workinton Next Level") },
   { id: "ankara-anittepe", ad: "Ankara Anıttepe Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "1", baskan: "Simay Oğuzkurt", baskanFoto: "assets/foto/simay-oguzkurt.jpg", eposta: "simayoguz@gmail.com",
-    toplanti: T("Perşembe", "19:30", "HYBRIDHUB", "", { adres: "Kızılırmak, Yücel Seçkiner Cd. No:24 D:E, 06530 Çankaya/Ankara", dil: "Türkçe" }) },
+    toplanti: T("Perşembe", "19:30", "HYBRIDHUB", "", { adres: "Kızılırmak, Yücel Seçkiner Caddesi No:24 D:E, Çankaya, Ankara, Ankara, 06530", dil: "Türkçe" }) },
   { id: "ankara-ulus", ad: "Ankara Ulus Rotaract Kulübü", il: "Ankara", ilce: "", grup: "1", baskan: "Furkan Cepeci", baskanFoto: "assets/foto/furkan-cepeci.jpg", eposta: "isfc.98@gmail.com",
     toplanti: T("Perşembe", "19:30", "Workinton", "", { dil: "Türkçe" }) },
   { id: "ankara-kavaklidere", ad: "Ankara Kavaklıdere Rotaract Kulübü", il: "Ankara", ilce: "Çankaya", grup: "1", baskan: "Esra Solhan", baskanFoto: "assets/foto/esra-solhan.jpg", eposta: "solhanesra2@gmail.com",
@@ -132,7 +132,7 @@ window.KULUPLER = [
 
   /* ---- 7. GRUP ---- */
   { id: "alanya", ad: "Alanya Rotaract Kulübü", il: "Antalya", ilce: "Alanya", grup: "7", baskan: "Türkan Nil Bakalım", baskanFoto: "assets/foto/turkan-nil-bakalim.jpg", eposta: "nilbakalim@gmail.com",
-    toplanti: T("Perşembe", "19:00", "İskele Kaptan Hotel", "Ayın 1. ve 3. haftası", { adres: "İskele Caddesi, Alanya/Antalya 07400" }) },
+    toplanti: T("Perşembe", "20:00", "Kızlarpınarı mah / 24", "Ayın 1. ve 3. haftası", { adres: "Alanya, 07400" }) },
   { id: "antalya", ad: "Antalya Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Gamze Akdemir", baskanFoto: "assets/foto/gamze-akdemir.jpg", eposta: "gamzeakdemirr@gmail.com",
     toplanti: T("Cumartesi", "20:00", "Lara Balık Evi", "", { dil: "Türkçe", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
   { id: "antalya-aspendos", ad: "Antalya Aspendos Rotaract Kulübü", il: "Antalya", ilce: "", grup: "7", baskan: "Nuriye Ceren Acar", baskanFoto: "assets/foto/nuriye-ceren-acar.jpg", eposta: "ncerenacar@gmail.com",
