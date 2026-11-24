@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-24T01:57:00.610Z",
+  "guncelleme": "2026-11-24T23:41:36.394Z",
   "etkinlikler": [
     {
       "id": "1qd1f05tua60umh7rtc3ul9lua@google.com",
@@ -66,6 +66,14 @@
       "yer": ""
     },
     {
+      "id": "244s4gfroplvoe49jmtq30osfv@google.com",
+      "baslik": "Ankara Beysukent Rotaract Kulübü-Rotaracts Stole Christmas Party:6",
+      "baslangic": "2026-12-19",
+      "bitis": "2026-12-19",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
       "id": "330v3875c9gblhc1k81olnmdqj@google.com",
       "baslik": "Ankara Çayyolu Rotary ve Rotaract Kulübü-Yeni Yıla Merhaba Partisi",
       "baslangic": "2026-12-19",
@@ -90,10 +98,58 @@
       "yer": ""
     },
     {
+      "id": "74lmmgf3mu9v0cdni40t3le7ef@google.com",
+      "baslik": "39.Rotaract Asamblesi-Asamble Infinity",
+      "baslangic": "2027-03-05",
+      "bitis": "2027-03-05",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "60pjjfvgt3qb0jbtmrdppio34s@google.com",
+      "baslik": "39.Rotaract Asamblesi-Asamble Infinity",
+      "baslangic": "2027-03-06",
+      "bitis": "2027-03-06",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "07ihn5todldvv0t65o7ofrr1pb@google.com",
+      "baslik": "39.Rotaract Asamblesi-Asamble Infinity",
+      "baslangic": "2027-03-07",
+      "bitis": "2027-03-07",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
       "id": "0f5s5akvj38mtf8og6jrfmqthd@google.com",
       "baslik": "Rotary Bölge 2430 Asamble",
       "baslangic": "2027-03-26",
       "bitis": "2027-03-26",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "7bgeeuccdjc14mk6mlplv8gkaa@google.com",
+      "baslik": "38.Rotaract Konferansı",
+      "baslangic": "2027-05-21",
+      "bitis": "2027-05-21",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "4g52bk9064escg6t91ld5c0pfk@google.com",
+      "baslik": "38.Rotaract Konferansı",
+      "baslangic": "2027-05-22",
+      "bitis": "2027-05-22",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "5kjrne2fpk7p7ms6nqpvnm22ho@google.com",
+      "baslik": "38.Rotaract Konferansı",
+      "baslangic": "2027-05-23",
+      "bitis": "2027-05-23",
       "tumGun": true,
       "yer": ""
     }
