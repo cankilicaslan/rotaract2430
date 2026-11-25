@@ -184,7 +184,7 @@ window.KULUPLER = [
   { id: "eskisehir-gordion", ad: "Eskişehir Gordion Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Ecem Su Yılman", baskanFoto: "assets/foto/ecem-su-yilman.jpg", eposta: "ecemsuyilman@gmail.com",
     toplanti: T("", "") },
   { id: "eskisehir-anadolu", ad: "Eskişehir Anadolu Rotaract Kulübü", il: "Eskişehir", ilce: "", grup: "11", baskan: "Furkan Kenar", baskanFoto: "assets/foto/furkan-kenar.jpg",
-    toplanti: T("Çarşamba", "19:00", "Başkurt İş Merkezi", "", { adres: "Hoşnudiye Mah., İsmet İnönü-1 Cad. No:42 D:26, Eskişehir 26130" }), instagram: "anadolurotaract" }
+    toplanti: T("Çarşamba", "19:00", "Eskişehir Anadolu Rotary Kulüp Ofisi", "", { adres: "Hoşnudiye Mah. İsmet İnönü-1, Cad. Başkurt İş Merkezi No:42, D:26, TEPEBAŞI ESKİŞEHİR, Eskişehir, 26130" }), instagram: "anadolurotaract" }
 ];
 }
 
