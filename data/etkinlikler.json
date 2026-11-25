@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-24T23:41:36.394Z",
+  "guncelleme": "2026-11-25T23:25:05.058Z",
   "etkinlikler": [
     {
       "id": "1qd1f05tua60umh7rtc3ul9lua@google.com",
@@ -78,6 +78,14 @@
       "baslik": "Ankara Çayyolu Rotary ve Rotaract Kulübü-Yeni Yıla Merhaba Partisi",
       "baslangic": "2026-12-19",
       "bitis": "2026-12-19",
+      "tumGun": true,
+      "yer": ""
+    },
+    {
+      "id": "6u5huc1idqa34mueo74g3k99sa@google.com",
+      "baslik": "Ankara Anıttepe Rotaract Kulübü-30.Yıl Kutlaması",
+      "baslangic": "2026-12-25",
+      "bitis": "2026-12-25",
       "tumGun": true,
       "yer": ""
     },
