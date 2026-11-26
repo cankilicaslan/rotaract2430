@@ -113,7 +113,7 @@ window.KULUPLER = [
     toplanti: T("Perşembe", "19:30", "Radisson Hotel Mersin", "", { dil: "Türkçe", adres: "Eğriçam, Hüseyin Okan Merzeci Bulvarı, 33120 Yenişehir/Mersin" }) },
   { id: "akdeniz", ad: "Akdeniz Rotaract Kulübü", il: "Mersin", ilce: "Akdeniz", grup: "4", baskan: "Tuğçe Derkuş", baskanFoto: "assets/foto/tugce-derkus.jpg", eposta: "psk.tugcederkus@gmail.com",
     toplanti: T("Salı", "19:15", "Mersin Divan Otel", "", { dil: "İngilizce" }) },
-  { id: "mersin-toros", ad: "Mersin Toros Rotaract Kulübü", il: "Mersin", ilce: "", grup: "4", baskan: "Mehmet Babaoğlu", baskanFoto: "assets/foto/mehmet-babaoglu.jpg", eposta: "babaoglu.mehmet@hotmail.com",
+  { id: "mersin-toros", ad: "Toros Rotaract Kulübü", il: "Mersin", ilce: "", grup: "4", baskan: "Mehmet Babaoğlu", baskanFoto: "assets/foto/mehmet-babaoglu.jpg", eposta: "babaoglu.mehmet@hotmail.com",
     toplanti: T("Salı", "19:30", "Rotary Evim (Rotary House)", "Ayın 2. ve 4. Salısı", { dil: "Türkçe", adres: "Yenişehir/Mersin 33110" }) },
   { id: "tarsus", ad: "Tarsus Rotaract Kulübü", il: "Mersin", ilce: "Tarsus", grup: "4", baskan: "Mehmet Yarkın Yılmaz", baskanFoto: "assets/foto/mehmet-yarkin-yilmaz.jpg", eposta: "myarkinyilmaz@gmail.com",
     toplanti: T("Çarşamba", "19:30", "Wyndham Tarsus St. Paul Hotel", "", { dil: "Türkçe", adres: "Kızılmurat Mah., Kemal Tursunbay 2721 Sk. No:38/1, 33400 Tarsus/Mersin" }) },
@@ -121,11 +121,11 @@ window.KULUPLER = [
   /* ---- 5-6. GRUP ---- */
   { id: "samsun", ad: "Samsun Rotaract Kulübü", il: "Samsun", ilce: "", grup: "5-6", baskan: "Polen Su Uzdil", baskanFoto: "assets/foto/polen-su-uzdil.jpg", eposta: "polensuzdil@gmail.com",
     toplanti: T("", "") },
-  { id: "samsun-atakum", ad: "Samsun Atakum Rotaract Kulübü", il: "Samsun", ilce: "Atakum", grup: "5-6", baskan: "Hale Unutmaz", baskanFoto: "assets/foto/hale-unutmaz.jpg", eposta: "hale.unutmaz96@gmail.com",
+  { id: "samsun-atakum", ad: "Atakum Rotaract Kulübü", il: "Samsun", ilce: "Atakum", grup: "5-6", baskan: "Hale Unutmaz", baskanFoto: "assets/foto/hale-unutmaz.jpg", eposta: "hale.unutmaz96@gmail.com",
     toplanti: T("Perşembe", "19:30", "Dedeman Elina Otel", "Ayın 2. ve 4. Perşembesi", { dil: "Türkçe" }) },
   { id: "samsun-canik", ad: "Samsun Canik Rotaract Kulübü", il: "Samsun", ilce: "Canik", grup: "5-6", baskan: "Hanedan Bilevci", baskanFoto: "assets/foto/hanedan-bilevci.jpg", eposta: "bilevcihanedan@gmail.com",
     toplanti: T("Salı", "19:00", "Sheraton Hotel", "", { adres: "Liman, Atatürk Bulvarı No:55, İlkadım/Samsun 55100" }), instagram: "canikrotaract" },
-  { id: "ilkadim-1919", ad: "İlkadım 1919 Rotaract Kulübü", il: "Samsun", ilce: "İlkadım", grup: "5-6", baskan: "Veli Can Erdoğan", baskanFoto: "assets/foto/veli-can-erdogan.jpg", eposta: "veli.c0709@gmail.com",
+  { id: "ilkadim-1919", ad: "Samsun İlkadım Rotaract Kulübü", il: "Samsun", ilce: "İlkadım", grup: "5-6", baskan: "Veli Can Erdoğan", baskanFoto: "assets/foto/veli-can-erdogan.jpg", eposta: "veli.c0709@gmail.com",
     toplanti: T("Perşembe", "19:00", "Samsun Anemon Hotel", "", { adres: "Yenimahalle, Çarşamba Cad. No:52, Canik/Samsun 55080" }) },
   { id: "amasya-yesilirmak", ad: "Amasya Yeşilırmak Rotaract Kulübü", il: "Amasya", ilce: "Merkez", grup: "5-6", baskan: "Simge Kılınç", baskanFoto: "assets/foto/simge-kilinc.jpg", eposta: "simgekilinc21@gmail.com",
     toplanti: T("Pazar", "20:00", "Eysa Etkinlik Salonu", "", { format: "Yüz yüze ve çevrim içi (Zoom)", adres: "Alptekin Sok. No:31/A, Amasya 05100" }) },
@@ -145,7 +145,7 @@ window.KULUPLER = [
     toplanti: T("Çarşamba", "19:30", "Gençlik Mah., Tevfik Işık Cad. No:8", "Ayın 1. ve 3. haftası", { dil: "Türkçe", adres: "07100 Muratpaşa/Antalya" }) },
 
   /* ---- 8. GRUP ---- */
-  { id: "baku-khazar", ad: "Bakü Khazar Rotaract Kulübü", il: "Bakü", ilce: "", grup: "8", baskan: "Nihad Ahmadli", baskanFoto: "assets/foto/nihad-ahmadli.jpg", eposta: "nihad.ahmadli.03@gmail.com",
+  { id: "baku-khazar", ad: "Baku Khazar Rotaract Kulübü", il: "Bakü", ilce: "", grup: "8", baskan: "Nihad Ahmadli", baskanFoto: "assets/foto/nihad-ahmadli.jpg", eposta: "nihad.ahmadli.03@gmail.com",
     toplanti: T("Cuma", "19:00", "64 Khojali Avenue", "", { adres: "Baku 1025, Azerbaijan", format: "Yüz yüze ve çevrim içi (Zoom)" }) },
 
   /* ---- 9. GRUP ---- */

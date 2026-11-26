@@ -91,7 +91,13 @@
 
   /* ---------- Kulüp eşleşmesi ---------- */
   // Takvimde kullanılan kısaltmalar (kulüp id -> ek adlar)
-  const EK_AD = { "ankara-gaziosmanpasa": ["gop"] };
+  // Takma ve eski adlar (takvimde eski adla yazılmış etkinlikler de eşleşsin)
+  const EK_AD = {
+    "ankara-gaziosmanpasa": ["gop"],
+    "mersin-toros": ["mersin toros"],
+    "samsun-atakum": ["samsun atakum"],
+    "ilkadim-1919": ["ilkadim 1919", "ilkadim"],
+  };
   const kacis = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
   function kulupBul(baslik, kulupler) {
