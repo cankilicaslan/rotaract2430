@@ -96,7 +96,7 @@
     "ankara-gaziosmanpasa": ["gop"],
     "mersin-toros": ["mersin toros"],
     "samsun-atakum": ["samsun atakum"],
-    "ilkadim-1919": ["ilkadim 1919", "ilkadim"],
+    "ilkadim-1919": ["samsun ilkadim", "ilkadim"],
   };
   const kacis = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
